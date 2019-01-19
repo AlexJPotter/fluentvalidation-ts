@@ -1,0 +1,9 @@
+{
+  "name": "fluentvalidation",
+  "version": "0.0.1",
+  "description": "A port of the popular .NET library for building strongly-typed validation rules",
+  "main": "index.js",
+  "author": "Alex Potter <alex.potter@ghyston.com>",
+  "license": "MIT",
+  "private": false
+}
