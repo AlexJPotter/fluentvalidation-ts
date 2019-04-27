@@ -1,0 +1,15 @@
+{
+  "defaultSeverity": "warning",
+  "extends": ["tslint:recommended", "tslint-config-prettier"],
+  "jsRules": {},
+  "rules": {
+    "interface-over-type-literal": false,
+    "max-classes-per-file": false,
+    "array-type": [true, "generic"],
+    "object-literal-sort-keys": false,
+    "no-console": false,
+    "member-ordering": false,
+    "variable-name": false
+  },
+  "rulesDirectory": []
+}

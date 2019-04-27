@@ -1,9 +1,38 @@
 {
-  "name": "fluentvalidation",
+  "name": "fluentvalidation-ts",
   "version": "0.0.1",
-  "description": "A port of the popular .NET library for building strongly-typed validation rules",
-  "main": "index.js",
-  "author": "Alex Potter <alex.potter@ghyston.com>",
-  "license": "MIT",
-  "private": false
+  "description": "A TypeScript-first library for building strongly-typed validation rules",
+  "keywords": [
+    "fluent",
+    "validation",
+    "typescript",
+    "formik"
+  ],
+  "homepage": "https://github.com/AlexJPotter/fluentvalidation",
+  "main": "dist/index.js",
+  "author": "Alex Potter <potter.alexander.james@gmail.com>",
+  "license": "Apache-2.0",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AlexJPotter/fluentvalidation.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AlexJPotter/fluentvalidation/issues"
+  },
+  "devDependencies": {
+    "@types/jest": "^23.3.13",
+    "jest": "^23.6.0",
+    "prettier": "^1.16.4",
+    "ts-jest": "^23.10.5",
+    "tslint": "^5.14.0",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.4.1"
+  },
+  "scripts": {
+    "lint": "tslint -c tslint.json 'src/**/*.{ts,.test.ts}'",
+    "compile": "tsc",
+    "prettier": "prettier --config .prettierrc.json src/**/*.{ts,.test.ts}",
+    "test": "jest"
+  }
 }
