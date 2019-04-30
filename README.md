@@ -786,7 +786,7 @@ export const MyForm = withFormik({
   handleSubmit: (values, { setSubmitting }) => {
     /* ...submit handler */
   },
-})(MyForm);
+})(MyFormComponent);
 ```
 
 ## Test Coverage
