@@ -34,12 +34,12 @@ You can use `fluentvalidation-ts` to perform client-side validation on your form
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Example Usage](#example-usage)
-- [Documentation](#documentation-📖)
+- [Documentation](#documentation-)
 - [Examples](#examples)
-- [Test Coverage](#test-coverage-✅)
-- [Issues](#issues-🐛)
-- [License](#license-📄)
-- [About the Author](#about-the-author-🧔🏻)
+- [Test Coverage](#test-coverage-)
+- [Issues](#issues-)
+- [License](#license-)
+- [About the Author](#about-the-author-)
 
 ## Motivation
 
