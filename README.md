@@ -1,20 +1,67 @@
-# FluentValidation
+<div align="center">
+<h1>fluentvalidation-ts
 
-FluentValidation is a TypeScript-first library for building strongly-typed validation rules.
+<img
+    height="150"
+    width="150"
+    alt="Logo."
+    src="https://raw.githubusercontent.com/AlexJPotter/fluentvalidation-ts/master/logo.png"
+  />
 
-You can use FluentValidation to perform client-side validation on your forms, and back-end validation if you're running a Node API.
+</div>
 
-## Inspiration
+![Coverage](https://badgen.net/badge/coverage/100%25/green)
+[![NPM Version](https://badgen.net/npm/v/fluentvalidation-ts)](https://www.npmjs.com/package/fluentvalidation-ts)
+![License](https://badgen.net/npm/license/fluentvalidation-ts)
+![Last Commit](https://badgen.net/github/last-commit/alexjpotter/fluentvalidation-ts/master)
+![Open Issues](https://badgen.net/github/open-issues/alexjpotter/fluentvalidation-ts)
 
-FluentValidation has been heavily inspired by the popular [.NET library](https://fluentvalidation.net/) of the same name. It's an amazing library and I'd highly recommend you check it out if you need to add validation to a .NET application.
+![Dependencies](https://badgen.net/badge/dependencies/none/green)
+[![Minified Size](https://badgen.net/bundlephobia/min/fluentvalidation-ts?color=green)
+](https://bundlephobia.com/result?p=fluentvalidation-ts@0.0.2)
+[![Minzipped Size](https://badgen.net/bundlephobia/minzip/fluentvalidation-ts?color=green)
+](https://bundlephobia.com/result?p=fluentvalidation-ts@0.0.2)
 
-This library has also been designed with the popular React form library [Formik](https://github.com/jaredpalmer/formik) in mind. The validation result object that FluentValidation returns is compatible with the errors object that Formik expects, so you can start using FluentValidation to validate your Formik forms with very little effort. [This example](#with-formik) demonstrates just how easy it is.
+<hr />
+
+`fluentvalidation-ts` is a TypeScript-first library for building strongly-typed validation rules.
+
+You can use `fluentvalidation-ts` to perform client-side validation on your forms, and back-end validation if you're running a Node API.
+
+<hr />
+
+## Table of Contents
+
+- [Motivation](#motivation)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Example Usage](#example-usage)
+- [Documentation](#documentation-📖)
+- [Examples](#examples)
+- [Test Coverage](#test-coverage-✅)
+- [Issues](#issues-🐛)
+- [License](#license-📄)
+- [About the Author](#about-the-author-🧔🏻)
+
+<hr />
+
+## Motivation
+
+Validation is a very common problem in front-end development, and the requirements range from very basic to very complex. I've always felt that there aren't many libraries offering a good solution to problem of front-end validation, and those that do exist I've found lacking in certain areas (most notably TypeScript support).
+
+If you've ever worked on a .NET API, you might have heard of a library called [FluentValidation](https://fluentvalidation.net/). It has a really nice API for building up validation rules, and that made me wonder whether I could achieve something similar in TypeScript. This led me to write `fluentvalidation-ts`, and though it's not a direct port of FluentValidation it will still feel very familiar to anyone who's used FluentValidation before.
+
+Another large factor in the design of `fluentvalidation-ts` was the popular React form library [Formik](https://github.com/jaredpalmer/formik). The validation result object that `fluentvalidation-ts` returns is compatible with the errors object that Formik expects, so you can start using `fluentvalidation-ts` to validate your Formik forms and it "just works". [This example](#with-formik) demonstrates just how easy it is.
+
+<hr />
 
 ## Requirements
 
-This library has been written in, and for, TypeScript. You can still use FluentValidation without TypeScript, but the primary benefit of having strongly-typed validation rules is lost.
+This library has been written in, and for, TypeScript. You can still use `fluentvalidation-ts` without TypeScript, but the primary benefit of having strongly-typed validation rules is lost.
 
 If using TypeScript (recommended), you must be on TypeScript version **2.9** or later.
+
+<hr />
 
 ## Installation
 
@@ -30,7 +77,9 @@ Using npm:
 npm i --save fluentvalidation-ts
 ```
 
-**Note:** FluentValidation has been written with first-class support for TypeScript, so there's no need to install types!
+**Note:** `fluentvalidation-ts` has been written with first-class support for TypeScript, so there's no need to install types!
+
+<hr />
 
 ## Example Usage
 
@@ -46,7 +95,7 @@ class PersonValidator extends Validator<Person> {
   constructor() {
     super();
 
-    this.ruleFor('name')
+    this.ruleFor('name') // This is type-safe! (Argument is of type 'name' | 'age')
       .notEmpty()
       .withMessage('Please enter your name');
 
@@ -68,7 +117,9 @@ validator.validate({ name: '', age: -1 });
 // { name: 'Please enter your name', age: 'Age cannot be negative' }
 ```
 
-## Documentation
+<hr />
+
+## Documentation 📖
 
 [Validators](#validators)
 
@@ -109,7 +160,7 @@ validator.validate({ name: '', age: -1 });
 
 ## Validators
 
-FluentValidation comes with a number of built-in validators that cover most common validation you might wish to perform.
+`fluentvalidation-ts` comes with a number of built-in validators that cover most common validation you might wish to perform.
 
 If you need to perform more detailed or complex validation, you can use the built-in [`.must`](#.must) validator to define your own custom validation rules.
 
@@ -551,6 +602,8 @@ this.ruleFor('hasPaid')
   .unless(customer => customer.getsFreeStuff);
 ```
 
+<hr />
+
 ## Examples
 
 ### Basic Usage
@@ -789,28 +842,27 @@ export const MyForm = withFormik({
 })(MyFormComponent);
 ```
 
-## Test Coverage
+<hr />
 
-FluentValidation has thorough test coverage via unit tests written with [Jest](https://jestjs.io/).
+## Test Coverage ✅
 
-Coverage summary:
+`fluentvalidation-ts` has 100% test coverage via unit tests written with [Jest](https://jestjs.io/).
 
-```
-Statements   : 92.17% ( 400/434 )
-Branches     : 90.66% ( 165/182 )
-Functions    : 84.68% ( 105/124 )
-Lines        : 91.56% ( 369/403 )
-```
+<hr />
 
-## Issues
+## Issues 🐛
 
 Please report issues via GitHub.
 
-## License
+<hr />
 
-FluentValidation is provided under the terms of an [Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0) license.
+## License 📄
 
-## About the Author
+`fluentvalidation-ts` is provided under the terms of an [Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0) license.
+
+<hr />
+
+## About the Author 🧔🏻
 
 Alex Potter is a full-stack Software Developer who is currently part of the team at [Ghyston](https://www.ghyston.com), an award-winning software development company based in Bristol.
 

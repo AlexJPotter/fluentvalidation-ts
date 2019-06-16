@@ -67,25 +67,3 @@ type TestTypeWithArrayProperty = {
   scores?: Array<number> | null;
   otherProperty: number;
 };
-
-type TestType = {
-  stringProperty: string;
-  nullableStringProperty: string | null;
-  numberProperty: number;
-  nullableNumberProperty: number | null;
-  booleanProperty: boolean;
-  nullableBooleanProperty: boolean | null;
-  objectProperty: { nestedProperty: string };
-  nullableObjectProperty: { nestedProperty: string } | null;
-};
-
-const testInstance: TestType = {
-  stringProperty: '',
-  nullableStringProperty: null,
-  numberProperty: 0,
-  nullableNumberProperty: null,
-  booleanProperty: false,
-  nullableBooleanProperty: null,
-  objectProperty: { nestedProperty: '' },
-  nullableObjectProperty: null,
-};

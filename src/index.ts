@@ -37,17 +37,8 @@ export abstract class Validator<TModel> {
       for (const propertyName of Object.keys(
         this.valueValidatorBuildersByPropertyName
       )) {
-        const valueValidatorBuilders =
-          this.valueValidatorBuildersByPropertyName[
-            propertyName as keyof TModel
-          ] || [];
-
-        if (
-          valueValidatorBuilders == null ||
-          valueValidatorBuilders.length === 0
-        ) {
-          continue;
-        }
+        const valueValidatorBuilders = this
+          .valueValidatorBuildersByPropertyName[propertyName as keyof TModel];
 
         for (const valueValidatorBuilder of valueValidatorBuilders!) {
           const valueValidator = valueValidatorBuilder.build();
@@ -81,9 +72,8 @@ export abstract class Validator<TModel> {
       TValue
     >(this.rebuildValidate);
 
-    if (this.valueValidatorBuildersByPropertyName[propertyName] == null) {
-      this.valueValidatorBuildersByPropertyName[propertyName] = [];
-    }
+    this.valueValidatorBuildersByPropertyName[propertyName] =
+      this.valueValidatorBuildersByPropertyName[propertyName] || [];
 
     this.valueValidatorBuildersByPropertyName[propertyName]!.push(
       valueValidatorBuilder as any

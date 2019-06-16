@@ -1,30 +1,32 @@
 {
   "name": "fluentvalidation-ts",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "A TypeScript-first library for building strongly-typed validation rules",
   "keywords": [
     "fluent",
     "validation",
     "typescript",
-    "formik"
+    "form",
+    "formik",
+    "fluentvalidation"
   ],
-  "homepage": "https://github.com/AlexJPotter/fluentvalidation",
+  "homepage": "https://github.com/AlexJPotter/fluentvalidation-ts",
   "main": "dist/index.js",
   "author": "Alex Potter <potter.alexander.james@gmail.com>",
   "license": "Apache-2.0",
   "private": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/AlexJPotter/fluentvalidation.git"
+    "url": "https://github.com/AlexJPotter/fluentvalidation-ts.git"
   },
   "bugs": {
-    "url": "https://github.com/AlexJPotter/fluentvalidation/issues"
+    "url": "https://github.com/AlexJPotter/fluentvalidation-ts/issues"
   },
   "devDependencies": {
-    "@types/jest": "^23.3.13",
-    "jest": "^23.6.0",
+    "@types/jest": "^24.0.15",
+    "jest": "^24.8.0",
     "prettier": "^1.16.4",
-    "ts-jest": "^23.10.5",
+    "ts-jest": "^24.0.2",
     "tslint": "^5.14.0",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.4.1"

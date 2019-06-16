@@ -36,6 +36,21 @@ describe('string validators', () => {
       const result = validator.validate(valid);
       expect(result.nullableStringProperty).toBeUndefined();
     });
+
+    it('throws an error if it receives a non-string value', () => {
+      type OtherTestType = { age: number };
+      class OtherTestTypeValidator extends Validator<OtherTestType> {
+        constructor() {
+          super();
+          (this.ruleFor('age') as any).notEmpty();
+        }
+      }
+      const otherValidator = new OtherTestTypeValidator();
+
+      expect(() => otherValidator.validate({ age: 10 })).toThrowError(
+        TypeError
+      );
+    });
   });
 
   describe('length', () => {
@@ -80,6 +95,30 @@ describe('string validators', () => {
       const result = validator.validate(valid);
       expect(result.nullableStringProperty).toBeUndefined();
     });
+
+    it('does not give a validation error if the string is null', () => {
+      const valid: TestType = {
+        ...testInstance,
+        nullableStringProperty: null,
+      };
+      const result = validator.validate(valid);
+      expect(result.nullableStringProperty).toBeUndefined();
+    });
+
+    it('throws an error if it receives a non-string value', () => {
+      type OtherTestType = { age: number };
+      class OtherTestTypeValidator extends Validator<OtherTestType> {
+        constructor() {
+          super();
+          (this.ruleFor('age') as any).length(10, 20);
+        }
+      }
+      const otherValidator = new OtherTestTypeValidator();
+
+      expect(() => otherValidator.validate({ age: 10 })).toThrowError(
+        TypeError
+      );
+    });
   });
 
   describe('maxLength', () => {
@@ -119,6 +158,21 @@ describe('string validators', () => {
       };
       const result = validator.validate(valid);
       expect(result.nullableStringProperty).toBeUndefined();
+    });
+
+    it('throws an error if it receives a non-string value', () => {
+      type OtherTestType = { age: number };
+      class OtherTestTypeValidator extends Validator<OtherTestType> {
+        constructor() {
+          super();
+          (this.ruleFor('age') as any).maxLength(10);
+        }
+      }
+      const otherValidator = new OtherTestTypeValidator();
+
+      expect(() => otherValidator.validate({ age: 10 })).toThrowError(
+        TypeError
+      );
     });
   });
 
@@ -160,6 +214,21 @@ describe('string validators', () => {
       const result = validator.validate(valid);
       expect(result.nullableStringProperty).toBeUndefined();
     });
+
+    it('throws an error if it receives a non-string value', () => {
+      type OtherTestType = { age: number };
+      class OtherTestTypeValidator extends Validator<OtherTestType> {
+        constructor() {
+          super();
+          (this.ruleFor('age') as any).minLength(10);
+        }
+      }
+      const otherValidator = new OtherTestTypeValidator();
+
+      expect(() => otherValidator.validate({ age: 10 })).toThrowError(
+        TypeError
+      );
+    });
   });
 
   describe('emailAddress', () => {
@@ -196,6 +265,21 @@ describe('string validators', () => {
       };
       const result = validator.validate(invalid);
       expect(result.nullableStringProperty).toBe('Not a valid email address');
+    });
+
+    it('throws an error if it receives a non-string value', () => {
+      type OtherTestType = { age: number };
+      class OtherTestTypeValidator extends Validator<OtherTestType> {
+        constructor() {
+          super();
+          (this.ruleFor('age') as any).emailAddress();
+        }
+      }
+      const otherValidator = new OtherTestTypeValidator();
+
+      expect(() => otherValidator.validate({ age: 10 })).toThrowError(
+        TypeError
+      );
     });
   });
 
@@ -235,6 +319,21 @@ describe('string validators', () => {
       const result = validator.validate(valid);
       expect(result.nullableStringProperty).toBe(
         'Value does not match the required pattern'
+      );
+    });
+
+    it('throws an error if it receives a non-string value', () => {
+      type OtherTestType = { age: number };
+      class OtherTestTypeValidator extends Validator<OtherTestType> {
+        constructor() {
+          super();
+          (this.ruleFor('age') as any).matches(pattern);
+        }
+      }
+      const otherValidator = new OtherTestTypeValidator();
+
+      expect(() => otherValidator.validate({ age: 10 })).toThrowError(
+        TypeError
       );
     });
   });

@@ -1,24 +1,15 @@
 module.exports = {
   clearMocks: true,
   collectCoverage: true,
-  collectCoverageFrom: [
-    "**/*.{ts}",
-    "!**/node_modules/**",
-  ],
-  coverageReporters: ['text-summary'],
+  coverageReporters: ['text'],
   globals: {
     'ts-jest': {
       tsConfig: 'tsconfig.json',
     },
   },
-  moduleFileExtensions: [
-    'ts',
-    'js',
-  ],
+  moduleFileExtensions: ['ts', 'js'],
   testEnvironment: 'node',
-  testMatch: [
-    '**/src/tests/*.test.ts',
-  ],
+  testMatch: ['**/src/tests/*.test.ts'],
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest',
   },

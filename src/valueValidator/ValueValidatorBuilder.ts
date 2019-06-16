@@ -29,9 +29,7 @@ export class ValueValidatorBuilder<
   TValue extends TModel[TPropertyName]
 > {
   private rules: Array<Rule<TModel, TValue>> = [];
-  private rebuildValidate: () => void = () => {
-    throw new Error(`'rebuildValidate' has not been instantiated`);
-  };
+  private rebuildValidate: () => void;
 
   constructor(rebuildValidate: () => void) {
     this.rebuildValidate = rebuildValidate;

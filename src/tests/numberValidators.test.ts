@@ -39,6 +39,20 @@ describe('number validators', () => {
       const result = validator.validate(valid);
       expect(result.nullableNumberProperty).toBeUndefined();
     });
+
+    it('throws an error if it receives a non-number value', () => {
+      class OtherTestTypeValidator extends Validator<OtherTestType> {
+        constructor() {
+          super();
+          (this.ruleFor('name') as any).lessThan(10);
+        }
+      }
+      const otherValidator = new OtherTestTypeValidator();
+
+      expect(() => otherValidator.validate({ name: 'Alex' })).toThrowError(
+        TypeError
+      );
+    });
   });
 
   describe('lessThanOrEqualTo', () => {
@@ -78,6 +92,20 @@ describe('number validators', () => {
       };
       const result = validator.validate(valid);
       expect(result.nullableNumberProperty).toBeUndefined();
+    });
+
+    it('throws an error if it receives a non-number value', () => {
+      class OtherTestTypeValidator extends Validator<OtherTestType> {
+        constructor() {
+          super();
+          (this.ruleFor('name') as any).lessThanOrEqualTo(10);
+        }
+      }
+      const otherValidator = new OtherTestTypeValidator();
+
+      expect(() => otherValidator.validate({ name: 'Alex' })).toThrowError(
+        TypeError
+      );
     });
   });
 
@@ -119,6 +147,20 @@ describe('number validators', () => {
       const result = validator.validate(valid);
       expect(result.nullableNumberProperty).toBeUndefined();
     });
+
+    it('throws an error if it receives a non-number value', () => {
+      class OtherTestTypeValidator extends Validator<OtherTestType> {
+        constructor() {
+          super();
+          (this.ruleFor('name') as any).greaterThan(10);
+        }
+      }
+      const otherValidator = new OtherTestTypeValidator();
+
+      expect(() => otherValidator.validate({ name: 'Alex' })).toThrowError(
+        TypeError
+      );
+    });
   });
 
   describe('greaterThanOrEqualTo', () => {
@@ -158,6 +200,20 @@ describe('number validators', () => {
       };
       const result = validator.validate(valid);
       expect(result.nullableNumberProperty).toBeUndefined();
+    });
+
+    it('throws an error if it receives a non-number value', () => {
+      class OtherTestTypeValidator extends Validator<OtherTestType> {
+        constructor() {
+          super();
+          (this.ruleFor('name') as any).greaterThanOrEqualTo(10);
+        }
+      }
+      const otherValidator = new OtherTestTypeValidator();
+
+      expect(() => otherValidator.validate({ name: 'Alex' })).toThrowError(
+        TypeError
+      );
     });
   });
 
@@ -214,6 +270,20 @@ describe('number validators', () => {
       const result = validator.validate(invalid);
       expect(result.nullableNumberProperty).toBeUndefined();
     });
+
+    it('throws an error if it receives a non-number value', () => {
+      class OtherTestTypeValidator extends Validator<OtherTestType> {
+        constructor() {
+          super();
+          (this.ruleFor('name') as any).exclusiveBetween(0, 10);
+        }
+      }
+      const otherValidator = new OtherTestTypeValidator();
+
+      expect(() => otherValidator.validate({ name: 'Alex' })).toThrowError(
+        TypeError
+      );
+    });
   });
 
   describe('inclusiveBetween', () => {
@@ -268,6 +338,20 @@ describe('number validators', () => {
       };
       const result = validator.validate(valid);
       expect(result.nullableNumberProperty).toBeUndefined();
+    });
+
+    it('throws an error if it receives a non-number value', () => {
+      class OtherTestTypeValidator extends Validator<OtherTestType> {
+        constructor() {
+          super();
+          (this.ruleFor('name') as any).inclusiveBetween(0, 10);
+        }
+      }
+      const otherValidator = new OtherTestTypeValidator();
+
+      expect(() => otherValidator.validate({ name: 'Alex' })).toThrowError(
+        TypeError
+      );
     });
   });
 
@@ -331,6 +415,20 @@ describe('number validators', () => {
         const badValidator = new BadValidator();
       }).toThrowError();
     });
+
+    it('throws an error if it receives a non-number value', () => {
+      class OtherTestTypeValidator extends Validator<OtherTestType> {
+        constructor() {
+          super();
+          (this.ruleFor('name') as any).scalePrecision(2, 4);
+        }
+      }
+      const otherValidator = new OtherTestTypeValidator();
+
+      expect(() => otherValidator.validate({ name: 'Alex' })).toThrowError(
+        TypeError
+      );
+    });
   });
 });
 
@@ -354,4 +452,8 @@ const testInstance: TestType = {
   nullableBooleanProperty: null,
   objectProperty: { nestedProperty: '' },
   nullableObjectProperty: null,
+};
+
+type OtherTestType = {
+  name: string;
 };
