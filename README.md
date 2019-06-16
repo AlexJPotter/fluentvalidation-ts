@@ -1,5 +1,5 @@
 <div align="center">
-<h1>fluentvalidation-ts
+<h1>fluentvalidation-ts</h1>
 
 <img
     height="150"
@@ -28,8 +28,6 @@
 
 You can use `fluentvalidation-ts` to perform client-side validation on your forms, and back-end validation if you're running a Node API.
 
-<hr />
-
 ## Table of Contents
 
 - [Motivation](#motivation)
@@ -43,8 +41,6 @@ You can use `fluentvalidation-ts` to perform client-side validation on your form
 - [License](#license-📄)
 - [About the Author](#about-the-author-🧔🏻)
 
-<hr />
-
 ## Motivation
 
 Validation is a very common problem in front-end development, and the requirements range from very basic to very complex. I've always felt that there aren't many libraries offering a good solution to problem of front-end validation, and those that do exist I've found lacking in certain areas (most notably TypeScript support).
@@ -53,15 +49,11 @@ If you've ever worked on a .NET API, you might have heard of a library called [F
 
 Another large factor in the design of `fluentvalidation-ts` was the popular React form library [Formik](https://github.com/jaredpalmer/formik). The validation result object that `fluentvalidation-ts` returns is compatible with the errors object that Formik expects, so you can start using `fluentvalidation-ts` to validate your Formik forms and it "just works". [This example](#with-formik) demonstrates just how easy it is.
 
-<hr />
-
 ## Requirements
 
 This library has been written in, and for, TypeScript. You can still use `fluentvalidation-ts` without TypeScript, but the primary benefit of having strongly-typed validation rules is lost.
 
 If using TypeScript (recommended), you must be on TypeScript version **2.9** or later.
-
-<hr />
 
 ## Installation
 
@@ -78,8 +70,6 @@ npm i --save fluentvalidation-ts
 ```
 
 **Note:** `fluentvalidation-ts` has been written with first-class support for TypeScript, so there's no need to install types!
-
-<hr />
 
 ## Example Usage
 
@@ -116,8 +106,6 @@ validator.validate({ name: 'Alex', age: -1 });
 validator.validate({ name: '', age: -1 });
 // { name: 'Please enter your name', age: 'Age cannot be negative' }
 ```
-
-<hr />
 
 ## Documentation 📖
 
@@ -602,8 +590,6 @@ this.ruleFor('hasPaid')
   .unless(customer => customer.getsFreeStuff);
 ```
 
-<hr />
-
 ## Examples
 
 ### Basic Usage
@@ -842,25 +828,17 @@ export const MyForm = withFormik({
 })(MyFormComponent);
 ```
 
-<hr />
-
 ## Test Coverage ✅
 
 `fluentvalidation-ts` has 100% test coverage via unit tests written with [Jest](https://jestjs.io/).
-
-<hr />
 
 ## Issues 🐛
 
 Please report issues via GitHub.
 
-<hr />
-
 ## License 📄
 
 `fluentvalidation-ts` is provided under the terms of an [Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0) license.
-
-<hr />
 
 ## About the Author 🧔🏻
 
