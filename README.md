@@ -18,9 +18,9 @@
 
 ![Dependencies](https://badgen.net/badge/dependencies/none/green)
 [![Minified Size](https://badgen.net/bundlephobia/min/fluentvalidation-ts?color=green)
-](https://bundlephobia.com/result?p=fluentvalidation-ts@0.0.2)
+](https://bundlephobia.com/result?p=fluentvalidation-ts)
 [![Minzipped Size](https://badgen.net/bundlephobia/minzip/fluentvalidation-ts?color=green)
-](https://bundlephobia.com/result?p=fluentvalidation-ts@0.0.2)
+](https://bundlephobia.com/result?p=fluentvalidation-ts)
 
 <hr />
 
