@@ -15,11 +15,8 @@ var Validator = /** @class */ (function () {
                 var errors = {};
                 for (var _i = 0, _a = Object.keys(_this.valueValidatorBuildersByPropertyName); _i < _a.length; _i++) {
                     var propertyName = _a[_i];
-                    var valueValidatorBuilders = _this.valueValidatorBuildersByPropertyName[propertyName] || [];
-                    if (valueValidatorBuilders == null ||
-                        valueValidatorBuilders.length === 0) {
-                        continue;
-                    }
+                    var valueValidatorBuilders = _this
+                        .valueValidatorBuildersByPropertyName[propertyName];
                     for (var _b = 0, _c = valueValidatorBuilders; _b < _c.length; _b++) {
                         var valueValidatorBuilder = _c[_b];
                         var valueValidator = valueValidatorBuilder.build();
@@ -37,9 +34,8 @@ var Validator = /** @class */ (function () {
         };
         this.ruleFor = function (propertyName) {
             var valueValidatorBuilder = new ValueValidatorBuilder_1.ValueValidatorBuilder(_this.rebuildValidate);
-            if (_this.valueValidatorBuildersByPropertyName[propertyName] == null) {
-                _this.valueValidatorBuildersByPropertyName[propertyName] = [];
-            }
+            _this.valueValidatorBuildersByPropertyName[propertyName] =
+                _this.valueValidatorBuildersByPropertyName[propertyName] || [];
             _this.valueValidatorBuildersByPropertyName[propertyName].push(valueValidatorBuilder);
             return valueValidatorBuilder.getAllRules();
         };

@@ -35,9 +35,6 @@ var ValueValidatorBuilder = /** @class */ (function () {
     function ValueValidatorBuilder(rebuildValidate) {
         var _this = this;
         this.rules = [];
-        this.rebuildValidate = function () {
-            throw new Error("'rebuildValidate' has not been instantiated");
-        };
         this.build = function () {
             return function (value, model) {
                 for (var _i = 0, _a = _this.rules; _i < _a.length; _i++) {
