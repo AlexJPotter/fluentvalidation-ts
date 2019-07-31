@@ -23,13 +23,13 @@
     "url": "https://github.com/AlexJPotter/fluentvalidation-ts/issues"
   },
   "devDependencies": {
-    "@types/jest": "^24.0.15",
+    "@types/jest": "^24.0.16",
     "jest": "^24.8.0",
     "prettier": "^1.16.4",
     "ts-jest": "^24.0.2",
-    "tslint": "^5.14.0",
+    "tslint": "^5.18.0",
     "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.4.1"
+    "typescript": "^3.5.3"
   },
   "scripts": {
     "lint": "tslint -c tslint.json 'src/**/*.{ts,.test.ts}'",
