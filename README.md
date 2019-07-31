@@ -60,7 +60,7 @@ If using TypeScript (recommended), you must be on TypeScript version **2.9** or 
 Using yarn:
 
 ```
-yarn install fluentvalidation-ts
+yarn add fluentvalidation-ts
 ```
 
 Using npm:
