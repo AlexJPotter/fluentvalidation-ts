@@ -1,5 +1,5 @@
 export type ValueValidationResult<TValue> =
-  | (TValue extends Array<infer TEachValue> | object
+  | (TValue extends Array<unknown> | object
       ?
           | {
               [propertyName in keyof TValue]?: ValueValidationResult<

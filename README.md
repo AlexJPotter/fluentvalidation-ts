@@ -17,10 +17,7 @@
 ![Open Issues](https://badgen.net/github/open-issues/alexjpotter/fluentvalidation-ts)
 
 ![Dependencies](https://badgen.net/badge/dependencies/none/green)
-[![Minified Size](https://badgen.net/bundlephobia/min/fluentvalidation-ts?color=green)
-](https://bundlephobia.com/result?p=fluentvalidation-ts)
-[![Minzipped Size](https://badgen.net/bundlephobia/minzip/fluentvalidation-ts?color=green)
-](https://bundlephobia.com/result?p=fluentvalidation-ts)
+[![GZIP Size](http://img.badgesize.io/https://unpkg.com/fluentvalidation-ts@latest/dist/fluentvalidation-ts.umd.production.min.js?compression=gzip)](https://unpkg.com/fluentvalidation-ts@latest/dist/fluentvalidation-ts.umd.production.min.js)
 
 <hr />
 
@@ -34,12 +31,12 @@ You can use `fluentvalidation-ts` to perform client-side validation on your form
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Example Usage](#example-usage)
-- [Documentation](#documentation-)
+- [Documentation](#documentation)
 - [Examples](#examples)
-- [Test Coverage](#test-coverage-)
-- [Issues](#issues-)
-- [License](#license-)
-- [About the Author](#about-the-author-)
+- [Test Coverage](#test-coverage)
+- [Issues](#issues)
+- [License](#license)
+- [About the Author](#about-the-author)
 
 ## Motivation
 
@@ -107,7 +104,7 @@ validator.validate({ name: '', age: -1 });
 // { name: 'Please enter your name', age: 'Age cannot be negative' }
 ```
 
-## Documentation 📖
+## Documentation
 
 [Validators](#validators)
 
@@ -828,19 +825,19 @@ export const MyForm = withFormik({
 })(MyFormComponent);
 ```
 
-## Test Coverage ✅
+## Test Coverage
 
 `fluentvalidation-ts` has 100% test coverage via unit tests written with [Jest](https://jestjs.io/).
 
-## Issues 🐛
+## Issues
 
 Please report issues via GitHub.
 
-## License 📄
+## License
 
 `fluentvalidation-ts` is provided under the terms of an [Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0) license.
 
-## About the Author 🧔🏻
+## About the Author
 
 Alex Potter is a full-stack Software Developer who is currently part of the team at [Ghyston](https://www.ghyston.com), an award-winning software development company based in Bristol.
 

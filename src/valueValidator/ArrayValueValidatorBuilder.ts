@@ -24,7 +24,7 @@ export class ArrayValueValidatorBuilder<
   }
 
   public build = (): ValueValidator<TModel, TValue> => {
-    return (value: TValue, model: TModel) => {
+    return (value: TValue) => {
       if (value == null) {
         return null;
       }

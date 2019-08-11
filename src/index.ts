@@ -24,9 +24,7 @@ export abstract class Validator<TModel> {
     TModel
   > = {};
 
-  private _validate: (value: TModel) => ValidationErrors<TModel> = (
-    value: TModel
-  ) => {
+  private _validate: (value: TModel) => ValidationErrors<TModel> = () => {
     return {};
   };
 
@@ -95,12 +93,12 @@ export abstract class Validator<TModel> {
       : never
   >(
     propertyName: TModel[TPropertyName] extends
-      | Array<infer TEachValue>
+      | Array<unknown>
       | null
       | undefined
       ? TPropertyName
       : never
-  ): TValue extends Array<infer TEachValue>
+  ): TValue extends Array<unknown>
     ? RuleValidators<TValue, TValue[0]>
     : never => {
     const arrayValueValidatorBuilder = new ArrayValueValidatorBuilder(
