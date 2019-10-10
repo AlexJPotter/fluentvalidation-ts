@@ -231,15 +231,12 @@ describe('examples', () => {
     const result = validator.validate(employee);
 
     expect(result).toEqual({
-      lmees: {
-        1: {
-          lmees: {
-            0: {
-              name: 'Employees have names!',
-            },
-          },
+      lmees: [
+        null,
+        {
+          lmees: [{ name: 'Employees have names!' }],
         },
-      },
+      ],
     });
   });
 });

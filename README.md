@@ -766,7 +766,7 @@ const validator = new ResultsValidator();
 validator.validate({
   scores: [0, 14, 500];
 });
-// { scores: { 2: 'Score must be between 0 and 100' } }
+// { scores: [null, null, 'Score must be between 0 and 100'] }
 ```
 
 ### With Formik

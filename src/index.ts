@@ -16,7 +16,7 @@ type ValueValidatorBuildersByPropertyName<TModel> = {
               TEachValue
             >
       : ValueValidatorBuilder<TModel, propertyName, TModel[propertyName]>
-  >
+  >;
 };
 
 export abstract class Validator<TModel> {

@@ -55,10 +55,13 @@ describe('ruleForEach', () => {
     };
     const result = validator.validate(invalid);
     expect(result).toEqual({
-      scores: {
-        3: 'Must be between 0 and 100',
-        4: 'Must be between 0 and 100',
-      },
+      scores: [
+        null,
+        null,
+        null,
+        'Must be between 0 and 100',
+        'Must be between 0 and 100',
+      ],
     });
   });
 });

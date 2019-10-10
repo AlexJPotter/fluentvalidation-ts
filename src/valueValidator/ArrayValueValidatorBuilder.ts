@@ -30,14 +30,11 @@ export class ArrayValueValidatorBuilder<
       }
 
       const valueValidator = this.eachValueValidatorBuilder.build();
-      const errors = {} as ValueValidationResult<TValue>;
 
-      for (let index = 0; index < value.length; index++) {
-        const errorOrNull = valueValidator(value[index] as TValue[0], value);
-        if (hasError(errorOrNull)) {
-          (errors as any)[index] = errorOrNull;
-        }
-      }
+      const errors = value.map(element => {
+        const errorOrNull = valueValidator(element, value);
+        return hasError(errorOrNull) ? errorOrNull : null;
+      }) as ValueValidationResult<TValue>;
 
       return hasError(errors) ? errors : null;
     };
