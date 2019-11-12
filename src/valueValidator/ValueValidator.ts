@@ -84,8 +84,8 @@ export type ObjectValueValidators<
 > = {
   setValidator: (
     // TODO: For some reason these types seem to give us what we want, but they don't seem quite right
-    validatorProducer: () => IValidator<
-      TValue extends null | undefined ? any : TValue
-    >
+    validatorProducer: (
+      model: TModel
+    ) => IValidator<TValue extends null | undefined ? any : TValue>
   ) => RuleValidatorsAndExtensions<TModel, TValue>;
 };

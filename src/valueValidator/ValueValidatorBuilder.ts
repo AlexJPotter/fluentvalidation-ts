@@ -213,9 +213,11 @@ export class ValueValidatorBuilder<
     return this.getAllRulesAndExtensions();
   };
 
-  public setValidator = (validatorProducer: () => IValidator<TValue>) => {
+  public setValidator = (
+    validatorProducer: (model: TModel) => IValidator<TValue>
+  ) => {
     const validatorRule = new ValidatorRule<TModel, TValue>(
-      validatorProducer as () => IValidator<TValue>
+      validatorProducer as (model: TModel) => IValidator<TValue>
     );
     this.pushRule(validatorRule);
     return this.getAllRulesAndExtensions();
