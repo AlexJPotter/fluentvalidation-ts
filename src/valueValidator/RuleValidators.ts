@@ -5,10 +5,10 @@ import {
   StringValueValidators,
 } from './ValueValidator';
 
-export type RuleValidators<
+export type RuleValidators<TModel, TValue> = BaseValueValidators<
   TModel,
-  TValue extends TModel[keyof TModel]
-> = BaseValueValidators<TModel, TValue> &
+  TValue
+> &
   (TValue extends string | null | undefined
     ? StringValueValidators<TModel, TValue>
     : {}) &
@@ -21,7 +21,7 @@ export type RuleValidators<
 
 export type RuleValidatorsAndConditionExtensions<
   TModel,
-  TValue extends TModel[keyof TModel]
+  TValue
 > = RuleValidators<TModel, TValue> & {
   when: (
     condition: (model: TModel) => boolean,
@@ -35,7 +35,7 @@ export type RuleValidatorsAndConditionExtensions<
 
 export type RuleValidatorsAndExtensions<
   TModel,
-  TValue extends TModel[keyof TModel]
+  TValue
 > = RuleValidatorsAndConditionExtensions<TModel, TValue> & {
   withMessage: (
     message: string

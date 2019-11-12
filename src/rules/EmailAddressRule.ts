@@ -2,10 +2,7 @@ import { Rule } from './Rule';
 
 const emailAddressPattern = /^[a-zA-Z0-9.!#$%&’"*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+$/;
 
-export class EmailAddressRule<
-  TModel,
-  TValue extends TModel[keyof TModel]
-> extends Rule<TModel, TValue> {
+export class EmailAddressRule<TModel, TValue> extends Rule<TModel, TValue> {
   constructor() {
     super((value: TValue) => {
       if (value == null) {

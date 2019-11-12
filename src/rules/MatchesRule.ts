@@ -1,9 +1,6 @@
 import { Rule } from './Rule';
 
-export class MatchesRule<
-  TModel,
-  TValue extends TModel[keyof TModel]
-> extends Rule<TModel, TValue> {
+export class MatchesRule<TModel, TValue> extends Rule<TModel, TValue> {
   constructor(pattern: RegExp) {
     super((value: TValue) => {
       if (value == null) {

@@ -1,7 +1,7 @@
 import { ValueValidationResult } from '../ValueValidationResult';
 import { ValueValidator } from '../ValueValidator';
 
-export class Rule<TModel, TValue extends TModel[keyof TModel]> {
+export class Rule<TModel, TValue> {
   private customErrorMessage?: string;
   private whenCondition?: (model: TModel) => boolean;
   private unlessCondition?: (model: TModel) => boolean;

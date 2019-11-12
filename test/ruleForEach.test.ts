@@ -64,6 +64,40 @@ describe('ruleForEach', () => {
       ],
     });
   });
+
+  describe('when nested rules depened on the base model', () => {
+    class DependentValidator extends Validator<TestTypeWithArrayProperty> {
+      constructor() {
+        super();
+
+        this.ruleForEach('scores')
+          .inclusiveBetween(0, 100)
+          .withMessage('Must be between 0 and 100')
+          .unless(model => model.otherProperty === -1);
+      }
+    }
+    const dependentValidator = new DependentValidator();
+
+    it('gives a validation error if the base model is in an appropriate state', () => {
+      const result = dependentValidator.validate({
+        scores: [0, 10, -44, 100],
+        otherProperty: 1,
+      });
+
+      expect(result).toEqual({
+        scores: [null, null, 'Must be between 0 and 100', null],
+      });
+    });
+
+    it('does not give a validation error if the base model is in an appropriate state', () => {
+      const result = dependentValidator.validate({
+        scores: [0, 10, -44, 100],
+        otherProperty: -1,
+      });
+
+      expect(result).toEqual({});
+    });
+  });
 });
 
 type TestTypeWithArrayProperty = {

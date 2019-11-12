@@ -1,9 +1,9 @@
 import { Rule } from './Rule';
 
-export class GreaterThanOrEqualToRule<
+export class GreaterThanOrEqualToRule<TModel, TValue> extends Rule<
   TModel,
-  TValue extends TModel[keyof TModel]
-> extends Rule<TModel, TValue> {
+  TValue
+> {
   constructor(threshold: number) {
     super((value: TValue) => {
       if (value == null) {

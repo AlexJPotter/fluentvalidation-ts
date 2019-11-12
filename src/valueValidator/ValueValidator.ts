@@ -23,7 +23,7 @@ export const hasError = <TValue>(
   return valueValidationResult != null;
 };
 
-export type BaseValueValidators<TModel, TValue extends TModel[keyof TModel]> = {
+export type BaseValueValidators<TModel, TValue> = {
   notNull: () => RuleValidatorsAndExtensions<TModel, TValue>;
   null: () => RuleValidatorsAndExtensions<TModel, TValue>;
   notEqual: (
@@ -37,7 +37,7 @@ export type BaseValueValidators<TModel, TValue extends TModel[keyof TModel]> = {
 
 export type StringValueValidators<
   TModel,
-  TValue extends TModel[keyof TModel] & (string | null | undefined)
+  TValue extends string | null | undefined
 > = {
   notEmpty: () => RuleValidatorsAndExtensions<TModel, TValue>;
   length: (
@@ -52,7 +52,7 @@ export type StringValueValidators<
 
 export type NumberValueValidators<
   TModel,
-  TValue extends TModel[keyof TModel] & (number | null | undefined)
+  TValue extends number | null | undefined
 > = {
   lessThan: (threshold: number) => RuleValidatorsAndExtensions<TModel, TValue>;
   lessThanOrEqualTo: (
@@ -80,7 +80,7 @@ export type NumberValueValidators<
 
 export type ObjectValueValidators<
   TModel,
-  TValue extends TModel[keyof TModel] & (object | null | undefined)
+  TValue extends object | null | undefined
 > = {
   setValidator: (
     // TODO: For some reason these types seem to give us what we want, but they don't seem quite right

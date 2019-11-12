@@ -1,9 +1,6 @@
 import { Rule } from './Rule';
 
-export class ExclusiveBetweenRule<
-  TModel,
-  TValue extends TModel[keyof TModel]
-> extends Rule<TModel, TValue> {
+export class ExclusiveBetweenRule<TModel, TValue> extends Rule<TModel, TValue> {
   constructor(lowerBound: number, upperBound: number) {
     super((value: TValue) => {
       if (value == null) {

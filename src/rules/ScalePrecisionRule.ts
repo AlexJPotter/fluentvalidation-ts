@@ -1,9 +1,6 @@
 import { Rule } from './Rule';
 
-export class ScalePrecisionRule<
-  TModel,
-  TValue extends TModel[keyof TModel]
-> extends Rule<TModel, TValue> {
+export class ScalePrecisionRule<TModel, TValue> extends Rule<TModel, TValue> {
   constructor(precision: number, scale: number) {
     super((value: TValue) => {
       if (value == null) {

@@ -1,9 +1,6 @@
 import { Rule } from './Rule';
 
-export class MinLengthRule<
-  TModel,
-  TValue extends TModel[keyof TModel]
-> extends Rule<TModel, TValue> {
+export class MinLengthRule<TModel, TValue> extends Rule<TModel, TValue> {
   constructor(minLength: number) {
     super((value: TValue) => {
       if (value == null) {

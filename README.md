@@ -106,6 +106,11 @@ validator.validate({ name: '', age: -1 });
 
 ## Documentation
 
+[Rules](#rules)
+
+- [`.ruleFor`](#rulefor)
+- [`.ruleForEach`](#ruleforeach)
+
 [Validators](#validators)
 
 - [`.emailAddress`](#emailaddress)
@@ -142,6 +147,52 @@ validator.validate({ name: '', age: -1 });
 - [Recursive Types](#recursive-types)
 - [Collections](#collections)
 - [With Formik](#with-formik)
+
+## Rules
+
+`fluentvalidation-ts` works by letting you build up rule chains for the properties of your base model. These rule chains are defined in the constructor of your validator.
+
+### `.ruleFor`
+
+In the constructor of your validator, call `this.ruleFor('propertyName')` to access a rule builder for the `propertyName` property of your base model. The rule builder is typed to provide access to relevant validation rules.
+
+For example, if `propertyName` is of type `number` then you will have access to number-specific rules such as `.greaterThan` and `.scalePrecision` - like so:
+
+```typescript
+class ExampleValidator extends Validator<ExampleModel> {
+  constructor() {
+    super();
+
+    this.ruleFor('numberProperty').greaterThan(0);
+  }
+}
+```
+
+Most rules simply depend on the value of the property that they've been defined for. In the example above, the `.greaterThan` rule will look at the value of `numberProperty` and flag it as invalid if it is less than `0`.
+
+However, some validation rules can be defined such that they depend on the base model, as well as the value of the particular property that the rule is being defined for. The `.must` and `.setValidator` rules are two examples.
+
+### `.ruleForEach`
+
+Sometimes your base model will have an array property which you wish to validate the individual items of. For convenience, you can make use of `.ruleForEach` to achieve this.
+
+In the constructor of your validator, call `this.ruleForEach('arrayProperty')` to access a rule builder for each item in the `arrayProperty` property of your base model. As before, this rule builder is typed to provide access to relevant validation rules depending on the type of the items in your array property.
+
+For example, if `arrayProperty` is an array of `string` items, then you will have access to string-specific rules such as `.length` and `.matches` - like so:
+
+```typescript
+class ExampleValidator extends Validator<ExampleModel> {
+  constructor() {
+    super();
+
+    this.ruleForEach('arrayProperty').maxLength(50);
+  }
+}
+```
+
+The validator in this example will validate that each item in the `arrayProperty` property is no more than `50` characters long.
+
+As before, some rules can be defined such that they depend on the base model, as well as the value of the particular item. Note that by "base model" we don't mean the value of the array property, but rather the value of the top-level model which has the `arrayProperty` property on it.
 
 ## Validators
 
@@ -410,6 +461,12 @@ this.ruleFor('yearsInCurrentJob').must(
 );
 ```
 
+Note also that in `.ruleForEach` rule chains the type of `TModel` is equal to the type of the **base** model, and not the type of the array property (which would be `Array<TValue>`). For example:
+
+```typescript
+this.ruleForEach('pets').must((pet, person) => pet.ownerName === person.name);
+```
+
 Example error:
 
 ```
@@ -533,6 +590,13 @@ Example usage:
 this.ruleFor('favouriteBand').setValidator(() => new BandValidator());
 ```
 
+Note also that in `.ruleForEach` rule chains the type of `TModel` is equal to the type of the **base** model, and not the type of the array property (which would be `Array<TValue>`). For example:
+
+```typescript
+// The type of `owner` is equal to the type of the base model, not `Array<Pet>`
+this.ruleForEach('pets').setValidator(owner => new PetValidator(owner));
+```
+
 ## Configuration
 
 ### `.withMessage`
@@ -560,7 +624,7 @@ You can specify a condition to control when a rule should execute by calling the
 | Parameter              | Type                                                                                    | Description                                                                                                                                                                                                        |
 | ---------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `condition`            | `(model: TModel) => boolean` (where `TModel` is the type of the object being validated) | A function which takes the model being validated and returns a `boolean` indicating whether the rule should execute.                                                                                               |
-| `appliesTo` (optional) | `'AppliesToAllValidators' | 'AppliesToCurrentValidator'`                                | By default the condition applies to all validators in the chain so far (`'AppliesToAllValidators'`), but if you wish to apply the condition to an individual validator you can pass `'AppliesToCurrentValidator'`. |
+| `appliesTo` (optional) | `'AppliesToAllValidators' ǀ 'AppliesToCurrentValidator'`                                | By default the condition applies to all validators in the chain so far (`'AppliesToAllValidators'`), but if you wish to apply the condition to an individual validator you can pass `'AppliesToCurrentValidator'`. |
 
 Example usage:
 
@@ -570,6 +634,15 @@ this.ruleFor('numberOfChildren')
   .when(person => person.hasChildren);
 ```
 
+Note also that in `.ruleForEach` rule chains the type of `TModel` is equal to the type of the **base** model, and not the type of the array property (which would be `Array<TValue>`). For example:
+
+```typescript
+// The type of `owner` is equal to the type of the base model, not `Array<Pet>`
+this.ruleForEach('pets')
+  .must(pet => pet.species === 'Dog')
+  .when(owner => owner.isDogLover);
+```
+
 ### `.unless`
 
 You can specify a condition to control when a rule should not execute by calling the `.unless` method on a validator definition.
@@ -577,7 +650,7 @@ You can specify a condition to control when a rule should not execute by calling
 | Parameter              | Type                                                                                    | Description                                                                                                                                                                                                        |
 | ---------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `condition`            | `(model: TModel) => boolean` (where `TModel` is the type of the object being validated) | A function which takes the model being validated and returns a `boolean` indicating whether the rule should not execute.                                                                                           |
-| `appliesTo` (optional) | `'AppliesToAllValidators' | 'AppliesToCurrentValidator'`                                | By default the condition applies to all validators in the chain so far (`'AppliesToAllValidators'`), but if you wish to apply the condition to an individual validator you can pass `'AppliesToCurrentValidator'`. |
+| `appliesTo` (optional) | `'AppliesToAllValidators' ǀ 'AppliesToCurrentValidator'`                                | By default the condition applies to all validators in the chain so far (`'AppliesToAllValidators'`), but if you wish to apply the condition to an individual validator you can pass `'AppliesToCurrentValidator'`. |
 
 Example usage:
 
@@ -585,6 +658,15 @@ Example usage:
 this.ruleFor('hasPaid')
   .equal(true)
   .unless(customer => customer.getsFreeStuff);
+```
+
+Note also that in `.ruleForEach` rule chains the type of `TModel` is equal to the type of the **base** model, and not the type of the array property (which would be `Array<TValue>`). For example:
+
+```typescript
+// The type of `owner` is equal to the type of the base model, not `Array<Pet>`
+this.ruleForEach('pets')
+  .must(pet => pet.species === 'Dog')
+  .unless(owner => owner.isScaredOfDogs);
 ```
 
 ## Examples
@@ -773,37 +855,34 @@ validator.validate({
 
 ```tsx
 import * as React from 'react';
-import { FormikProps, withFormik } from 'formik';
+import { Formik } from 'formik';
 import { Validator } from 'fluentvalidation-ts';
 
+export const MyForm = () => (
+  <Formik<FormModel>
+    validate={formValidator.validate} // <=== This is the important line!
+    mapPropsToValues={() => ({ name: '' })}
+    handleSubmit={(values, { setSubmitting }) => {
+      /* ...submit handler */
+    }}
+  >
+    {({ values, touched, errors, handleChange, handleBlur, handleSubmit }) => (
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          onChange={handleChange}
+          onBlur={handleBlur}
+          value={values.name}
+          name="name"
+        />
+        {errors.name && touched.name && <div id="feedback">{errors.name}</div>}
+        <button type="submit">Submit</button>
+      </form>
+    )}
+  </Formik>
+);
+
 type FormModel = { name: string };
-
-type Props = FormikProps<FormModel>;
-
-const MyFormComponent = (props: Props) => {
-  const {
-    values,
-    touched,
-    errors,
-    handleChange,
-    handleBlur,
-    handleSubmit,
-  } = props;
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        onChange={handleChange}
-        onBlur={handleBlur}
-        value={values.name}
-        name="name"
-      />
-      {errors.name && touched.name && <div id="feedback">{errors.name}</div>}
-      <button type="submit">Submit</button>
-    </form>
-  );
-};
 
 class FormValidator extends Validator<FormModel> {
   constructor() {
@@ -815,14 +894,6 @@ class FormValidator extends Validator<FormModel> {
 }
 
 const formValidator = new FormValidator();
-
-export const MyForm = withFormik({
-  mapPropsToValues: () => ({ name: '' }),
-  validate: formValues => formValidator.validate(formValues),
-  handleSubmit: (values, { setSubmitting }) => {
-    /* ...submit handler */
-  },
-})(MyFormComponent);
 ```
 
 ## Test Coverage

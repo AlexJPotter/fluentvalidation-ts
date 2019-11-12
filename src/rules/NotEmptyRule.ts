@@ -1,9 +1,6 @@
 import { Rule } from './Rule';
 
-export class NotEmptyRule<
-  TModel,
-  TValue extends TModel[keyof TModel]
-> extends Rule<TModel, TValue> {
+export class NotEmptyRule<TModel, TValue> extends Rule<TModel, TValue> {
   constructor() {
     super((value: TValue) => {
       if (typeof value !== 'string') {

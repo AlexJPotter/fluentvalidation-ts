@@ -23,11 +23,7 @@ import { ValueValidationResult } from '../ValueValidationResult';
 import { ValueValidator } from '../ValueValidator';
 import { hasError } from './ValueValidator';
 
-export class ValueValidatorBuilder<
-  TModel,
-  TPropertyName extends keyof TModel,
-  TValue extends TModel[TPropertyName]
-> {
+export class ValueValidatorBuilder<TModel, TValue> {
   private rules: Array<Rule<TModel, TValue>> = [];
   private rebuildValidate: () => void;
 

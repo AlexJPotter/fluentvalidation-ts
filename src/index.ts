@@ -8,14 +8,14 @@ type ValueValidatorBuildersByPropertyName<TModel> = {
   [propertyName in keyof TModel]?: Array<
     TModel[propertyName] extends Array<infer TEachValue>
       ?
-          | ValueValidatorBuilder<TModel, propertyName, TModel[propertyName]>
+          | ValueValidatorBuilder<TModel, TModel[propertyName]>
           | ArrayValueValidatorBuilder<
               TModel,
               propertyName,
               TModel[propertyName],
               TEachValue
             >
-      : ValueValidatorBuilder<TModel, propertyName, TModel[propertyName]>
+      : ValueValidatorBuilder<TModel, TModel[propertyName]>
   >;
 };
 
@@ -64,11 +64,9 @@ export abstract class Validator<TModel> {
   >(
     propertyName: TPropertyName
   ): RuleValidators<TModel, TValue> => {
-    const valueValidatorBuilder = new ValueValidatorBuilder<
-      TModel,
-      TPropertyName,
-      TValue
-    >(this.rebuildValidate);
+    const valueValidatorBuilder = new ValueValidatorBuilder<TModel, TValue>(
+      this.rebuildValidate
+    );
 
     this.valueValidatorBuildersByPropertyName[propertyName] =
       this.valueValidatorBuildersByPropertyName[propertyName] || [];
@@ -99,10 +97,11 @@ export abstract class Validator<TModel> {
       ? TPropertyName
       : never
   ): TValue extends Array<unknown>
-    ? RuleValidators<TValue, TValue[0]>
+    ? RuleValidators<TModel, TValue[0]>
     : never => {
     const arrayValueValidatorBuilder = new ArrayValueValidatorBuilder(
-      this.rebuildValidate
+      this.rebuildValidate,
+      propertyName as string
     );
 
     if (this.valueValidatorBuildersByPropertyName[propertyName] == null) {

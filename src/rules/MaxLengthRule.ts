@@ -1,9 +1,6 @@
 import { Rule } from './Rule';
 
-export class MaxLengthRule<
-  TModel,
-  TValue extends TModel[keyof TModel]
-> extends Rule<TModel, TValue> {
+export class MaxLengthRule<TModel, TValue> extends Rule<TModel, TValue> {
   constructor(maxLength: number) {
     super((value: TValue) => {
       if (value == null) {
