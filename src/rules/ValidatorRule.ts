@@ -6,11 +6,13 @@ export class ValidatorRule<
   TModel,
   TValue extends TModel[keyof TModel]
 > extends Rule<TModel, TValue> {
-  constructor(validatorProducer: () => IValidator<TValue>) {
-    super((value: TValue) =>
+  constructor(validatorProducer: (model: TModel) => IValidator<TValue>) {
+    super((value: TValue, model: TModel) =>
       value == null
         ? null
-        : (validatorProducer().validate(value) as ValueValidationResult<TValue>)
+        : (validatorProducer(model).validate(value) as ValueValidationResult<
+            TValue
+          >)
     );
   }
 }

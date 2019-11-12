@@ -521,11 +521,11 @@ Value must be no more than 4 digits in total, with allowance for 2 decimals
 
 Ensures that the value of the specified object property is valid according to the specified validator.
 
-| Parameter           | Type                                                                                        | Description                                                                 |
-| ------------------- | ------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| `validatorProducer` | `() => Validator<TValue>` (where `TValue` matches the type of the property being validated) | A function which returns a validator for validating the specified property. |
+| Parameter           | Type                                                                                                                                                             | Description                                                                                                                |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `validatorProducer` | `(model: TModel) => Validator<TValue>` (where `TModel` is the type of the object being validated, and `TValue` matches the type of the property being validated) | A function which optionally takes the model being validated and returns a validator for validating the specified property. |
 
-**Note:** The parameter here is a function in order to support recursive validation (see [this example](#recursive-types)).
+**Note:** The parameter here is a function in order to allow the nested validators to depend on the base model, and also to support recursive validation (see [this example](#recursive-types)).
 
 Example usage:
 
