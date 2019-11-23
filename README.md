@@ -441,11 +441,17 @@ Value must be at least 20 characters long
 
 ### `.must`
 
-Passes the value of the specified property into a delegate that can perform custom validation logic on the value.
+The `.must` rule is the most powerful of all the built-in rules, as it allows you to define your own reusable custom rules.
+
+There are three different overloads for the `.must` rule:
+
+#### 1. Predicate
+
+With this variation, the `.must` rule passes the value of the specified property into a predicate function that can perform custom validation logic on the value.
 
 | Parameter   | Type                                                                                                                                         | Description                                                                                                                                                                       |
 | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `condition` | `(value: TValue, model: TModel) => boolean` (where `TValue` matches the type of the property, and `TModel` is the type of the parent object) | A function which takes the value of the property being validated (and the entire object being validated) and returns a `boolean` indicating whether or not the property is valid. |
+| `predicate` | `(value: TValue, model: TModel) => boolean` (where `TValue` matches the type of the property, and `TModel` is the type of the parent object) | A function which takes the value of the property being validated (and the entire object being validated) and returns a `boolean` indicating whether or not the property is valid. |
 
 Example usage:
 
@@ -472,6 +478,83 @@ Example error:
 ```
 Value is not valid
 ```
+
+#### 2. Rule Definition (Predicate and Message)
+
+With this variation you specify both a predicate and the error message that should be used if validation fails. This overload makes it trivial to define your own reusable custom rules.
+
+| Parameter    | Type                                                                                                                                                                                                                    | Description                                                                                                                                                   |
+| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `definition` | `{ predicate: (value: TValue, model: TModel) => boolean; message: string | ((value: TValue, model: TModel) => string)` (where `TValue` matches the type of the property, and `TModel` is the type of the parent object) | An object that defines both a predicate to use in determining whether the property is valid, and a message (or message generator) to use if validation fails. |
+
+Example usage:
+
+```typescript
+// Define a reusable rule and store it in a shared variable:
+export const beEven = {
+  predicate: (value: number) => value % 2 === 0;
+  message: 'Must be an even number';
+};
+
+// Then, inside the constructor of your validator:
+this.ruleFor('numberOfSocks').must(beEven);
+```
+
+The predicate function component of a custom rule definition works exactly as described above.
+
+The message component of a custom rule definition can be given as a constant `string` (as in the example above), or as a function which produces a `string` from the value of the property being validated and the value of the base model. This makes it possible to generate more useful error messages when your predicate function relies on other properties of the model.
+
+It should be noted that a custom error message defined for a `.must` rule can still be overridden with the `.withMessage` configuration option.
+
+#### 3. Collection of Predicates and/or Rule Definitions
+
+With this variation you can specify an array of predicates and/or rule definitions. This makes it trivial to compose custom rules into more complex rule collections.
+
+| Parameter    | Type                                                                                                                                                                                                                                                                                  | Description                                                                                                                                                   |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `definition` | `Array<predicate: (value: TValue, model: TModel) => boolean | { predicate: (value: TValue, model: TModel) => boolean; message: string | ((value: TValue, model: TModel) => string)>` (where `TValue` matches the type of the property, and `TModel` is the type of the parent object) | An object that defines both a predicate to use in determining whether the property is valid, and a message (or message generator) to use if validation fails. |
+
+Example usage:
+
+```typescript
+// Define some reusable rules:
+export const beNumeric = {
+  predicate: (value: string) => !isNaN(Number(value));
+  message: 'Please enter a number';
+};
+
+export const beAnInteger = {
+  predicate: (value: string) => Number(value) % 1 === 0;
+  message: 'Please enter a whole number';
+};
+
+export const bePositive = {
+  predicate: (value: string) => Number(value) > 0;
+  message: 'Please enter a positive number';
+};
+
+// Define a compound rule via a collection of rules:
+export const bePositiveInteger = [beNumeric, beAnInteger, bePositive];
+
+// Then, inside the constructor of your validator:
+this.ruleFor('quantity').must(bePositiveInteger);
+```
+
+Each custom rule you specify in a rule collection such as this will be executed in order, and the first failing rule will result in an error.
+
+Note that in the above example we defined a collection containing only rule definitions, but you could also define a collection containing only predicates, or even a mix of both predicates and rule definitions.
+
+Because complex rules formed from collections of custom rules are just arrays, you can compose them indefinitely by concatenating:
+
+```typescript
+export const complexRule = [someRule, someOtherRule, anotherRule];
+
+export const otherComplexRule = [yetAnotherRule, andAnotherRule];
+
+export const evenMoreComplexRule = [...complexRule, ...otherComplexRule];
+```
+
+As you can see, the `.must` rule and its overloads are a very powerful tool for creating reusable custom rules that can be shared across multiple validators, and which are also very easy to test.
 
 ### `.notEmpty`
 

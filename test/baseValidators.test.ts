@@ -118,48 +118,221 @@ describe('base validators', () => {
   });
 
   describe('must', () => {
-    class TestValidator extends Validator<TestType> {
-      constructor() {
-        super();
-        this.ruleFor('stringProperty').must(
-          stringProperty => stringProperty.length > 10
-        );
-      }
-    }
-    const validator = new TestValidator();
-
-    it('gives a validation error if the predicate is not met', () => {
-      const invalid: TestType = {
-        ...testInstance,
-        stringProperty: 'tooshort',
-      };
-      const result = validator.validate(invalid);
-      expect(result.stringProperty).toBe('Value is not valid');
-    });
-
-    it('does not give a validation error if the predicate is met', () => {
-      const invalid: TestType = {
-        ...testInstance,
-        stringProperty: 'long enough',
-      };
-      const result = validator.validate(invalid);
-      expect(result.stringProperty).toBeUndefined();
-    });
-
-    it('accepts a predicate which relies on the base model', () => {
-      class OtherValidator extends Validator<TestType> {
+    describe('when passed a predicate', () => {
+      class TestValidator extends Validator<TestType> {
         constructor() {
           super();
-          this.ruleFor('stringProperty')
-            .must((value, model) => value.length === model.numberProperty)
-            .withMessage('String property length must match number property value');
+          this.ruleFor('stringProperty').must(
+            stringProperty => stringProperty.length > 10
+          );
         }
       }
-      const otherValidator = new OtherValidator();
-      const valid: TestType = { ...testInstance, stringProperty: 'Valid', numberProperty: 5 };
-      const invalid: TestType = { ...testInstance, stringProperty: 'Invalid', numberProperty: 1 };
-      expect(otherValidator.validate(valid).stringProperty).toBeUndefined();
-      expect(otherValidator.validate(invalid).stringProperty).toBe('String property length must match number property value');
+      const validator = new TestValidator();
+
+      it('gives a validation error if the predicate is not met', () => {
+        const invalid: TestType = {
+          ...testInstance,
+          stringProperty: 'tooshort',
+        };
+        const result = validator.validate(invalid);
+        expect(result.stringProperty).toBe('Value is not valid');
+      });
+
+      it('does not give a validation error if the predicate is met', () => {
+        const invalid: TestType = {
+          ...testInstance,
+          stringProperty: 'long enough',
+        };
+        const result = validator.validate(invalid);
+        expect(result.stringProperty).toBeUndefined();
+      });
+
+      it('accepts a predicate which relies on the base model', () => {
+        class OtherValidator extends Validator<TestType> {
+          constructor() {
+            super();
+            this.ruleFor('stringProperty')
+              .must((value, model) => value.length === model.numberProperty)
+              .withMessage(
+                'String property length must match number property value'
+              );
+          }
+        }
+        const otherValidator = new OtherValidator();
+        const valid: TestType = {
+          ...testInstance,
+          stringProperty: 'Valid',
+          numberProperty: 5,
+        };
+        const invalid: TestType = {
+          ...testInstance,
+          stringProperty: 'Invalid',
+          numberProperty: 1,
+        };
+        expect(otherValidator.validate(valid).stringProperty).toBeUndefined();
+        expect(otherValidator.validate(invalid).stringProperty).toBe(
+          'String property length must match number property value'
+        );
+      });
+    });
+
+    describe('when passed a rule definition', () => {
+      const beAtLeastTenCharactersLong = {
+        predicate: (value: string) => value.length >= 10,
+        message: 'Please enter at least 10 characters',
+      };
+      class TestValidator extends Validator<TestType> {
+        constructor() {
+          super();
+          this.ruleFor('stringProperty').must(beAtLeastTenCharactersLong);
+        }
+      }
+      const validator = new TestValidator();
+
+      it('gives a validation error with the specified message if the predicate is not met', () => {
+        const invalid: TestType = {
+          ...testInstance,
+          stringProperty: 'tooshort',
+        };
+        const result = validator.validate(invalid);
+        expect(result.stringProperty).toBe(
+          'Please enter at least 10 characters'
+        );
+      });
+
+      it('does not give a validation error if the predicate is met', () => {
+        const valid: TestType = {
+          ...testInstance,
+          stringProperty: 'long enough',
+        };
+        const result = validator.validate(valid);
+        expect(result.stringProperty).toBeUndefined();
+      });
+
+      it('accepts a predicate which relies on the base model', () => {
+        const haveLengthEqualToTheNumberProperty = {
+          predicate: (value: string, model: TestType) =>
+            value.length === model.numberProperty,
+          message: 'String property length must match number property value',
+        };
+        class OtherValidator extends Validator<TestType> {
+          constructor() {
+            super();
+            this.ruleFor('stringProperty').must(
+              haveLengthEqualToTheNumberProperty
+            );
+          }
+        }
+        const otherValidator = new OtherValidator();
+        const valid: TestType = {
+          ...testInstance,
+          stringProperty: 'Valid',
+          numberProperty: 5,
+        };
+        const invalid: TestType = {
+          ...testInstance,
+          stringProperty: 'Invalid',
+          numberProperty: 1,
+        };
+        expect(otherValidator.validate(valid).stringProperty).toBeUndefined();
+        expect(otherValidator.validate(invalid).stringProperty).toBe(
+          'String property length must match number property value'
+        );
+      });
+
+      it('still allows the message to be overridden', () => {
+        class OtherValidator extends Validator<TestType> {
+          constructor() {
+            super();
+            this.ruleFor('stringProperty')
+              .must(beAtLeastTenCharactersLong)
+              .withMessage('Not long enough!');
+          }
+        }
+        const otherValidator = new OtherValidator();
+        const invalid: TestType = {
+          ...testInstance,
+          stringProperty: 'tooshort',
+        };
+        const result = otherValidator.validate(invalid);
+        expect(result.stringProperty).toBe('Not long enough!');
+      });
+
+      it('allows the message to depend on the value and model', () => {
+        const haveLengthEqualToTheNumberProperty = {
+          predicate: (value: string, model: TestType) =>
+            value.length === model.numberProperty,
+          message: (value: string, model: TestType) =>
+            `String property is ${value.length} characters long, but must be ${model.numberProperty} characters long`,
+        };
+        class OtherValidator extends Validator<TestType> {
+          constructor() {
+            {
+              super();
+              this.ruleFor('stringProperty').must(
+                haveLengthEqualToTheNumberProperty
+              );
+            }
+          }
+        }
+        const otherValidator = new OtherValidator();
+        const invalid: TestType = {
+          ...testInstance,
+          stringProperty: 'Four',
+          numberProperty: 10,
+        };
+        const result = otherValidator.validate(invalid);
+        expect(result.stringProperty).toBe(
+          'String property is 4 characters long, but must be 10 characters long'
+        );
+      });
+    });
+
+    describe('when passed an array of predicates and rule definitions', () => {
+      const beNumeric = (value: string) => !isNaN(Number(value));
+      const beAnInteger = {
+        predicate: (value: string) => Number(value) % 1 === 0,
+        message: 'Please enter a whole number',
+      };
+      const bePositive = {
+        predicate: (value: string) => Number(value) > 0,
+        message: (value: string) => `${value} is not a positive number`,
+      };
+      const bePositiveInteger = [beNumeric, beAnInteger, bePositive];
+
+      class TestValidator extends Validator<TestType> {
+        constructor() {
+          super();
+          this.ruleFor('stringProperty').must(bePositiveInteger);
+        }
+      }
+      const validator = new TestValidator();
+
+      it('gives a generic validation error if a predicate fails', () => {
+        expect(
+          validator.validate({ ...testInstance, stringProperty: 'notnumber' })
+            .stringProperty
+        ).toBe('Value is not valid');
+      });
+
+      it('gives an appropriate validation error if a rule definition fails', () => {
+        expect(
+          validator.validate({ ...testInstance, stringProperty: '44.4' })
+            .stringProperty
+        ).toBe('Please enter a whole number');
+
+        expect(
+          validator.validate({ ...testInstance, stringProperty: '-1' })
+            .stringProperty
+        ).toBe('-1 is not a positive number');
+      });
+
+      it('does not give a validation error if the property is valid according to all rules', () => {
+        expect(
+          validator.validate({ ...testInstance, stringProperty: '44' })
+            .stringProperty
+        ).toBeUndefined();
+      });
     });
   });
 
@@ -173,7 +346,9 @@ describe('base validators', () => {
     class TestValidator extends Validator<TestType> {
       constructor() {
         super();
-        this.ruleFor('nullableObjectProperty').setValidator(() => new SubValidator());
+        this.ruleFor('nullableObjectProperty').setValidator(
+          () => new SubValidator()
+        );
       }
     }
     const validator = new TestValidator();

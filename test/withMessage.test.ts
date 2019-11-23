@@ -1,12 +1,19 @@
 import { Validator } from '../src/index';
 
 describe('withMessage', () => {
+  const beAtLeastFiveCharactersLong = {
+    predicate: (value: string) => value.length >= 5,
+    message: 'Please enter at least 5 characters',
+  };
   class TestValidator extends Validator<TestType> {
     constructor() {
       super();
       this.ruleFor('numberProperty')
         .must(numberProperty => numberProperty % 2 === 0)
         .withMessage('Must be even');
+      this.ruleFor('stringProperty')
+        .must(beAtLeastFiveCharactersLong)
+        .withMessage('Too short!');
     }
   }
   const validator = new TestValidator();
@@ -18,6 +25,15 @@ describe('withMessage', () => {
     };
     const result = validator.validate(invalid);
     expect(result.numberProperty).toBe('Must be even');
+  });
+
+  it('overrides custom messages defined for `must` rules', () => {
+    const invalid: TestType = {
+      ...testInstance,
+      stringProperty: 'foo',
+    };
+    const result = validator.validate(invalid);
+    expect(result.stringProperty).toBe('Too short!');
   });
 
   it('gives no validation error if the value is valid', () => {

@@ -2,7 +2,7 @@ import { ValueValidationResult } from '../ValueValidationResult';
 import { ValueValidator } from '../ValueValidator';
 
 export class Rule<TModel, TValue> {
-  private customErrorMessage?: string;
+  protected customErrorMessage?: string;
   private whenCondition?: (model: TModel) => boolean;
   private unlessCondition?: (model: TModel) => boolean;
   private readonly valueValidator: ValueValidator<TModel, TValue>;

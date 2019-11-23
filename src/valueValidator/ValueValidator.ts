@@ -1,3 +1,4 @@
+import { MustRuleDefinition } from 'rules/MustRule';
 import { IValidator } from '../IValidator';
 import { ValueValidationResult } from '../ValueValidationResult';
 import { RuleValidatorsAndExtensions } from './RuleValidators';
@@ -31,7 +32,7 @@ export type BaseValueValidators<TModel, TValue> = {
   ) => RuleValidatorsAndExtensions<TModel, TValue>;
   equal: (requiredValue: TValue) => RuleValidatorsAndExtensions<TModel, TValue>;
   must: (
-    predicate: (value: TValue, model: TModel) => boolean
+    definition: MustRuleDefinition<TModel, TValue>
   ) => RuleValidatorsAndExtensions<TModel, TValue>;
 };
 
