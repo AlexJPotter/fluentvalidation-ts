@@ -1,4 +1,3 @@
-import { MustRuleDefinition } from 'rules/MustRule';
 import { IValidator } from '../IValidator';
 import { EmailAddressRule } from '../rules/EmailAddressRule';
 import { EqualRule } from '../rules/EqualRule';
@@ -109,7 +108,21 @@ export class ValueValidatorBuilder<TModel, TValue> {
     return this.getAllRulesAndExtensions();
   };
 
-  public must = (definition: MustRuleDefinition<TModel, TValue>) => {
+  public must = (
+    definition:
+      | ((value: TValue, model: TModel) => boolean)
+      | {
+          predicate: (value: TValue, model: TModel) => boolean;
+          message: string | ((value: TValue, model: TModel) => string);
+        }
+      | Array<
+          | ((value: TValue, model: TModel) => boolean)
+          | {
+              predicate: (value: TValue, model: TModel) => boolean;
+              message: string | ((value: TValue, model: TModel) => string);
+            }
+        >
+  ) => {
     const mustRule = new MustRule<TModel, TValue>(definition);
     this.pushRule(mustRule);
     return this.getAllRulesAndExtensions();

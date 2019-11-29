@@ -1,25 +1,21 @@
 import { Rule } from './Rule';
 
-export type MustRulePredicate<TModel, TValue> = (
-  value: TValue,
-  model: TModel
-) => boolean;
-
-export type MustRulePredicateAndErrorMessage<TModel, TValue> = {
-  predicate: MustRulePredicate<TModel, TValue>;
-  message: string | ((value: TValue, model: TModel) => string);
-};
-
-export type MustRuleDefinition<TModel, TValue> =
-  | MustRulePredicate<TModel, TValue>
-  | MustRulePredicateAndErrorMessage<TModel, TValue>
-  | Array<
-      | MustRulePredicate<TModel, TValue>
-      | MustRulePredicateAndErrorMessage<TModel, TValue>
-    >;
-
 export class MustRule<TModel, TValue> extends Rule<TModel, TValue> {
-  constructor(definition: MustRuleDefinition<TModel, TValue>) {
+  constructor(
+    definition:
+      | ((value: TValue, model: TModel) => boolean)
+      | {
+          predicate: (value: TValue, model: TModel) => boolean;
+          message: string | ((value: TValue, model: TModel) => string);
+        }
+      | Array<
+          | ((value: TValue, model: TModel) => boolean)
+          | {
+              predicate: (value: TValue, model: TModel) => boolean;
+              message: string | ((value: TValue, model: TModel) => string);
+            }
+        >
+  ) {
     super((value: TValue, model: TModel) => {
       if (Array.isArray(definition)) {
         for (const eachDefinition of definition) {

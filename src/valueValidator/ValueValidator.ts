@@ -1,4 +1,3 @@
-import { MustRuleDefinition } from 'rules/MustRule';
 import { IValidator } from '../IValidator';
 import { ValueValidationResult } from '../ValueValidationResult';
 import { RuleValidatorsAndExtensions } from './RuleValidators';
@@ -32,7 +31,19 @@ export type BaseValueValidators<TModel, TValue> = {
   ) => RuleValidatorsAndExtensions<TModel, TValue>;
   equal: (requiredValue: TValue) => RuleValidatorsAndExtensions<TModel, TValue>;
   must: (
-    definition: MustRuleDefinition<TModel, TValue>
+    definition:
+      | ((value: TValue, model: TModel) => boolean)
+      | {
+          predicate: (value: TValue, model: TModel) => boolean;
+          message: string | ((value: TValue, model: TModel) => string);
+        }
+      | Array<
+          | ((value: TValue, model: TModel) => boolean)
+          | {
+              predicate: (value: TValue, model: TModel) => boolean;
+              message: string | ((value: TValue, model: TModel) => string);
+            }
+        >
   ) => RuleValidatorsAndExtensions<TModel, TValue>;
 };
 
