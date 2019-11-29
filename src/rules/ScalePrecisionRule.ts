@@ -11,11 +11,16 @@ export class ScalePrecisionRule<TModel, TValue> extends Rule<TModel, TValue> {
           'A non-number value was passed to the scalePrecision rule'
         );
       }
-      const shiftedValue = value * Math.pow(10, precision);
-      if (shiftedValue % 1 !== 0 || shiftedValue.toString().length > scale) {
+      const regex = scalePrecisionRegex(scale, precision);
+      if (!regex.test(value.toString())) {
         return `Value must not be more than ${scale} digits in total, with allowance for ${precision} decimals`;
       }
       return null;
     });
   }
 }
+
+const scalePrecisionRegex = (scale: number, precision: number) =>
+  new RegExp(
+    `^(-)?([0-9]){0,${scale - precision}}(\\.[0-9]{0,${precision}})?$`
+  );

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1575027117825" clover="3.2.0">
-  <project timestamp="1575027117825" name="All files">
-    <metrics statements="379" coveredstatements="379" conditionals="194" coveredconditionals="194" methods="108" coveredmethods="108" elements="681" coveredelements="681" complexity="0" loc="379" ncloc="379" packages="3" files="24" classes="24"/>
+<coverage generated="1575027378048" clover="3.2.0">
+  <project timestamp="1575027378048" name="All files">
+    <metrics statements="381" coveredstatements="381" conditionals="192" coveredconditionals="192" methods="109" coveredmethods="109" elements="682" coveredelements="682" complexity="0" loc="381" ncloc="381" packages="3" files="24" classes="24"/>
     <package name="src">
       <metrics statements="32" coveredstatements="32" conditionals="6" coveredconditionals="6" methods="7" coveredmethods="7"/>
       <file name="index.ts" path="C:\workspace\fluentvalidation-ts\src\index.ts">
@@ -9,29 +9,29 @@
         <line num="2" count="9" type="stmt"/>
         <line num="4" count="9" type="stmt"/>
         <line num="5" count="9" type="stmt"/>
-        <line num="22" count="71" type="stmt"/>
-        <line num="23" count="62" type="stmt"/>
-        <line num="27" count="62" type="stmt"/>
+        <line num="22" count="72" type="stmt"/>
+        <line num="23" count="63" type="stmt"/>
+        <line num="27" count="63" type="stmt"/>
         <line num="28" count="1" type="stmt"/>
-        <line num="31" count="62" type="stmt"/>
-        <line num="32" count="120" type="stmt"/>
-        <line num="33" count="123" type="stmt"/>
-        <line num="35" count="146" type="stmt"/>
-        <line num="38" count="146" type="stmt"/>
-        <line num="41" count="292" type="stmt"/>
-        <line num="42" count="151" type="stmt"/>
-        <line num="43" count="151" type="stmt"/>
-        <line num="47" count="138" type="cond" truecount="2" falsecount="0"/>
-        <line num="48" count="60" type="stmt"/>
-        <line num="53" count="110" type="stmt"/>
-        <line num="57" count="62" type="stmt"/>
-        <line num="58" count="124" type="stmt"/>
-        <line num="61" count="62" type="stmt"/>
-        <line num="67" count="76" type="stmt"/>
-        <line num="71" count="76" type="stmt"/>
-        <line num="74" count="76" type="stmt"/>
-        <line num="78" count="76" type="stmt"/>
-        <line num="84" count="62" type="stmt"/>
+        <line num="31" count="63" type="stmt"/>
+        <line num="32" count="121" type="stmt"/>
+        <line num="33" count="140" type="stmt"/>
+        <line num="35" count="163" type="stmt"/>
+        <line num="38" count="163" type="stmt"/>
+        <line num="41" count="326" type="stmt"/>
+        <line num="42" count="168" type="stmt"/>
+        <line num="43" count="168" type="stmt"/>
+        <line num="47" count="155" type="cond" truecount="2" falsecount="0"/>
+        <line num="48" count="68" type="stmt"/>
+        <line num="53" count="127" type="stmt"/>
+        <line num="57" count="63" type="stmt"/>
+        <line num="58" count="141" type="stmt"/>
+        <line num="61" count="63" type="stmt"/>
+        <line num="67" count="77" type="stmt"/>
+        <line num="71" count="77" type="stmt"/>
+        <line num="74" count="77" type="stmt"/>
+        <line num="78" count="77" type="stmt"/>
+        <line num="84" count="63" type="stmt"/>
         <line num="102" count="7" type="stmt"/>
         <line num="107" count="7" type="cond" truecount="2" falsecount="0"/>
         <line num="108" count="6" type="stmt"/>
@@ -41,7 +41,7 @@
       </file>
     </package>
     <package name="src.rules">
-      <metrics statements="179" coveredstatements="179" conditionals="164" coveredconditionals="164" methods="63" coveredmethods="63"/>
+      <metrics statements="181" coveredstatements="181" conditionals="162" coveredconditionals="162" methods="64" coveredmethods="64"/>
       <file name="EmailAddressRule.ts" path="C:\workspace\fluentvalidation-ts\src\rules\EmailAddressRule.ts">
         <metrics statements="10" coveredstatements="10" conditionals="8" coveredconditionals="8" methods="3" coveredmethods="3"/>
         <line num="1" count="9" type="stmt"/>
@@ -241,37 +241,39 @@
       <file name="Rule.ts" path="C:\workspace\fluentvalidation-ts\src\rules\Rule.ts">
         <metrics statements="17" coveredstatements="17" conditionals="12" coveredconditionals="12" methods="6" coveredmethods="6"/>
         <line num="4" count="9" type="stmt"/>
-        <line num="10" count="91" type="stmt"/>
-        <line num="11" count="91" type="stmt"/>
-        <line num="14" count="91" type="stmt"/>
+        <line num="10" count="92" type="stmt"/>
+        <line num="11" count="92" type="stmt"/>
+        <line num="14" count="92" type="stmt"/>
         <line num="15" count="17" type="stmt"/>
-        <line num="18" count="91" type="stmt"/>
+        <line num="18" count="92" type="stmt"/>
         <line num="19" count="10" type="stmt"/>
-        <line num="22" count="91" type="stmt"/>
+        <line num="22" count="92" type="stmt"/>
         <line num="23" count="7" type="stmt"/>
-        <line num="26" count="91" type="stmt"/>
-        <line num="30" count="177" type="cond" truecount="4" falsecount="0"/>
+        <line num="26" count="92" type="stmt"/>
+        <line num="30" count="194" type="cond" truecount="4" falsecount="0"/>
         <line num="31" count="6" type="stmt"/>
-        <line num="34" count="171" type="cond" truecount="4" falsecount="0"/>
+        <line num="34" count="188" type="cond" truecount="4" falsecount="0"/>
         <line num="35" count="10" type="stmt"/>
-        <line num="38" count="161" type="stmt"/>
-        <line num="39" count="148" type="cond" truecount="4" falsecount="0"/>
+        <line num="38" count="178" type="stmt"/>
+        <line num="39" count="165" type="cond" truecount="4" falsecount="0"/>
         <line num="41" count="9" type="stmt"/>
       </file>
       <file name="ScalePrecisionRule.ts" path="C:\workspace\fluentvalidation-ts\src\rules\ScalePrecisionRule.ts">
-        <metrics statements="12" coveredstatements="12" conditionals="10" coveredconditionals="10" methods="3" coveredmethods="3"/>
+        <metrics statements="14" coveredstatements="14" conditionals="8" coveredconditionals="8" methods="4" coveredmethods="4"/>
         <line num="1" count="9" type="stmt"/>
         <line num="3" count="9" type="stmt"/>
-        <line num="5" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="6" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="5" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="6" count="22" type="cond" truecount="2" falsecount="0"/>
         <line num="7" count="1" type="stmt"/>
-        <line num="9" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="9" count="21" type="cond" truecount="2" falsecount="0"/>
         <line num="10" count="1" type="stmt"/>
-        <line num="14" count="3" type="stmt"/>
-        <line num="15" count="3" type="cond" truecount="4" falsecount="0"/>
-        <line num="16" count="2" type="stmt"/>
-        <line num="18" count="1" type="stmt"/>
+        <line num="14" count="20" type="stmt"/>
+        <line num="15" count="20" type="cond" truecount="2" falsecount="0"/>
+        <line num="16" count="10" type="stmt"/>
+        <line num="18" count="10" type="stmt"/>
         <line num="21" count="9" type="stmt"/>
+        <line num="23" count="9" type="stmt"/>
+        <line num="24" count="20" type="stmt"/>
       </file>
       <file name="ValidatorRule.ts" path="C:\workspace\fluentvalidation-ts\src\rules\ValidatorRule.ts">
         <metrics statements="5" coveredstatements="5" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3"/>
@@ -307,14 +309,14 @@
       <file name="ValueValidator.ts" path="C:\workspace\fluentvalidation-ts\src\valueValidator\ValueValidator.ts">
         <metrics statements="9" coveredstatements="9" conditionals="6" coveredconditionals="6" methods="2" coveredmethods="2"/>
         <line num="6" count="9" type="stmt"/>
-        <line num="9" count="374" type="cond" truecount="2" falsecount="0"/>
-        <line num="10" count="225" type="stmt"/>
-        <line num="13" count="149" type="cond" truecount="2" falsecount="0"/>
+        <line num="9" count="408" type="cond" truecount="2" falsecount="0"/>
+        <line num="10" count="243" type="stmt"/>
+        <line num="13" count="165" type="cond" truecount="2" falsecount="0"/>
         <line num="14" count="14" type="stmt"/>
         <line num="15" count="37" type="stmt"/>
-        <line num="20" count="135" type="cond" truecount="2" falsecount="0"/>
+        <line num="20" count="151" type="cond" truecount="2" falsecount="0"/>
         <line num="21" count="21" type="stmt"/>
-        <line num="24" count="114" type="stmt"/>
+        <line num="24" count="130" type="stmt"/>
       </file>
       <file name="ValueValidatorBuilder.ts" path="C:\workspace\fluentvalidation-ts\src\valueValidator\ValueValidatorBuilder.ts">
         <metrics statements="142" coveredstatements="142" conditionals="12" coveredconditionals="12" methods="30" coveredmethods="30"/>
@@ -339,25 +341,25 @@
         <line num="22" count="9" type="stmt"/>
         <line num="25" count="9" type="stmt"/>
         <line num="27" count="9" type="stmt"/>
-        <line num="28" count="83" type="stmt"/>
-        <line num="31" count="83" type="stmt"/>
-        <line num="32" count="83" type="stmt"/>
-        <line num="35" count="83" type="stmt"/>
-        <line num="36" count="149" type="stmt"/>
-        <line num="37" count="177" type="stmt"/>
-        <line num="38" count="177" type="stmt"/>
-        <line num="39" count="164" type="cond" truecount="2" falsecount="0"/>
-        <line num="40" count="61" type="stmt"/>
-        <line num="44" count="90" type="stmt"/>
-        <line num="48" count="83" type="stmt"/>
-        <line num="49" count="91" type="stmt"/>
-        <line num="50" count="91" type="stmt"/>
-        <line num="53" count="83" type="stmt"/>
+        <line num="28" count="84" type="stmt"/>
+        <line num="31" count="84" type="stmt"/>
+        <line num="32" count="84" type="stmt"/>
+        <line num="35" count="84" type="stmt"/>
+        <line num="36" count="166" type="stmt"/>
+        <line num="37" count="194" type="stmt"/>
+        <line num="38" count="194" type="stmt"/>
+        <line num="39" count="181" type="cond" truecount="2" falsecount="0"/>
+        <line num="40" count="69" type="stmt"/>
+        <line num="44" count="99" type="stmt"/>
+        <line num="48" count="84" type="stmt"/>
+        <line num="49" count="92" type="stmt"/>
+        <line num="50" count="92" type="stmt"/>
+        <line num="53" count="84" type="stmt"/>
         <line num="54" count="17" type="stmt"/>
         <line num="55" count="17" type="stmt"/>
         <line num="56" count="17" type="stmt"/>
         <line num="57" count="17" type="stmt"/>
-        <line num="64" count="83" type="stmt"/>
+        <line num="64" count="84" type="stmt"/>
         <line num="66" count="12" type="cond" truecount="2" falsecount="0"/>
         <line num="70" count="7" type="cond" truecount="2" falsecount="0"/>
         <line num="71" count="9" type="stmt"/>
@@ -366,7 +368,7 @@
         <line num="76" count="1" type="stmt"/>
         <line num="78" count="7" type="stmt"/>
         <line num="79" count="7" type="stmt"/>
-        <line num="82" count="83" type="stmt"/>
+        <line num="82" count="84" type="stmt"/>
         <line num="84" count="8" type="cond" truecount="2" falsecount="0"/>
         <line num="88" count="5" type="cond" truecount="2" falsecount="0"/>
         <line num="89" count="6" type="stmt"/>
@@ -375,89 +377,89 @@
         <line num="94" count="1" type="stmt"/>
         <line num="96" count="5" type="stmt"/>
         <line num="97" count="5" type="stmt"/>
-        <line num="100" count="83" type="stmt"/>
+        <line num="100" count="84" type="stmt"/>
         <line num="101" count="1" type="stmt"/>
         <line num="102" count="1" type="stmt"/>
         <line num="103" count="1" type="stmt"/>
-        <line num="106" count="83" type="stmt"/>
+        <line num="106" count="84" type="stmt"/>
         <line num="107" count="1" type="stmt"/>
         <line num="108" count="1" type="stmt"/>
         <line num="109" count="1" type="stmt"/>
-        <line num="112" count="83" type="stmt"/>
+        <line num="112" count="84" type="stmt"/>
         <line num="113" count="15" type="stmt"/>
         <line num="114" count="15" type="stmt"/>
         <line num="115" count="15" type="stmt"/>
-        <line num="118" count="83" type="stmt"/>
+        <line num="118" count="84" type="stmt"/>
         <line num="119" count="6" type="stmt"/>
         <line num="120" count="6" type="stmt"/>
         <line num="121" count="6" type="stmt"/>
-        <line num="124" count="83" type="stmt"/>
+        <line num="124" count="84" type="stmt"/>
         <line num="125" count="1" type="stmt"/>
         <line num="126" count="1" type="stmt"/>
         <line num="127" count="1" type="stmt"/>
-        <line num="130" count="83" type="stmt"/>
+        <line num="130" count="84" type="stmt"/>
         <line num="131" count="19" type="stmt"/>
         <line num="132" count="19" type="stmt"/>
         <line num="133" count="19" type="stmt"/>
-        <line num="136" count="83" type="stmt"/>
+        <line num="136" count="84" type="stmt"/>
         <line num="137" count="4" type="stmt"/>
         <line num="138" count="4" type="stmt"/>
         <line num="139" count="4" type="stmt"/>
-        <line num="142" count="83" type="stmt"/>
+        <line num="142" count="84" type="stmt"/>
         <line num="143" count="2" type="stmt"/>
         <line num="144" count="2" type="stmt"/>
         <line num="145" count="2" type="stmt"/>
-        <line num="148" count="83" type="stmt"/>
+        <line num="148" count="84" type="stmt"/>
         <line num="149" count="2" type="stmt"/>
         <line num="150" count="2" type="stmt"/>
         <line num="151" count="2" type="stmt"/>
-        <line num="154" count="83" type="stmt"/>
+        <line num="154" count="84" type="stmt"/>
         <line num="155" count="2" type="stmt"/>
         <line num="156" count="2" type="stmt"/>
         <line num="157" count="2" type="stmt"/>
-        <line num="160" count="83" type="stmt"/>
+        <line num="160" count="84" type="stmt"/>
         <line num="161" count="2" type="stmt"/>
         <line num="162" count="2" type="stmt"/>
         <line num="163" count="2" type="stmt"/>
-        <line num="166" count="83" type="stmt"/>
+        <line num="166" count="84" type="stmt"/>
         <line num="167" count="2" type="stmt"/>
         <line num="168" count="2" type="stmt"/>
         <line num="169" count="2" type="stmt"/>
-        <line num="172" count="83" type="stmt"/>
+        <line num="172" count="84" type="stmt"/>
         <line num="173" count="2" type="stmt"/>
         <line num="176" count="2" type="stmt"/>
         <line num="177" count="2" type="stmt"/>
-        <line num="180" count="83" type="stmt"/>
+        <line num="180" count="84" type="stmt"/>
         <line num="181" count="4" type="stmt"/>
         <line num="182" count="4" type="stmt"/>
         <line num="183" count="4" type="stmt"/>
-        <line num="186" count="83" type="stmt"/>
+        <line num="186" count="84" type="stmt"/>
         <line num="187" count="3" type="stmt"/>
         <line num="191" count="3" type="stmt"/>
         <line num="192" count="3" type="stmt"/>
-        <line num="195" count="83" type="stmt"/>
+        <line num="195" count="84" type="stmt"/>
         <line num="196" count="2" type="stmt"/>
         <line num="200" count="2" type="stmt"/>
         <line num="201" count="2" type="stmt"/>
-        <line num="204" count="83" type="stmt"/>
+        <line num="204" count="84" type="stmt"/>
         <line num="205" count="9" type="stmt"/>
         <line num="209" count="9" type="stmt"/>
         <line num="210" count="9" type="stmt"/>
-        <line num="213" count="83" type="stmt"/>
+        <line num="213" count="84" type="stmt"/>
         <line num="216" count="12" type="stmt"/>
         <line num="219" count="12" type="stmt"/>
         <line num="220" count="12" type="stmt"/>
-        <line num="223" count="83" type="stmt"/>
-        <line num="224" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="223" count="84" type="stmt"/>
+        <line num="224" count="4" type="cond" truecount="2" falsecount="0"/>
         <line num="225" count="1" type="stmt"/>
-        <line num="229" count="2" type="stmt"/>
-        <line num="233" count="2" type="stmt"/>
-        <line num="234" count="2" type="stmt"/>
-        <line num="237" count="83" type="stmt"/>
-        <line num="238" count="203" type="stmt"/>
-        <line num="261" count="83" type="stmt"/>
-        <line num="262" count="91" type="stmt"/>
-        <line num="270" count="83" type="stmt"/>
+        <line num="229" count="3" type="stmt"/>
+        <line num="233" count="3" type="stmt"/>
+        <line num="234" count="3" type="stmt"/>
+        <line num="237" count="84" type="stmt"/>
+        <line num="238" count="205" type="stmt"/>
+        <line num="261" count="84" type="stmt"/>
+        <line num="262" count="92" type="stmt"/>
+        <line num="270" count="84" type="stmt"/>
         <line num="271" count="19" type="stmt"/>
         <line num="273" count="9" type="stmt"/>
       </file>

@@ -628,6 +628,8 @@ Value must be null
 
 Ensures that the value of the specified number property has the given scale and precision.
 
+**Note:** Due to rounding issues with floating point numbers in JavaScript this rule may not function as expected for large scales/precisions.
+
 | Parameter   | Type     | Description                                                                                                                    |
 | ----------- | -------- | ------------------------------------------------------------------------------------------------------------------------------ |
 | `precision` | `number` | The maximum number of digits after the decimal place that the value may have.                                                  |

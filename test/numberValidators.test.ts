@@ -382,6 +382,15 @@ describe('number validators', () => {
       expect(result.nullableNumberProperty).toBeUndefined();
     });
 
+    it('does not give a validation error if the value is negative and at the correct scale and precision', () => {
+      const valid: TestType = {
+        ...testInstance,
+        nullableNumberProperty: -12.34,
+      };
+      const result = validator.validate(valid);
+      expect(result.nullableNumberProperty).toBeUndefined();
+    });
+
     it('gives a validation error if there are too many decimal digits', () => {
       const invalid: TestType = {
         ...testInstance,
@@ -393,7 +402,29 @@ describe('number validators', () => {
       );
     });
 
+    it('gives a validation error if the value is negative and there are too many decimal digits', () => {
+      const invalid: TestType = {
+        ...testInstance,
+        nullableNumberProperty: -1.234,
+      };
+      const result = validator.validate(invalid);
+      expect(result.nullableNumberProperty).toBe(
+        'Value must not be more than 4 digits in total, with allowance for 2 decimals'
+      );
+    });
+
     it('gives a validation error if there are too many digits in total', () => {
+      const invalid: TestType = {
+        ...testInstance,
+        nullableNumberProperty: 123.45,
+      };
+      const result = validator.validate(invalid);
+      expect(result.nullableNumberProperty).toBe(
+        'Value must not be more than 4 digits in total, with allowance for 2 decimals'
+      );
+    });
+
+    it('gives a validation error if the value is negative and there are too many digits in total', () => {
       const invalid: TestType = {
         ...testInstance,
         nullableNumberProperty: 123.45,
@@ -428,6 +459,56 @@ describe('number validators', () => {
       expect(() => otherValidator.validate({ name: 'Alex' })).toThrowError(
         TypeError
       );
+    });
+
+    it('handles large scales and precisions', () => {
+      class OtherValidator extends Validator<TestType> {
+        constructor() {
+          super();
+          this.ruleFor('numberProperty').scalePrecision(7, 14);
+        }
+      }
+      const otherValidator = new OtherValidator();
+
+      const validValues = [
+        1234567.1234567,
+        0.9999999,
+        9999999,
+        9999999.9999999,
+        -1234567.1234567,
+        -0.9999999,
+        -9999999,
+        -9999999.9999999,
+      ];
+
+      for (const validValue of validValues) {
+        expect(
+          otherValidator.validate({
+            ...testInstance,
+            numberProperty: validValue,
+          }).numberProperty
+        ).toBeUndefined();
+      }
+
+      const invalidValues = [
+        1234567.12345678,
+        0.99999999,
+        99999999,
+        -12345678.12345678,
+        -0.99999999,
+        -99999999.99999999,
+      ];
+
+      for (const invalidValue of invalidValues) {
+        expect(
+          otherValidator.validate({
+            ...testInstance,
+            numberProperty: invalidValue,
+          }).numberProperty
+        ).toBe(
+          'Value must not be more than 14 digits in total, with allowance for 7 decimals'
+        );
+      }
     });
   });
 });
