@@ -485,15 +485,15 @@ With this variation you specify both a predicate and the error message that shou
 
 | Parameter    | Type                                                                                                                                                                                                                      | Description                                                                                                                                                   |
 | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `definition` | `{ predicate: (value: TValue, model: TModel) => boolean; message: string | ((value: TValue, model: TModel) => string) }` (where `TValue` matches the type of the property, and `TModel` is the type of the parent object) | An object that defines both a predicate to use in determining whether the property is valid, and a message (or message generator) to use if validation fails. |
+| `definition` | `{ predicate: (value: TValue, model: TModel) => boolean; message: string ǀ ((value: TValue, model: TModel) => string) }` (where `TValue` matches the type of the property, and `TModel` is the type of the parent object) | An object that defines both a predicate to use in determining whether the property is valid, and a message (or message generator) to use if validation fails. |
 
 Example usage:
 
 ```typescript
 // Define a reusable rule and store it in a shared variable:
 export const beEven = {
-  predicate: (value: number) => value % 2 === 0;
-  message: 'Must be an even number';
+  predicate: (value: number) => value % 2 === 0,
+  message: 'Must be an even number',
 };
 
 // Then, inside the constructor of your validator:
@@ -512,25 +512,25 @@ With this variation you can specify an array of predicates and/or rule definitio
 
 | Parameter    | Type                                                                                                                                                                                                                                                                                    | Description                                                                                                                                                                  |
 | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `definition` | `Array<predicate: (value: TValue, model: TModel) => boolean | { predicate: (value: TValue, model: TModel) => boolean; message: string | ((value: TValue, model: TModel) => string) }>` (where `TValue` matches the type of the property, and `TModel` is the type of the parent object) | An array containing predicates and/or rule definitions, which will be executed in order to determine whether the property is valid and give a relevant error message if not. |
+| `definition` | `Array<predicate: (value: TValue, model: TModel) => boolean ǀ { predicate: (value: TValue, model: TModel) => boolean; message: string ǀ ((value: TValue, model: TModel) => string) }>` (where `TValue` matches the type of the property, and `TModel` is the type of the parent object) | An array containing predicates and/or rule definitions, which will be executed in order to determine whether the property is valid and give a relevant error message if not. |
 
 Example usage:
 
 ```typescript
 // Define some reusable rules:
 export const beNumeric = {
-  predicate: (value: string) => !isNaN(Number(value));
-  message: 'Please enter a number';
+  predicate: (value: string) => !isNaN(Number(value)),
+  message: 'Please enter a number',
 };
 
 export const beAnInteger = {
-  predicate: (value: string) => Number(value) % 1 === 0;
-  message: 'Please enter a whole number';
+  predicate: (value: string) => Number(value) % 1 === 0,
+  message: 'Please enter a whole number',
 };
 
 export const bePositive = {
-  predicate: (value: string) => Number(value) > 0;
-  message: 'Please enter a positive number';
+  predicate: (value: string) => Number(value) > 0,
+  message: 'Please enter a positive number',
 };
 
 // Define a compound rule via a collection of rules:
