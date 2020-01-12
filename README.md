@@ -1,4 +1,4 @@
-<div align="center">
+<div align="center" style="background-color: #141c2f; padding: 30px 0 10px 0">
   <img
     height="75"
     alt="Logo."
