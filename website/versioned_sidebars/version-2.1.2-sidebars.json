@@ -1,0 +1,46 @@
+{
+  "version-2.1.2-docs": {
+    "Getting Started": [
+      "version-2.1.2-overview",
+      "version-2.1.2-tutorial"
+    ],
+    "Guides": [
+      "version-2.1.2-guides/customRules",
+      "version-2.1.2-guides/objectProperties",
+      "version-2.1.2-guides/arrayProperties",
+      "version-2.1.2-guides/ambientContext"
+    ],
+    "Core API": [
+      "version-2.1.2-api/core/validator",
+      "version-2.1.2-api/core/validationErrors",
+      "version-2.1.2-api/core/ruleFor",
+      "version-2.1.2-api/core/ruleForEach"
+    ],
+    "Configuration": [
+      "version-2.1.2-api/configuration/withMessage",
+      "version-2.1.2-api/configuration/when",
+      "version-2.1.2-api/configuration/unless"
+    ],
+    "Validation Rules": [
+      "version-2.1.2-api/rules/emailAddress",
+      "version-2.1.2-api/rules/equal",
+      "version-2.1.2-api/rules/exclusiveBetween",
+      "version-2.1.2-api/rules/greaterThan",
+      "version-2.1.2-api/rules/greaterThanOrEqualTo",
+      "version-2.1.2-api/rules/inclusiveBetween",
+      "version-2.1.2-api/rules/length",
+      "version-2.1.2-api/rules/lessThan",
+      "version-2.1.2-api/rules/lessThanOrEqualTo",
+      "version-2.1.2-api/rules/matches",
+      "version-2.1.2-api/rules/maxLength",
+      "version-2.1.2-api/rules/minLength",
+      "version-2.1.2-api/rules/must",
+      "version-2.1.2-api/rules/notEmpty",
+      "version-2.1.2-api/rules/notEqual",
+      "version-2.1.2-api/rules/notNull",
+      "version-2.1.2-api/rules/null-rule",
+      "version-2.1.2-api/rules/scalePrecision",
+      "version-2.1.2-api/rules/setValidator"
+    ]
+  }
+}

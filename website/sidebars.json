@@ -1,0 +1,43 @@
+{
+  "docs": {
+    "Getting Started": ["overview", "tutorial"],
+    "Guides": [
+      "guides/customRules",
+      "guides/objectProperties",
+      "guides/arrayProperties",
+      "guides/ambientContext"
+    ],
+    "Core API": [
+      "api/core/validator",
+      "api/core/validationErrors",
+      "api/core/ruleFor",
+      "api/core/ruleForEach"
+    ],
+    "Configuration": [
+      "api/configuration/withMessage",
+      "api/configuration/when",
+      "api/configuration/unless"
+    ],
+    "Validation Rules": [
+      "api/rules/emailAddress",
+      "api/rules/equal",
+      "api/rules/exclusiveBetween",
+      "api/rules/greaterThan",
+      "api/rules/greaterThanOrEqualTo",
+      "api/rules/inclusiveBetween",
+      "api/rules/length",
+      "api/rules/lessThan",
+      "api/rules/lessThanOrEqualTo",
+      "api/rules/matches",
+      "api/rules/maxLength",
+      "api/rules/minLength",
+      "api/rules/must",
+      "api/rules/notEmpty",
+      "api/rules/notEqual",
+      "api/rules/notNull",
+      "api/rules/null-rule",
+      "api/rules/scalePrecision",
+      "api/rules/setValidator"
+    ]
+  }
+}
