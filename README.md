@@ -1,9 +1,10 @@
-<div align="center" style="background-color: #141c2f; padding: 30px 0 10px 0">
+<div align="center">
   <img
-    height="75"
+    height="180"
     alt="Logo."
-    src="https://alexpotter.dev/fluentvalidation-ts/img/logo-text.svg"
+    src="https://raw.githubusercontent.com/AlexJPotter/fluentvalidation-ts/master/logo.png"
   />
+  <h1>fluentvalidation-ts</h1>
   <h2>Strong, simple, extensible validation.</h2>
 </div>
 

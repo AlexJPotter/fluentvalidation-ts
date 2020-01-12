@@ -1,6 +1,6 @@
 {
   "name": "fluentvalidation-ts",
-  "version": "2.1.4",
+  "version": "2.1.5",
   "description": "A TypeScript-first library for building strongly-typed validation rules",
   "keywords": [
     "fluent",
