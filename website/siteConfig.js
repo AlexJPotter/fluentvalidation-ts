@@ -23,8 +23,8 @@ const users = [
 const siteConfig = {
   title: 'fluentvalidation-ts', // Title for your website.
   tagline: `Strong, simple, extensible validation.`,
-  url: 'https://alexpotter.dev', // Your website URL
-  baseUrl: '/fluentvalidation-ts/', // Base URL for your project */
+  url: 'https://fluentvalidation-ts.alexpotter.dev', // Your website URL
+  baseUrl: '/', // Base URL for your project */
   // For github.io type URLs, you would set the url and baseUrl like:
   //   url: 'https://facebook.github.io',
   //   baseUrl: '/test-site/',
@@ -90,10 +90,10 @@ const siteConfig = {
   scripts: [
     'https://buttons.github.io/buttons.js',
     'https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js',
-    '/fluentvalidation-ts/js/code-block-buttons.js',
+    '/js/code-block-buttons.js',
   ],
 
-  stylesheets: ['/fluentvalidation-ts/css/code-block-buttons.css'],
+  stylesheets: ['/css/code-block-buttons.css'],
 
   // On page navigation for the current documentation page.
   onPageNav: 'separate',

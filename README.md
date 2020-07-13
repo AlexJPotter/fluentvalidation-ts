@@ -21,7 +21,7 @@
 
 <hr />
 
-Visit [https://alexpotter.dev/fluentvalidation-ts](https://alexpotter.dev/fluentvalidation-ts) to get started with fluentvalidation-ts.
+Visit [https://fluentvalidation-ts.alexpotter.dev](https://fluentvalidation-ts.alexpotter.dev) to get started with fluentvalidation-ts.
 
 <hr />
 
@@ -41,14 +41,14 @@ Whatever your validation needs, fluentvalidation-ts can handle them.
 
 ## Docs
 
-Full documentation, including a tutorial and a number of useful guides, is available at the [official fluentvalidation-ts website](https://alexpotter.dev/fluentvalidation-ts).
+Full documentation, including a tutorial and a number of useful guides, is available at the [official fluentvalidation-ts website](https://fluentvalidation-ts.alexpotter.dev).
 
-* [Overview](https://alexpotter.dev/fluentvalidation-ts/docs/overview)
-* [Tutorial](https://alexpotter.dev/fluentvalidation-ts/docs/tutorial)
-* [Guides](https://alexpotter.dev/fluentvalidation-ts/docs/guides/customrules)
-* [Core API Reference](https://alexpotter.dev/fluentvalidation-ts/docs/api/core/validator)
-* [Validation Rules API Reference](https://alexpotter.dev/fluentvalidation-ts/docs/api/rules/emailaddress)
-* [Releases](https://github.com/AlexJPotter/fluentvalidation-ts/releases)
+- [Overview](https://fluentvalidation-ts.alexpotter.dev/docs/overview)
+- [Tutorial](https://fluentvalidation-ts.alexpotter.dev/docs/tutorial)
+- [Guides](https://fluentvalidation-ts.alexpotter.dev/docs/guides/customrules)
+- [Core API Reference](https://fluentvalidation-ts.alexpotter.dev/docs/api/core/validator)
+- [Validation Rules API Reference](https://fluentvalidation-ts.alexpotter.dev/docs/api/rules/emailaddress)
+- [Releases](https://github.com/AlexJPotter/fluentvalidation-ts/releases)
 
 <hr />
 
