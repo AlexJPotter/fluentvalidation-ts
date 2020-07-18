@@ -1,6 +1,6 @@
 {
   "name": "fluentvalidation-ts",
-  "version": "2.1.6",
+  "version": "2.2.0",
   "description": "A TypeScript-first library for building strongly-typed validation rules",
   "keywords": [
     "fluent",
@@ -50,7 +50,7 @@
     "singleQuote": true
   },
   "devDependencies": {
-    "@types/jest": "^26.0.4",
+    "@types/jest": "^26.0.5",
     "cross-env": "^7.0.2",
     "husky": "^4.2.5",
     "prettier": "^2.0.5",
@@ -59,6 +59,6 @@
     "tslib": "^2.0.0",
     "tslint": "^6.1.2",
     "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.9.6"
+    "typescript": "^3.9.7"
   }
 }

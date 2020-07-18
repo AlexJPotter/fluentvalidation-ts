@@ -1,27 +1,14 @@
+import { CoreRule } from './CoreRule';
 import { ValueValidationResult } from '../ValueValidationResult';
 import { ValueValidator } from '../ValueValidator';
 
-export class Rule<TModel, TValue> {
-  protected customErrorMessage?: string;
-  private whenCondition?: (model: TModel) => boolean;
-  private unlessCondition?: (model: TModel) => boolean;
+export class Rule<TModel, TValue> extends CoreRule<TModel> {
   private readonly valueValidator: ValueValidator<TModel, TValue>;
 
   constructor(valueValidator: ValueValidator<TModel, TValue>) {
+    super();
     this.valueValidator = valueValidator;
   }
-
-  public setCustomErrorMessage = (customErrorMessage: string): void => {
-    this.customErrorMessage = customErrorMessage;
-  };
-
-  public setWhenCondition = (condition: (model: TModel) => boolean) => {
-    this.whenCondition = condition;
-  };
-
-  public setUnlessCondition = (condition: (model: TModel) => boolean) => {
-    this.unlessCondition = condition;
-  };
 
   public validate = (
     value: TValue,

@@ -9,6 +9,7 @@
     ],
     "Core API": [
       "api/core/validator",
+      "api/core/asyncValidator",
       "api/core/validationErrors",
       "api/core/ruleFor",
       "api/core/ruleForEach"
@@ -32,12 +33,14 @@
       "api/rules/maxLength",
       "api/rules/minLength",
       "api/rules/must",
+      "api/rules/mustAsync",
       "api/rules/notEmpty",
       "api/rules/notEqual",
       "api/rules/notNull",
       "api/rules/null-rule",
       "api/rules/scalePrecision",
-      "api/rules/setValidator"
+      "api/rules/setValidator",
+      "api/rules/setAsyncValidator"
     ]
   }
 }

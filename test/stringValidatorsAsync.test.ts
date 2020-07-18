@@ -1,8 +1,8 @@
-import { Validator } from '../src/index';
+import { AsyncValidator } from '../src/index';
 
-describe('string validators (sync)', () => {
+describe('string validators (async)', () => {
   describe('notEmpty', () => {
-    class TestValidator extends Validator<TestType> {
+    class TestValidator extends AsyncValidator<TestType> {
       constructor() {
         super();
         this.ruleFor('nullableStringProperty').notEmpty();
@@ -10,36 +10,36 @@ describe('string validators (sync)', () => {
     }
     const validator = new TestValidator();
 
-    it('gives a validation error if the string is empty', () => {
+    it('gives a validation error if the string is empty', async () => {
       const invalid: TestType = {
         ...testInstance,
         nullableStringProperty: '  ',
       };
-      const result = validator.validate(invalid);
+      const result = await validator.validateAsync(invalid);
       expect(result.nullableStringProperty).toBe('Value cannot be empty');
     });
 
-    it('does not give a validation error if the string is not empty', () => {
+    it('does not give a validation error if the string is not empty', async () => {
       const valid: TestType = {
         ...testInstance,
         nullableStringProperty: 'Not empty',
       };
-      const result = validator.validate(valid);
+      const result = await validator.validateAsync(valid);
       expect(result.nullableStringProperty).toBeUndefined();
     });
 
-    it('does not give a validation error if the string is null', () => {
+    it('does not give a validation error if the string is null', async () => {
       const valid: TestType = {
         ...testInstance,
         nullableStringProperty: null,
       };
-      const result = validator.validate(valid);
+      const result = await validator.validateAsync(valid);
       expect(result.nullableStringProperty).toBeUndefined();
     });
 
-    it('throws an error if it receives a non-string value', () => {
+    it('throws an error if it receives a non-string value', async () => {
       type OtherTestType = { age: number };
-      class OtherTestTypeValidator extends Validator<OtherTestType> {
+      class OtherTestTypeValidator extends AsyncValidator<OtherTestType> {
         constructor() {
           super();
           (this.ruleFor('age') as any).notEmpty();
@@ -47,16 +47,20 @@ describe('string validators (sync)', () => {
       }
       const otherValidator = new OtherTestTypeValidator();
 
-      expect(() => otherValidator.validate({ age: 10 })).toThrowError(
-        TypeError
-      );
+      try {
+        await otherValidator.validateAsync({ age: 10 });
+      } catch (error) {
+        expect(() => {
+          throw error;
+        }).toThrowError(TypeError);
+      }
     });
   });
 
   describe('length', () => {
     const minLength = 10;
     const maxLength = 20;
-    class TestValidator extends Validator<TestType> {
+    class TestValidator extends AsyncValidator<TestType> {
       constructor() {
         super();
         this.ruleFor('nullableStringProperty').length(minLength, maxLength);
@@ -64,50 +68,50 @@ describe('string validators (sync)', () => {
     }
     const validator = new TestValidator();
 
-    it('gives a validation error if the string is too short', () => {
+    it('gives a validation error if the string is too short', async () => {
       const invalid: TestType = {
         ...testInstance,
         nullableStringProperty: 'tooshort',
       };
-      const result = validator.validate(invalid);
+      const result = await validator.validateAsync(invalid);
       expect(result.nullableStringProperty).toBe(
         `Value must be between ${minLength} and ${maxLength} characters long`
       );
     });
 
-    it('gives a validation error if the string is too long', () => {
+    it('gives a validation error if the string is too long', async () => {
       const invalid: TestType = {
         ...testInstance,
         nullableStringProperty:
           'this string is much too long to pass validation',
       };
-      const result = validator.validate(invalid);
+      const result = await validator.validateAsync(invalid);
       expect(result.nullableStringProperty).toBe(
         `Value must be between ${minLength} and ${maxLength} characters long`
       );
     });
 
-    it('does not give a validation error if the string is an appropriate length', () => {
+    it('does not give a validation error if the string is an appropriate length', async () => {
       const valid: TestType = {
         ...testInstance,
         nullableStringProperty: 'This length is OK',
       };
-      const result = validator.validate(valid);
+      const result = await validator.validateAsync(valid);
       expect(result.nullableStringProperty).toBeUndefined();
     });
 
-    it('does not give a validation error if the string is null', () => {
+    it('does not give a validation error if the string is null', async () => {
       const valid: TestType = {
         ...testInstance,
         nullableStringProperty: null,
       };
-      const result = validator.validate(valid);
+      const result = await validator.validateAsync(valid);
       expect(result.nullableStringProperty).toBeUndefined();
     });
 
-    it('throws an error if it receives a non-string value', () => {
+    it('throws an error if it receives a non-string value', async () => {
       type OtherTestType = { age: number };
-      class OtherTestTypeValidator extends Validator<OtherTestType> {
+      class OtherTestTypeValidator extends AsyncValidator<OtherTestType> {
         constructor() {
           super();
           (this.ruleFor('age') as any).length(10, 20);
@@ -115,15 +119,19 @@ describe('string validators (sync)', () => {
       }
       const otherValidator = new OtherTestTypeValidator();
 
-      expect(() => otherValidator.validate({ age: 10 })).toThrowError(
-        TypeError
-      );
+      try {
+        await otherValidator.validateAsync({ age: 10 });
+      } catch (error) {
+        expect(() => {
+          throw error;
+        }).toThrowError(TypeError);
+      }
     });
   });
 
   describe('maxLength', () => {
     const maxLength = 10;
-    class TestValidator extends Validator<TestType> {
+    class TestValidator extends AsyncValidator<TestType> {
       constructor() {
         super();
         this.ruleFor('nullableStringProperty').maxLength(maxLength);
@@ -131,38 +139,38 @@ describe('string validators (sync)', () => {
     }
     const validator = new TestValidator();
 
-    it('gives a validation error if the value is too long', () => {
+    it('gives a validation error if the value is too long', async () => {
       const invalid: TestType = {
         ...testInstance,
         nullableStringProperty: 'This is far too long to pass validation',
       };
-      const result = validator.validate(invalid);
+      const result = await validator.validateAsync(invalid);
       expect(result.nullableStringProperty).toBe(
         `Value must be no more than ${maxLength} characters long`
       );
     });
 
-    it('does not give a validation error if the value does not exceed the max length', () => {
+    it('does not give a validation error if the value does not exceed the max length', async () => {
       const valid: TestType = {
         ...testInstance,
         nullableStringProperty: 'short',
       };
-      const result = validator.validate(valid);
+      const result = await validator.validateAsync(valid);
       expect(result.nullableStringProperty).toBeUndefined();
     });
 
-    it('does not give a validation error if the value is null', () => {
+    it('does not give a validation error if the value is null', async () => {
       const valid: TestType = {
         ...testInstance,
         nullableStringProperty: null,
       };
-      const result = validator.validate(valid);
+      const result = await validator.validateAsync(valid);
       expect(result.nullableStringProperty).toBeUndefined();
     });
 
-    it('throws an error if it receives a non-string value', () => {
+    it('throws an error if it receives a non-string value', async () => {
       type OtherTestType = { age: number };
-      class OtherTestTypeValidator extends Validator<OtherTestType> {
+      class OtherTestTypeValidator extends AsyncValidator<OtherTestType> {
         constructor() {
           super();
           (this.ruleFor('age') as any).maxLength(10);
@@ -170,15 +178,19 @@ describe('string validators (sync)', () => {
       }
       const otherValidator = new OtherTestTypeValidator();
 
-      expect(() => otherValidator.validate({ age: 10 })).toThrowError(
-        TypeError
-      );
+      try {
+        await otherValidator.validateAsync({ age: 10 });
+      } catch (error) {
+        expect(() => {
+          throw error;
+        }).toThrowError(TypeError);
+      }
     });
   });
 
   describe('minLength', () => {
     const minLength = 10;
-    class TestValidator extends Validator<TestType> {
+    class TestValidator extends AsyncValidator<TestType> {
       constructor() {
         super();
         this.ruleFor('nullableStringProperty').minLength(minLength);
@@ -186,38 +198,38 @@ describe('string validators (sync)', () => {
     }
     const validator = new TestValidator();
 
-    it('gives a validation error if the value is too short', () => {
+    it('gives a validation error if the value is too short', async () => {
       const invalid: TestType = {
         ...testInstance,
         nullableStringProperty: 'tooshort',
       };
-      const result = validator.validate(invalid);
+      const result = await validator.validateAsync(invalid);
       expect(result.nullableStringProperty).toBe(
         `Value must be at least ${minLength} characters long`
       );
     });
 
-    it('does not give a validation error if the value exceeds the min length', () => {
+    it('does not give a validation error if the value exceeds the min length', async () => {
       const valid: TestType = {
         ...testInstance,
         nullableStringProperty: 'this is long enough',
       };
-      const result = validator.validate(valid);
+      const result = await validator.validateAsync(valid);
       expect(result.nullableStringProperty).toBeUndefined();
     });
 
-    it('does not give a validation error if the value is null', () => {
+    it('does not give a validation error if the value is null', async () => {
       const valid: TestType = {
         ...testInstance,
         nullableStringProperty: null,
       };
-      const result = validator.validate(valid);
+      const result = await validator.validateAsync(valid);
       expect(result.nullableStringProperty).toBeUndefined();
     });
 
-    it('throws an error if it receives a non-string value', () => {
+    it('throws an error if it receives a non-string value', async () => {
       type OtherTestType = { age: number };
-      class OtherTestTypeValidator extends Validator<OtherTestType> {
+      class OtherTestTypeValidator extends AsyncValidator<OtherTestType> {
         constructor() {
           super();
           (this.ruleFor('age') as any).minLength(10);
@@ -225,14 +237,18 @@ describe('string validators (sync)', () => {
       }
       const otherValidator = new OtherTestTypeValidator();
 
-      expect(() => otherValidator.validate({ age: 10 })).toThrowError(
-        TypeError
-      );
+      try {
+        await otherValidator.validateAsync({ age: 10 });
+      } catch (error) {
+        expect(() => {
+          throw error;
+        }).toThrowError(TypeError);
+      }
     });
   });
 
   describe('emailAddress', () => {
-    class TestValidator extends Validator<TestType> {
+    class TestValidator extends AsyncValidator<TestType> {
       constructor() {
         super();
         this.ruleFor('nullableStringProperty').emailAddress();
@@ -240,36 +256,36 @@ describe('string validators (sync)', () => {
     }
     const validator = new TestValidator();
 
-    it('does not give a validation error if the string is null', () => {
+    it('does not give a validation error if the string is null', async () => {
       const valid: TestType = {
         ...testInstance,
         nullableStringProperty: null,
       };
-      const result = validator.validate(valid);
+      const result = await validator.validateAsync(valid);
       expect(result.nullableStringProperty).toBeUndefined();
     });
 
-    it('does not give a validation error if the string is a valid email address', () => {
+    it('does not give a validation error if the string is a valid email address', async () => {
       const valid: TestType = {
         ...testInstance,
         nullableStringProperty: 'potter.alexander.james@gmail.com',
       };
-      const result = validator.validate(valid);
+      const result = await validator.validateAsync(valid);
       expect(result.nullableStringProperty).toBeUndefined();
     });
 
-    it('gives a validation error if the string is not a valid email address', () => {
+    it('gives a validation error if the string is not a valid email address', async () => {
       const invalid: TestType = {
         ...testInstance,
         nullableStringProperty: 'invalid@email',
       };
-      const result = validator.validate(invalid);
+      const result = await validator.validateAsync(invalid);
       expect(result.nullableStringProperty).toBe('Not a valid email address');
     });
 
-    it('throws an error if it receives a non-string value', () => {
+    it('throws an error if it receives a non-string value', async () => {
       type OtherTestType = { age: number };
-      class OtherTestTypeValidator extends Validator<OtherTestType> {
+      class OtherTestTypeValidator extends AsyncValidator<OtherTestType> {
         constructor() {
           super();
           (this.ruleFor('age') as any).emailAddress();
@@ -277,15 +293,19 @@ describe('string validators (sync)', () => {
       }
       const otherValidator = new OtherTestTypeValidator();
 
-      expect(() => otherValidator.validate({ age: 10 })).toThrowError(
-        TypeError
-      );
+      try {
+        await otherValidator.validateAsync({ age: 10 });
+      } catch (error) {
+        expect(() => {
+          throw error;
+        }).toThrowError(TypeError);
+      }
     });
   });
 
   describe('matches', () => {
     const pattern = new RegExp('^([0-9])+.([0-9]){2}$');
-    class TestValidator extends Validator<TestType> {
+    class TestValidator extends AsyncValidator<TestType> {
       constructor() {
         super();
         this.ruleFor('nullableStringProperty').matches(pattern);
@@ -293,38 +313,38 @@ describe('string validators (sync)', () => {
     }
     const validator = new TestValidator();
 
-    it('does not give a validation error if the value is null', () => {
+    it('does not give a validation error if the value is null', async () => {
       const valid: TestType = {
         ...testInstance,
         nullableStringProperty: null,
       };
-      const result = validator.validate(valid);
+      const result = await validator.validateAsync(valid);
       expect(result.nullableStringProperty).toBeUndefined();
     });
 
-    it('does not give a validation error if the value matches the pattern', () => {
+    it('does not give a validation error if the value matches the pattern', async () => {
       const valid: TestType = {
         ...testInstance,
         nullableStringProperty: '10.44',
       };
-      const result = validator.validate(valid);
+      const result = await validator.validateAsync(valid);
       expect(result.nullableStringProperty).toBeUndefined();
     });
 
-    it('gives a validation error if the value does not match the pattern', () => {
+    it('gives a validation error if the value does not match the pattern', async () => {
       const valid: TestType = {
         ...testInstance,
         nullableStringProperty: '0.4',
       };
-      const result = validator.validate(valid);
+      const result = await validator.validateAsync(valid);
       expect(result.nullableStringProperty).toBe(
         'Value does not match the required pattern'
       );
     });
 
-    it('throws an error if it receives a non-string value', () => {
+    it('throws an error if it receives a non-string value', async () => {
       type OtherTestType = { age: number };
-      class OtherTestTypeValidator extends Validator<OtherTestType> {
+      class OtherTestTypeValidator extends AsyncValidator<OtherTestType> {
         constructor() {
           super();
           (this.ruleFor('age') as any).matches(pattern);
@@ -332,9 +352,13 @@ describe('string validators (sync)', () => {
       }
       const otherValidator = new OtherTestTypeValidator();
 
-      expect(() => otherValidator.validate({ age: 10 })).toThrowError(
-        TypeError
-      );
+      try {
+        await otherValidator.validateAsync({ age: 10 });
+      } catch (error) {
+        expect(() => {
+          throw error;
+        }).toThrowError(TypeError);
+      }
     });
   });
 });

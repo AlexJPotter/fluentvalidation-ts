@@ -1,6 +1,7 @@
 import { IValidator } from '../IValidator';
 import { ValueValidationResult } from '../ValueValidationResult';
 import { RuleValidatorsAndExtensions } from './RuleValidators';
+import { IAsyncValidator } from '../IAsyncValidator';
 
 export const hasError = <TValue>(
   valueValidationResult: ValueValidationResult<TValue>
@@ -11,8 +12,8 @@ export const hasError = <TValue>(
 
   if (Array.isArray(valueValidationResult)) {
     return (
-      valueValidationResult.filter(eachResult => hasError(eachResult)).length >
-      0
+      valueValidationResult.filter((eachResult) => hasError(eachResult))
+        .length > 0
     );
   }
 
@@ -44,6 +45,32 @@ export type BaseValueValidators<TModel, TValue> = {
               message: string | ((value: TValue, model: TModel) => string);
             }
         >
+  ) => RuleValidatorsAndExtensions<TModel, TValue>;
+};
+
+export type AsyncBaseValueValidators<TModel, TValue> = BaseValueValidators<
+  TModel,
+  TValue
+> & {
+  mustAsync: (
+    definition:
+      | ((value: TValue, model: TModel) => Promise<boolean>)
+      | {
+          predicate: (value: TValue, model: TModel) => Promise<boolean>;
+          message: string | ((value: TValue, model: TModel) => string);
+        }
+      | Array<
+          | ((value: TValue, model: TModel) => Promise<boolean>)
+          | {
+              predicate: (value: TValue, model: TModel) => Promise<boolean>;
+              message: string | ((value: TValue, model: TModel) => string);
+            }
+        >
+  ) => RuleValidatorsAndExtensions<TModel, TValue>;
+  setAsyncValidator: (
+    validatorProducer: (
+      model: TModel
+    ) => IAsyncValidator<TValue extends null | undefined ? any : TValue>
   ) => RuleValidatorsAndExtensions<TModel, TValue>;
 };
 
@@ -95,7 +122,6 @@ export type ObjectValueValidators<
   TValue extends object | null | undefined
 > = {
   setValidator: (
-    // TODO: For some reason these types seem to give us what we want, but they don't seem quite right
     validatorProducer: (
       model: TModel
     ) => IValidator<TValue extends null | undefined ? any : TValue>

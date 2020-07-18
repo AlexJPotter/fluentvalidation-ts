@@ -1,14 +1,8 @@
-<div align="center">
-  <img
-    height="180"
-    alt="Logo."
-    src="https://raw.githubusercontent.com/AlexJPotter/fluentvalidation-ts/master/logo.png"
-  />
-  <h1>fluentvalidation-ts</h1>
-  <h2>Strong, simple, extensible validation.</h2>
-</div>
+# `fluentvalidation-ts`
 
-<br />
+## Strong, simple, extensible validation.
+
+Visit [https://fluentvalidation-ts.alexpotter.dev](https://fluentvalidation-ts.alexpotter.dev) to get started.
 
 ![Coverage](https://badgen.net/badge/coverage/100%25/green)
 [![NPM Version](https://badgen.net/npm/v/fluentvalidation-ts)](https://www.npmjs.com/package/fluentvalidation-ts)
@@ -17,27 +11,21 @@
 ![Open Issues](https://badgen.net/github/open-issues/alexjpotter/fluentvalidation-ts)
 
 ![Dependencies](https://badgen.net/badge/dependencies/none/green)
-[![GZIP Size](http://img.badgesize.io/https://unpkg.com/fluentvalidation-ts@latest/dist/fluentvalidation-ts.umd.production.min.js?compression=gzip)](https://unpkg.com/fluentvalidation-ts@latest/dist/fluentvalidation-ts.umd.production.min.js)
+[![GZIP Size](https://img.badgesize.io/https://unpkg.com/fluentvalidation-ts@latest/dist/fluentvalidation-ts.umd.production.min.js?compression=gzip)](https://unpkg.com/fluentvalidation-ts@latest/dist/fluentvalidation-ts.umd.production.min.js)
 
-<hr />
-
-Visit [https://fluentvalidation-ts.alexpotter.dev](https://fluentvalidation-ts.alexpotter.dev) to get started with fluentvalidation-ts.
-
-<hr />
+## Overview
 
 Front-end validation is a must-have for any project that involves forms, but the requirements vary hugely. You might have a simple sign-up form with a few text fields, or a complex configuration page with collections and deeply nested fields.
 
 There are plenty of libraries out there which help you to solve the problem of front-end validation, but all the ones I've tried have felt lacking in one aspect or another - whether that's TypeScript support, their capacity to handle complex requirements, or the ability to define your own reusable validation logic.
 
-So I wrote fluentvalidation-ts, a tiny library that is:
+So I wrote `fluentvalidation-ts`, a tiny library that is:
 
-- Designed for TypeScript
+- Designed for **TypeScript**
 - Simple yet powerful
 - Fully extensible
 
-Whatever your validation needs, fluentvalidation-ts can handle them.
-
-<hr />
+Whatever your validation needs, `fluentvalidation-ts` can handle them.
 
 ## Docs
 
@@ -50,13 +38,11 @@ Full documentation, including a tutorial and a number of useful guides, is avail
 - [Validation Rules API Reference](https://fluentvalidation-ts.alexpotter.dev/docs/api/rules/emailaddress)
 - [Releases](https://github.com/AlexJPotter/fluentvalidation-ts/releases)
 
-<hr />
-
 ### Requirements
 
-This library has been written in, and for, TypeScript. You can still use `fluentvalidation-ts` without TypeScript, but the primary benefit of having strongly-typed validation rules is lost.
+This library has been written in, and for, **TypeScript**. You can still use `fluentvalidation-ts` without TypeScript, but the primary benefit of having strongly-typed validation rules is lost.
 
-If using TypeScript (strongly recommended), you must be on TypeScript version **2.9** or later.
+If using TypeScript (strongly recommended), you must be on TypeScript version **`2.9`** or later.
 
 ### Installation
 
@@ -114,9 +100,11 @@ validator.validate({ name: '', age: -1 });
 
 `fluentvalidation-ts` has 100% test coverage via unit tests written with [Jest](https://jestjs.io/).
 
+**Note**: Some branches are incorrectly reported as uncovered due to the following issue: [https://github.com/gotwarlost/istanbul/issues/690](https://github.com/gotwarlost/istanbul/issues/690).
+
 ### Issues
 
-Please report issues via GitHub.
+Please report issues via [GitHub](https://github.com/AlexJPotter/fluentvalidation-ts/issues).
 
 ### License
 
@@ -126,4 +114,4 @@ Please report issues via GitHub.
 
 Alex Potter is a full-stack Software Developer who is currently part of the team at [Ghyston](https://www.ghyston.com), an award-winning software development company based in Bristol.
 
-Get in touch [@ajp_dev](https://twitter.com/ajp_dev) on Twitter, or via [LinkedIn](www.linkedin.com/in/alex-james-potter).
+Check out his blog at [alexpotter.dev](https://alexpotter.dev), or get in touch [@ajp_dev](https://twitter.com/ajp_dev) on Twitter.

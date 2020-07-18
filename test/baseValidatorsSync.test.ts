@@ -1,6 +1,6 @@
 import { Validator } from '../src/index';
 
-describe('base validators', () => {
+describe('base validators (sync)', () => {
   describe('notNull', () => {
     class TestValidator extends Validator<TestType> {
       constructor() {
@@ -46,7 +46,9 @@ describe('base validators', () => {
         nullableStringProperty: 'Not null',
       };
       const result = validator.validate(invalid);
-      expect(result).toEqual({ nullableStringProperty: 'Value must be null' });
+      expect(result).toEqual({
+        nullableStringProperty: 'Value must be null',
+      });
     });
 
     it('does not give a validation error if the value is null', () => {
@@ -123,7 +125,7 @@ describe('base validators', () => {
         constructor() {
           super();
           this.ruleFor('stringProperty').must(
-            stringProperty => stringProperty.length > 10
+            (stringProperty) => stringProperty.length > 10
           );
         }
       }

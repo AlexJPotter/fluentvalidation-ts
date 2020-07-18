@@ -1,6 +1,6 @@
 import { Validator } from '../src/index';
 
-describe('examples', () => {
+describe('examples (sync)', () => {
   it('custom rules', () => {
     type ClothesPile = {
       numberOfSocks: number;
@@ -57,7 +57,7 @@ describe('examples', () => {
             (rating: number | undefined) => rating == null || rating % 1 === 0
           )
           .withMessage('Rating must be an integer')
-          .when(c => c.rating != null);
+          .when((c) => c.rating != null);
       }
     }
 
@@ -84,7 +84,7 @@ describe('examples', () => {
           .withMessage(
             'Name of current album was not present in list of all album names'
           )
-          .unless(c => c.currentAlbum == null);
+          .unless((c) => c.currentAlbum == null);
       }
     }
 
@@ -96,7 +96,7 @@ describe('examples', () => {
         this.ruleFor('favouriteBand').setValidator(() => new BandValidator());
         this.ruleFor('leastFavouriteBand')
           .setValidator(() => new BandValidator())
-          .unless(c => c.leastFavouriteBand == null);
+          .unless((c) => c.leastFavouriteBand == null);
       }
     }
 
@@ -153,7 +153,7 @@ describe('examples', () => {
         this.ruleFor('age').inclusiveBetween(18, 80);
         this.ruleFor('lineManager')
           .setValidator(() => new EmployeeValidator())
-          .when(employee => employee.lineManager != null);
+          .when((employee) => employee.lineManager != null);
       }
     }
 
@@ -196,9 +196,7 @@ describe('examples', () => {
     class EmployeeValidator extends Validator<Employee> {
       constructor() {
         super();
-        this.ruleFor('name')
-          .notEmpty()
-          .withMessage('Employees have names!');
+        this.ruleFor('name').notEmpty().withMessage('Employees have names!');
         this.ruleForEach('lmees').setValidator(() => new EmployeeValidator());
       }
     }
