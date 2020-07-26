@@ -166,18 +166,32 @@ export abstract class CoreValidator<TModel, TAsync extends true | false> {
     TPropertyName extends keyof TModel,
     TValue extends TModel[TPropertyName] extends
       | Array<infer TEachValue>
+      | ReadonlyArray<infer TEachValue>
+      | Readonly<Array<infer TEachValue>>
       | null
       | undefined
-      ? TModel[TPropertyName] & (Array<TEachValue> | null | undefined)
+      ? TModel[TPropertyName] &
+          (
+            | Array<TEachValue>
+            | ReadonlyArray<TEachValue>
+            | Readonly<Array<TEachValue>>
+            | null
+            | undefined
+          )
       : never
   >(
     propertyName: TModel[TPropertyName] extends
       | Array<unknown>
+      | ReadonlyArray<unknown>
+      | Readonly<Array<unknown>>
       | null
       | undefined
       ? TPropertyName
       : never
-  ): TValue extends Array<unknown>
+  ): TValue extends
+    | Array<unknown>
+    | ReadonlyArray<unknown>
+    | Readonly<Array<unknown>>
     ? TAsync extends true
       ? AsyncRuleValidators<TModel, TValue[0]>
       : RuleValidators<TModel, TValue[0]>
