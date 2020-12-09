@@ -60,6 +60,7 @@ npm i --save fluentvalidation-ts
 
 **Note:** `fluentvalidation-ts` has been written with first-class support for TypeScript, so there's no need to install types!
 
+
 ### Example Usage
 
 ```typescript
@@ -109,6 +110,10 @@ Please report issues via [GitHub](https://github.com/AlexJPotter/fluentvalidatio
 ### License
 
 `fluentvalidation-ts` is provided under the terms of an [Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0) license.
+
+### Development
+
+To run the project locally simply clone the repo and run `yarn install` then `yarn start` in the root of the project. You can run the tests with `yarn test`.
 
 ### About the Author
 
