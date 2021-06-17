@@ -1,6 +1,9 @@
 import { IValidator } from '../IValidator';
 import { ValueValidationResult } from '../ValueValidationResult';
-import { RuleValidatorsAndExtensions } from './RuleValidators';
+import {
+  RuleValidatorsAndExtensions,
+  AsyncRuleValidatorsAndExtensions,
+} from './RuleValidators';
 import { IAsyncValidator } from '../IAsyncValidator';
 
 export const hasError = <TValue>(
@@ -66,12 +69,12 @@ export type AsyncBaseValueValidators<TModel, TValue> = BaseValueValidators<
               message: string | ((value: TValue, model: TModel) => string);
             }
         >
-  ) => RuleValidatorsAndExtensions<TModel, TValue>;
+  ) => AsyncRuleValidatorsAndExtensions<TModel, TValue>;
   setAsyncValidator: (
     validatorProducer: (
       model: TModel
     ) => IAsyncValidator<TValue extends null | undefined ? any : TValue>
-  ) => RuleValidatorsAndExtensions<TModel, TValue>;
+  ) => AsyncRuleValidatorsAndExtensions<TModel, TValue>;
 };
 
 export type StringValueValidators<

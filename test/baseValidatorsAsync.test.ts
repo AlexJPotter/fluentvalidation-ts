@@ -422,6 +422,41 @@ describe('base validators (async)', () => {
           (await otherValidator.validateAsync(invalid)).stringProperty
         ).toBe('String property length must match number property value');
       });
+
+      it('can be chained', async () => {
+        class ChainedValidator extends AsyncValidator<TestType> {
+          constructor() {
+            super();
+
+            this.ruleFor('stringProperty')
+              .mustAsync(async (stringProperty) => {
+                await delay(1);
+                return stringProperty.length > 1;
+              })
+              .withMessage('Must be longer than 1 character')
+              .mustAsync(async (stringProperty) => {
+                await delay(1);
+                return stringProperty.length < 3;
+              })
+              .withMessage('Must be shorter than 3 characters');
+          }
+        }
+        const chainedValidator = new ChainedValidator();
+        const valid: TestType = {
+          ...testInstance,
+          stringProperty: '12',
+        };
+        const invalid: TestType = {
+          ...testInstance,
+          stringProperty: '123',
+        };
+        expect(
+          (await chainedValidator.validateAsync(valid)).stringProperty
+        ).toBeUndefined();
+        expect(
+          (await chainedValidator.validateAsync(invalid)).stringProperty
+        ).toBe('Must be shorter than 3 characters');
+      });
     });
 
     describe('when passed a rule definition', () => {
@@ -543,6 +578,40 @@ describe('base validators (async)', () => {
           'String property is 4 characters long, but must be 10 characters long'
         );
       });
+
+      it('can be chained', async () => {
+        const beNoMoreThanTwelveCharactersLong = {
+          predicate: async (value: string) => {
+            await delay(1);
+            return value.length <= 12;
+          },
+          message: 'Please enter no more than 12 characters',
+        };
+        class ChainedValidator extends AsyncValidator<TestType> {
+          constructor() {
+            super();
+
+            this.ruleFor('stringProperty')
+              .mustAsync(beAtLeastTenCharactersLong)
+              .mustAsync(beNoMoreThanTwelveCharactersLong);
+          }
+        }
+        const chainedValidator = new ChainedValidator();
+        const valid: TestType = {
+          ...testInstance,
+          stringProperty: '123456789A',
+        };
+        const invalid: TestType = {
+          ...testInstance,
+          stringProperty: '123456789ABCD',
+        };
+        expect(
+          (await chainedValidator.validateAsync(valid)).stringProperty
+        ).toBeUndefined();
+        expect(
+          (await chainedValidator.validateAsync(invalid)).stringProperty
+        ).toBe('Please enter no more than 12 characters');
+      });
     });
 
     describe('when passed an array of predicates and rule definitions', () => {
@@ -614,6 +683,39 @@ describe('base validators (async)', () => {
             })
           ).stringProperty
         ).toBeUndefined();
+      });
+
+      it('can be chained', async () => {
+        const beLessThanFive = {
+          predicate: async (value: string) => {
+            await delay(1);
+            return Number(value) < 5;
+          },
+          message: (value: string) => `${value} is not less than 5`,
+        };
+        class ChainedValidator extends AsyncValidator<TestType> {
+          constructor() {
+            super();
+            this.ruleFor('stringProperty')
+              .mustAsync(bePositiveInteger)
+              .mustAsync(beLessThanFive);
+          }
+        }
+        const chainedValidator = new ChainedValidator();
+        const valid: TestType = {
+          ...testInstance,
+          stringProperty: '3',
+        };
+        const invalid: TestType = {
+          ...testInstance,
+          stringProperty: '6',
+        };
+        expect(
+          (await chainedValidator.validateAsync(valid)).stringProperty
+        ).toBeUndefined();
+        expect(
+          (await chainedValidator.validateAsync(invalid)).stringProperty
+        ).toBe('6 is not less than 5');
       });
     });
   });
