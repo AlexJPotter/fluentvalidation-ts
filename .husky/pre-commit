@@ -4,4 +4,6 @@
 npx --no-install pretty-quick
 yarn pretty-quick --staged
 
+yarn lint
+
 yarn check-ts
