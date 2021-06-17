@@ -35,14 +35,10 @@
     "test": "tsdx test",
     "lint": "tslint -c tslint.json 'src/**/*.{ts,.test.ts}'",
     "prettier": "prettier --write \"src/**/*.ts\"",
-    "check-ts": "tsc --noEmit"
+    "check-ts": "tsc --noEmit",
+    "prepare": "husky install"
   },
   "peerDependencies": {},
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged"
-    }
-  },
   "prettier": {
     "trailingComma": "es5",
     "tabWidth": 2,
@@ -52,7 +48,7 @@
   "devDependencies": {
     "@types/jest": "^26.0.23",
     "cross-env": "^7.0.3",
-    "husky": "^4.2.5",
+    "husky": "^6.0.0",
     "prettier": "^2.3.1",
     "pretty-quick": "^2.0.1",
     "tsdx": "^0.14.1",
