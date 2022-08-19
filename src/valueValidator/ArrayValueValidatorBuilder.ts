@@ -33,7 +33,7 @@ export class ArrayValueValidatorBuilder<
 
       const valueValidator = this.eachValueValidatorBuilder.build();
 
-      const errors = value.map(element => {
+      const errors = value.map((element) => {
         const errorOrNull = valueValidator(element, model);
         return hasError(errorOrNull) ? errorOrNull : null;
       }) as ValueValidationResult<TValue>;

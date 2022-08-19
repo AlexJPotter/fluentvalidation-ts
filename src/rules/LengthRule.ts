@@ -1,3 +1,4 @@
+import { formatNumber } from '../numberHelpers';
 import { Rule } from './Rule';
 
 export class LengthRule<TModel, TValue> extends Rule<TModel, TValue> {
@@ -11,7 +12,9 @@ export class LengthRule<TModel, TValue> extends Rule<TModel, TValue> {
       }
       return value.length >= minLength && value.length <= maxLength
         ? null
-        : `Value must be between ${minLength.toLocaleString()} and ${maxLength.toLocaleString()} characters long`;
+        : `Value must be between ${formatNumber(minLength)} and ${formatNumber(
+            maxLength
+          )} characters long`;
     });
   }
 }

@@ -1,3 +1,4 @@
+import { formatNumber } from '../numberHelpers';
 import { Rule } from './Rule';
 
 export class InclusiveBetweenRule<TModel, TValue> extends Rule<TModel, TValue> {
@@ -13,7 +14,9 @@ export class InclusiveBetweenRule<TModel, TValue> extends Rule<TModel, TValue> {
       }
       return value >= lowerBound && value <= upperBound
         ? null
-        : `Value must be between ${lowerBound.toLocaleString()} and ${upperBound.toLocaleString()} (inclusive)`;
+        : `Value must be between ${formatNumber(lowerBound)} and ${formatNumber(
+            upperBound
+          )} (inclusive)`;
     });
   }
 }

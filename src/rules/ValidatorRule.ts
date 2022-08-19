@@ -7,9 +7,9 @@ export class ValidatorRule<TModel, TValue> extends Rule<TModel, TValue> {
     super((value: TValue, model: TModel) =>
       value == null
         ? null
-        : (validatorProducer(model).validate(value) as ValueValidationResult<
-            TValue
-          >)
+        : (validatorProducer(model).validate(
+            value
+          ) as ValueValidationResult<TValue>)
     );
   }
 }

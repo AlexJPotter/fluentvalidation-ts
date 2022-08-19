@@ -43,9 +43,9 @@ export class AsyncArrayValueValidatorBuilder<
         errors.push(valueValidationResult);
       }
 
-      return (hasError(errors as ValueValidationResult<TValue>)
-        ? errors
-        : null) as ValueValidationResult<TValue>;
+      return (
+        hasError(errors as ValueValidationResult<TValue>) ? errors : null
+      ) as ValueValidationResult<TValue>;
     };
   };
 

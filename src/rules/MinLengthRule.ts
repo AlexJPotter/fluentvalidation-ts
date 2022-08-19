@@ -1,3 +1,4 @@
+import { formatNumber } from '../numberHelpers';
 import { Rule } from './Rule';
 
 export class MinLengthRule<TModel, TValue> extends Rule<TModel, TValue> {
@@ -13,7 +14,7 @@ export class MinLengthRule<TModel, TValue> extends Rule<TModel, TValue> {
       }
       return value.length >= minLength
         ? null
-        : `Value must be at least ${minLength.toLocaleString()} characters long`;
+        : `Value must be at least ${formatNumber(minLength)} characters long`;
     });
   }
 }

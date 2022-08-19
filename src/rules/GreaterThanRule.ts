@@ -1,3 +1,4 @@
+import { formatNumber } from '../numberHelpers';
 import { Rule } from './Rule';
 
 export class GreaterThanRule<TModel, TValue> extends Rule<TModel, TValue> {
@@ -13,7 +14,7 @@ export class GreaterThanRule<TModel, TValue> extends Rule<TModel, TValue> {
       }
       return value > threshold
         ? null
-        : `Value must be greater than ${threshold.toLocaleString()}`;
+        : `Value must be greater than ${formatNumber(threshold)}`;
     });
   }
 }

@@ -44,13 +44,11 @@ export abstract class CoreValidator<TModel, TAsync extends true | false> {
     this._isAsync = isAsync;
   }
 
-  private valueValidatorBuildersByPropertyName: ValueValidatorBuildersByPropertyName<
-    TModel
-  > = {};
+  private valueValidatorBuildersByPropertyName: ValueValidatorBuildersByPropertyName<TModel> =
+    {};
 
-  private asyncValueValidatorBuildersByPropertyName: AsyncValueValidatorBuildersByPropertyName<
-    TModel
-  > = {};
+  private asyncValueValidatorBuildersByPropertyName: AsyncValueValidatorBuildersByPropertyName<TModel> =
+    {};
 
   protected _validate: (value: TModel) => ValidationErrors<TModel> = () => {
     return {};
@@ -69,8 +67,10 @@ export abstract class CoreValidator<TModel, TAsync extends true | false> {
       for (const propertyName of Object.keys(
         this.valueValidatorBuildersByPropertyName
       )) {
-        const valueValidatorBuilders = this
-          .valueValidatorBuildersByPropertyName[propertyName as keyof TModel];
+        const valueValidatorBuilders =
+          this.valueValidatorBuildersByPropertyName[
+            propertyName as keyof TModel
+          ];
 
         for (const valueValidatorBuilder of valueValidatorBuilders!) {
           const valueValidator = valueValidatorBuilder.build();
@@ -97,10 +97,10 @@ export abstract class CoreValidator<TModel, TAsync extends true | false> {
       for (const propertyName of Object.keys(
         this.asyncValueValidatorBuildersByPropertyName
       )) {
-        const asyncValueValidatorBuilders = this
-          .asyncValueValidatorBuildersByPropertyName[
-          propertyName as keyof TModel
-        ];
+        const asyncValueValidatorBuilders =
+          this.asyncValueValidatorBuildersByPropertyName[
+            propertyName as keyof TModel
+          ];
 
         for (const asyncValueValidatorBuilder of asyncValueValidatorBuilders!) {
           const asyncValueValidator = asyncValueValidatorBuilder.build();
@@ -139,10 +139,10 @@ export abstract class CoreValidator<TModel, TAsync extends true | false> {
         asyncValueValidatorBuilder as any
       );
 
-      return ((asyncValueValidatorBuilder.getAllRules() as unknown) as AsyncRuleValidators<
+      return asyncValueValidatorBuilder.getAllRules() as unknown as AsyncRuleValidators<
         TModel,
         TValue
-      >) as any; // Appease the type system
+      > as any; // Appease the type system
     } else {
       const valueValidatorBuilder = new ValueValidatorBuilder<TModel, TValue>(
         this.rebuildValidate
@@ -155,10 +155,10 @@ export abstract class CoreValidator<TModel, TAsync extends true | false> {
         valueValidatorBuilder as any
       );
 
-      return ((valueValidatorBuilder.getAllRules() as unknown) as RuleValidators<
+      return valueValidatorBuilder.getAllRules() as unknown as RuleValidators<
         TModel,
         TValue
-      >) as any; // Appease the type system
+      > as any; // Appease the type system
     }
   };
 
@@ -197,10 +197,11 @@ export abstract class CoreValidator<TModel, TAsync extends true | false> {
       : RuleValidators<TModel, TValue[0]>
     : never => {
     if (this._isAsync) {
-      const asyncArrayValueValidatorBuilder = new AsyncArrayValueValidatorBuilder(
-        this.rebuildValidateAsync,
-        propertyName as string
-      );
+      const asyncArrayValueValidatorBuilder =
+        new AsyncArrayValueValidatorBuilder(
+          this.rebuildValidateAsync,
+          propertyName as string
+        );
 
       if (
         this.asyncValueValidatorBuildersByPropertyName[propertyName] == null

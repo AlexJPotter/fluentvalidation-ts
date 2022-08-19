@@ -1,3 +1,4 @@
+import { formatNumber } from '../numberHelpers';
 import { Rule } from './Rule';
 
 export class MaxLengthRule<TModel, TValue> extends Rule<TModel, TValue> {
@@ -13,7 +14,9 @@ export class MaxLengthRule<TModel, TValue> extends Rule<TModel, TValue> {
       }
       return value.length <= maxLength
         ? null
-        : `Value must be no more than ${maxLength.toLocaleString()} characters long`;
+        : `Value must be no more than ${formatNumber(
+            maxLength
+          )} characters long`;
     });
   }
 }
