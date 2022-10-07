@@ -89,6 +89,17 @@ describe('base validators (async)', () => {
       const result = await validator.validateAsync(valid);
       expect(result.stringProperty).toBeUndefined();
     });
+
+    it('gives a type error if the comparison value is of the wrong type', () => {
+      // @ts-ignore
+      class AnotherValidator extends AsyncValidator<TestType> {
+        constructor() {
+          super();
+          // @ts-expect-error
+          this.ruleFor('stringProperty').notEqual(5);
+        }
+      }
+    });
   });
 
   describe('equal', () => {
@@ -117,6 +128,17 @@ describe('base validators (async)', () => {
       };
       const result = await validator.validateAsync(valid);
       expect(result.numberProperty).toBeUndefined();
+    });
+
+    it('gives a type error if the comparison value is of the wrong type', () => {
+      // @ts-ignore
+      class AnotherValidator extends AsyncValidator<TestType> {
+        constructor() {
+          super();
+          // @ts-expect-error
+          this.ruleFor('stringProperty').equal(5);
+        }
+      }
     });
   });
 
@@ -769,6 +791,28 @@ describe('base validators (async)', () => {
         nestedProperty: 'Value must be between 3 and 5 characters long',
       });
     });
+
+    it('gives a type error if passed an incompatible validator', () => {
+      type AnotherType = { anotherProperty: string };
+
+      class AnotherValidator extends Validator<AnotherType> {
+        constructor() {
+          super();
+          this.ruleFor('anotherProperty').maxLength(10);
+        }
+      }
+
+      // @ts-ignore
+      class AnotherTestValidator extends AsyncValidator<TestType> {
+        constructor() {
+          super();
+          this.ruleFor('objectProperty').setValidator(
+            // @ts-expect-error
+            () => new AnotherValidator()
+          );
+        }
+      }
+    });
   });
 
   describe('setAsyncValidator', () => {
@@ -819,6 +863,28 @@ describe('base validators (async)', () => {
       expect(result.nullableObjectProperty).toEqual({
         nestedProperty: 'Value must be between 3 and 5 characters long',
       });
+    });
+
+    it('gives a type error if passed an incompatible validator', () => {
+      type AnotherType = { anotherProperty: string };
+
+      class AnotherValidator extends AsyncValidator<AnotherType> {
+        constructor() {
+          super();
+          this.ruleFor('anotherProperty').maxLength(10);
+        }
+      }
+
+      // @ts-ignore
+      class AnotherTestValidator extends AsyncValidator<TestType> {
+        constructor() {
+          super();
+          this.ruleFor('objectProperty').setAsyncValidator(
+            // @ts-expect-error
+            () => new AnotherValidator()
+          );
+        }
+      }
     });
   });
 });

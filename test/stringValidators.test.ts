@@ -51,6 +51,33 @@ describe('string validators (sync)', () => {
         TypeError
       );
     });
+
+    it('cannot be used on non-string values', () => {
+      // @ts-ignore
+      class AnotherValidator extends Validator<TestType> {
+        constructor() {
+          super();
+
+          // @ts-expect-error
+          this.ruleFor('numberProperty').notEmpty();
+
+          // @ts-expect-error
+          this.ruleFor('nullableNumberProperty').notEmpty();
+
+          // @ts-expect-error
+          this.ruleFor('booleanProperty').notEmpty();
+
+          // @ts-expect-error
+          this.ruleFor('nullableBooleanProperty').notEmpty();
+
+          // @ts-expect-error
+          this.ruleFor('objectProperty').notEmpty();
+
+          // @ts-expect-error
+          this.ruleFor('nullableObjectProperty').notEmpty();
+        }
+      }
+    });
   });
 
   describe('length', () => {
@@ -119,6 +146,33 @@ describe('string validators (sync)', () => {
         TypeError
       );
     });
+
+    it('cannot be used on non-string values', () => {
+      // @ts-ignore
+      class AnotherValidator extends Validator<TestType> {
+        constructor() {
+          super();
+
+          // @ts-expect-error
+          this.ruleFor('numberProperty').length(5, 10);
+
+          // @ts-expect-error
+          this.ruleFor('nullableNumberProperty').length(5, 10);
+
+          // @ts-expect-error
+          this.ruleFor('booleanProperty').length(5, 10);
+
+          // @ts-expect-error
+          this.ruleFor('nullableBooleanProperty').length(5, 10);
+
+          // @ts-expect-error
+          this.ruleFor('objectProperty').length(5, 10);
+
+          // @ts-expect-error
+          this.ruleFor('nullableObjectProperty').length(5, 10);
+        }
+      }
+    });
   });
 
   describe('maxLength', () => {
@@ -173,6 +227,33 @@ describe('string validators (sync)', () => {
       expect(() => otherValidator.validate({ age: 10 })).toThrowError(
         TypeError
       );
+    });
+
+    it('cannot be used on non-string values', () => {
+      // @ts-ignore
+      class AnotherValidator extends Validator<TestType> {
+        constructor() {
+          super();
+
+          // @ts-expect-error
+          this.ruleFor('numberProperty').maxLength(10);
+
+          // @ts-expect-error
+          this.ruleFor('nullableNumberProperty').maxLength(10);
+
+          // @ts-expect-error
+          this.ruleFor('booleanProperty').maxLength(10);
+
+          // @ts-expect-error
+          this.ruleFor('nullableBooleanProperty').maxLength(10);
+
+          // @ts-expect-error
+          this.ruleFor('objectProperty').maxLength(10);
+
+          // @ts-expect-error
+          this.ruleFor('nullableObjectProperty').maxLength(10);
+        }
+      }
     });
   });
 
@@ -229,6 +310,33 @@ describe('string validators (sync)', () => {
         TypeError
       );
     });
+
+    it('cannot be used on non-string values', () => {
+      // @ts-ignore
+      class AnotherValidator extends Validator<TestType> {
+        constructor() {
+          super();
+
+          // @ts-expect-error
+          this.ruleFor('numberProperty').minLength(10);
+
+          // @ts-expect-error
+          this.ruleFor('nullableNumberProperty').minLength(10);
+
+          // @ts-expect-error
+          this.ruleFor('booleanProperty').minLength(10);
+
+          // @ts-expect-error
+          this.ruleFor('nullableBooleanProperty').minLength(10);
+
+          // @ts-expect-error
+          this.ruleFor('objectProperty').minLength(10);
+
+          // @ts-expect-error
+          this.ruleFor('nullableObjectProperty').minLength(10);
+        }
+      }
+    });
   });
 
   describe('emailAddress', () => {
@@ -280,6 +388,33 @@ describe('string validators (sync)', () => {
       expect(() => otherValidator.validate({ age: 10 })).toThrowError(
         TypeError
       );
+    });
+
+    it('cannot be used on non-string values', () => {
+      // @ts-ignore
+      class AnotherValidator extends Validator<TestType> {
+        constructor() {
+          super();
+
+          // @ts-expect-error
+          this.ruleFor('numberProperty').emailAddress();
+
+          // @ts-expect-error
+          this.ruleFor('nullableNumberProperty').emailAddress();
+
+          // @ts-expect-error
+          this.ruleFor('booleanProperty').emailAddress();
+
+          // @ts-expect-error
+          this.ruleFor('nullableBooleanProperty').emailAddress();
+
+          // @ts-expect-error
+          this.ruleFor('objectProperty').emailAddress();
+
+          // @ts-expect-error
+          this.ruleFor('nullableObjectProperty').emailAddress();
+        }
+      }
     });
   });
 
@@ -335,6 +470,33 @@ describe('string validators (sync)', () => {
       expect(() => otherValidator.validate({ age: 10 })).toThrowError(
         TypeError
       );
+    });
+
+    it('cannot be used on non-string values', () => {
+      // @ts-ignore
+      class AnotherValidator extends Validator<TestType> {
+        constructor() {
+          super();
+
+          // @ts-expect-error
+          this.ruleFor('numberProperty').matches(pattern);
+
+          // @ts-expect-error
+          this.ruleFor('nullableNumberProperty').matches(pattern);
+
+          // @ts-expect-error
+          this.ruleFor('booleanProperty').matches(pattern);
+
+          // @ts-expect-error
+          this.ruleFor('nullableBooleanProperty').matches(pattern);
+
+          // @ts-expect-error
+          this.ruleFor('objectProperty').matches(pattern);
+
+          // @ts-expect-error
+          this.ruleFor('nullableObjectProperty').matches(pattern);
+        }
+      }
     });
   });
 });

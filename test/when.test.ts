@@ -110,6 +110,35 @@ describe('when', () => {
         expect(result.nullableStringProperty).toBeUndefined();
       });
     });
+
+    it('must come last in the rule definition', () => {
+      // @ts-ignore
+      class AnotherValidator extends Validator<TestType> {
+        constructor() {
+          super();
+
+          // Valid
+          this.ruleFor('stringProperty')
+            .notEmpty()
+            .withMessage('Please specify')
+            .when(() => true);
+
+          // Not valid
+          this.ruleFor('stringProperty')
+            .notEmpty()
+            .when(() => true)
+            // @ts-expect-error
+            .withMessage('Please specify');
+
+          // Not valid
+          this.ruleFor('stringProperty')
+            // @ts-expect-error
+            .when(() => true)
+            .notEmpty()
+            .withMessage('Please specify');
+        }
+      }
+    });
   });
 
   describe('async', () => {
@@ -220,6 +249,35 @@ describe('when', () => {
         const result = await validator.validateAsync(invalid);
         expect(result.nullableStringProperty).toBeUndefined();
       });
+    });
+
+    it('must come last in the rule definition', () => {
+      // @ts-ignore
+      class AnotherValidator extends AsyncValidator<TestType> {
+        constructor() {
+          super();
+
+          // Valid
+          this.ruleFor('stringProperty')
+            .notEmpty()
+            .withMessage('Please specify')
+            .when(() => true);
+
+          // Not valid
+          this.ruleFor('stringProperty')
+            .notEmpty()
+            .when(() => true)
+            // @ts-expect-error
+            .withMessage('Please specify');
+
+          // Not valid
+          this.ruleFor('stringProperty')
+            // @ts-expect-error
+            .when(() => true)
+            .notEmpty()
+            .withMessage('Please specify');
+        }
+      }
     });
   });
 });

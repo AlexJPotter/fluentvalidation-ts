@@ -3,9 +3,15 @@ import { AsyncValueValidator } from 'valueValidator/AsyncValueValidator';
 import { ValueValidationResult } from '../ValueValidationResult';
 
 export class AsyncRule<TModel, TValue> extends CoreRule<TModel> {
-  private readonly asyncValueValidator: AsyncValueValidator<TModel, TValue>;
+  private readonly asyncValueValidator: AsyncValueValidator<
+    TModel,
+    TValue,
+    TValue
+  >;
 
-  constructor(asyncValueValidator: AsyncValueValidator<TModel, TValue>) {
+  constructor(
+    asyncValueValidator: AsyncValueValidator<TModel, TValue, TValue>
+  ) {
     super();
     this.asyncValueValidator = asyncValueValidator;
   }

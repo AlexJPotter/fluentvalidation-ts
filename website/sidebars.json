@@ -12,7 +12,9 @@
       "api/core/asyncValidator",
       "api/core/validationErrors",
       "api/core/ruleFor",
-      "api/core/ruleForEach"
+      "api/core/ruleForTransformed",
+      "api/core/ruleForEach",
+      "api/core/ruleForEachTransformed"
     ],
     "Configuration": [
       "api/configuration/withMessage",

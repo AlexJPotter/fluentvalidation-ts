@@ -53,6 +53,44 @@ describe('number validators', () => {
         TypeError
       );
     });
+
+    it('gives a type error if defined with a non-number value', () => {
+      // @ts-ignore
+      class AnotherValidator extends Validator<TestType> {
+        constructor() {
+          super();
+          // @ts-expect-error
+          this.ruleFor('numberProperty').lessThan('nonsense');
+        }
+      }
+    });
+
+    it('cannot be used on non-number properties', () => {
+      // @ts-ignore
+      class AnotherValidator extends Validator<TestType> {
+        constructor() {
+          super();
+
+          // @ts-expect-error
+          this.ruleFor('stringProperty').lessThan(5);
+
+          // @ts-expect-error
+          this.ruleFor('nullableStringProperty').lessThan(5);
+
+          // @ts-expect-error
+          this.ruleFor('booleanProperty').lessThan(5);
+
+          // @ts-expect-error
+          this.ruleFor('nullableBooleanProperty').lessThan(5);
+
+          // @ts-expect-error
+          this.ruleFor('objectProperty').lessThan(5);
+
+          // @ts-expect-error
+          this.ruleFor('nullableObjectProperty').lessThan(5);
+        }
+      }
+    });
   });
 
   describe('lessThanOrEqualTo', () => {
@@ -106,6 +144,44 @@ describe('number validators', () => {
       expect(() => otherValidator.validate({ name: 'Alex' })).toThrowError(
         TypeError
       );
+    });
+
+    it('gives a type error if defined with a non-number value', () => {
+      // @ts-ignore
+      class AnotherValidator extends Validator<TestType> {
+        constructor() {
+          super();
+          // @ts-expect-error
+          this.ruleFor('numberProperty').lessThanOrEqualTo('nonsense');
+        }
+      }
+    });
+
+    it('cannot be used on non-number properties', () => {
+      // @ts-ignore
+      class AnotherValidator extends Validator<TestType> {
+        constructor() {
+          super();
+
+          // @ts-expect-error
+          this.ruleFor('stringProperty').lessThanOrEqualTo(5);
+
+          // @ts-expect-error
+          this.ruleFor('nullableStringProperty').lessThanOrEqualTo(5);
+
+          // @ts-expect-error
+          this.ruleFor('booleanProperty').lessThanOrEqualTo(5);
+
+          // @ts-expect-error
+          this.ruleFor('nullableBooleanProperty').lessThanOrEqaulTo(5);
+
+          // @ts-expect-error
+          this.ruleFor('objectProperty').lessThanOrEqaulTo(5);
+
+          // @ts-expect-error
+          this.ruleFor('nullableObjectProperty').lessThanOrEqualTo(5);
+        }
+      }
     });
   });
 
@@ -161,6 +237,44 @@ describe('number validators', () => {
         TypeError
       );
     });
+
+    it('gives a type error if defined with a non-number value', () => {
+      // @ts-ignore
+      class AnotherValidator extends Validator<TestType> {
+        constructor() {
+          super();
+          // @ts-expect-error
+          this.ruleFor('numberProperty').greaterThan('nonsense');
+        }
+      }
+    });
+
+    it('cannot be used on non-number properties', () => {
+      // @ts-ignore
+      class AnotherValidator extends Validator<TestType> {
+        constructor() {
+          super();
+
+          // @ts-expect-error
+          this.ruleFor('stringProperty').greaterThan(5);
+
+          // @ts-expect-error
+          this.ruleFor('nullableStringProperty').greaterThan(5);
+
+          // @ts-expect-error
+          this.ruleFor('booleanProperty').greaterThan(5);
+
+          // @ts-expect-error
+          this.ruleFor('nullableBooleanProperty').greaterThan(5);
+
+          // @ts-expect-error
+          this.ruleFor('objectProperty').greaterThan(5);
+
+          // @ts-expect-error
+          this.ruleFor('nullableObjectProperty').greaterThan(5);
+        }
+      }
+    });
   });
 
   describe('greaterThanOrEqualTo', () => {
@@ -214,6 +328,44 @@ describe('number validators', () => {
       expect(() => otherValidator.validate({ name: 'Alex' })).toThrowError(
         TypeError
       );
+    });
+
+    it('gives a type error if defined with a non-number value', () => {
+      // @ts-ignore
+      class AnotherValidator extends Validator<TestType> {
+        constructor() {
+          super();
+          // @ts-expect-error
+          this.ruleFor('numberProperty').greaterThanOrEqualTo('nonsense');
+        }
+      }
+    });
+
+    it('cannot be used on non-number properties', () => {
+      // @ts-ignore
+      class AnotherValidator extends Validator<TestType> {
+        constructor() {
+          super();
+
+          // @ts-expect-error
+          this.ruleFor('stringProperty').greaterThanOrEqualTo(5);
+
+          // @ts-expect-error
+          this.ruleFor('nullableStringProperty').greaterThanOrEqualTo(5);
+
+          // @ts-expect-error
+          this.ruleFor('booleanProperty').greaterThanOrEqualTo(5);
+
+          // @ts-expect-error
+          this.ruleFor('nullableBooleanProperty').greaterThanOrEqualTo(5);
+
+          // @ts-expect-error
+          this.ruleFor('objectProperty').greaterThanOrEqualTo(5);
+
+          // @ts-expect-error
+          this.ruleFor('nullableObjectProperty').greaterThanOrEqualTo(5);
+        }
+      }
     });
   });
 
@@ -284,6 +436,47 @@ describe('number validators', () => {
         TypeError
       );
     });
+
+    it('gives a type error if defined with non-number values', () => {
+      // @ts-ignore
+      class AnotherValidator extends Validator<TestType> {
+        constructor() {
+          super();
+          this.ruleFor('numberProperty').exclusiveBetween(
+            // @ts-expect-error
+            'nonsense',
+            'more nonsense'
+          );
+        }
+      }
+    });
+
+    it('cannot be used on non-number properties', () => {
+      // @ts-ignore
+      class AnotherValidator extends Validator<TestType> {
+        constructor() {
+          super();
+
+          // @ts-expect-error
+          this.ruleFor('stringProperty').exclusiveBetween(5, 10);
+
+          // @ts-expect-error
+          this.ruleFor('nullableStringProperty').exclusiveBetween(5, 10);
+
+          // @ts-expect-error
+          this.ruleFor('booleanProperty').exclusiveBetween(5, 10);
+
+          // @ts-expect-error
+          this.ruleFor('nullableBooleanProperty').exclusiveBetween(5, 10);
+
+          // @ts-expect-error
+          this.ruleFor('objectProperty').exclusiveBetween(5, 10);
+
+          // @ts-expect-error
+          this.ruleFor('nullableObjectProperty').exclusiveBetween(5, 10);
+        }
+      }
+    });
   });
 
   describe('inclusiveBetween', () => {
@@ -352,6 +545,47 @@ describe('number validators', () => {
       expect(() => otherValidator.validate({ name: 'Alex' })).toThrowError(
         TypeError
       );
+    });
+
+    it('gives a type error if defined with non-number values', () => {
+      // @ts-ignore
+      class AnotherValidator extends Validator<TestType> {
+        constructor() {
+          super();
+          this.ruleFor('numberProperty').inclusiveBetween(
+            // @ts-expect-error
+            'nonsense',
+            'more nonsense'
+          );
+        }
+      }
+    });
+
+    it('cannot be used on non-number properties', () => {
+      // @ts-ignore
+      class AnotherValidator extends Validator<TestType> {
+        constructor() {
+          super();
+
+          // @ts-expect-error
+          this.ruleFor('stringProperty').inclusiveBetween(5, 10);
+
+          // @ts-expect-error
+          this.ruleFor('nullableStringProperty').inclusiveBetween(5, 10);
+
+          // @ts-expect-error
+          this.ruleFor('booleanProperty').inclusiveBetween(5, 10);
+
+          // @ts-expect-error
+          this.ruleFor('nullableBooleanProperty').inclusiveBetween(5, 10);
+
+          // @ts-expect-error
+          this.ruleFor('objectProperty').inclusiveBetween(5, 10);
+
+          // @ts-expect-error
+          this.ruleFor('nullableObjectProperty').inclusiveBetween(5, 10);
+        }
+      }
     });
   });
 
@@ -471,14 +705,8 @@ describe('number validators', () => {
       const otherValidator = new OtherValidator();
 
       const validValues = [
-        1234567.1234567,
-        0.9999999,
-        9999999,
-        9999999.9999999,
-        -1234567.1234567,
-        -0.9999999,
-        -9999999,
-        -9999999.9999999,
+        1234567.1234567, 0.9999999, 9999999, 9999999.9999999, -1234567.1234567,
+        -0.9999999, -9999999, -9999999.9999999,
       ];
 
       for (const validValue of validValues) {
@@ -491,11 +719,7 @@ describe('number validators', () => {
       }
 
       const invalidValues = [
-        1234567.12345678,
-        0.99999999,
-        99999999,
-        -12345678.12345678,
-        -0.99999999,
+        1234567.12345678, 0.99999999, 99999999, -12345678.12345678, -0.99999999,
         -99999999.99999999,
       ];
 
@@ -508,6 +732,47 @@ describe('number validators', () => {
         ).toBe(
           'Value must not be more than 14 digits in total, with allowance for 7 decimals'
         );
+      }
+    });
+
+    it('gives a type error if defined with non-number values', () => {
+      // @ts-ignore
+      class AnotherValidator extends Validator<TestType> {
+        constructor() {
+          super();
+          this.ruleFor('numberProperty').scalePrecision(
+            // @ts-expect-error
+            'nonsense',
+            'more nonsense'
+          );
+        }
+      }
+    });
+
+    it('cannot be used on non-number properties', () => {
+      // @ts-ignore
+      class AnotherValidator extends Validator<TestType> {
+        constructor() {
+          super();
+
+          // @ts-expect-error
+          this.ruleFor('stringProperty').scalePrecision(5, 10);
+
+          // @ts-expect-error
+          this.ruleFor('nullableStringProperty').scalePrecision(5, 10);
+
+          // @ts-expect-error
+          this.ruleFor('booleanProperty').scalePrecision(5, 10);
+
+          // @ts-expect-error
+          this.ruleFor('nullableBooleanProperty').scalePrecision(5, 10);
+
+          // @ts-expect-error
+          this.ruleFor('objectProperty').scalePrecision(5, 10);
+
+          // @ts-expect-error
+          this.ruleFor('nullableObjectProperty').scalePrecision(5, 10);
+        }
       }
     });
   });

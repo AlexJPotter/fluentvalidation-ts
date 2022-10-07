@@ -53,7 +53,7 @@ describe('ruleForEach', () => {
       expect(result.scores).toBe('Must not be empty');
     });
 
-    it('gives a validation error at each appropriate index if the value passes top level validation but some elements are invaid', () => {
+    it('gives a validation error at each appropriate index if the value passes top level validation but some elements are invalid', () => {
       const invalid: TestTypeWithArrayProperty = {
         scores: [0, 20, 100, -10, 120],
         otherProperty: 5,
@@ -70,7 +70,18 @@ describe('ruleForEach', () => {
       });
     });
 
-    describe('when nested rules depened on the base model', () => {
+    it('gives a type error if used on a non-array property', () => {
+      // @ts-ignore
+      class AnotherValidator extends Validator<TestTypeWithArrayProperty> {
+        constructor() {
+          super();
+          // @ts-expect-error
+          this.ruleForEach('otherProperty').null();
+        }
+      }
+    });
+
+    describe('when nested rules depend on the base model', () => {
       class DependentValidator extends Validator<TestTypeWithArrayProperty> {
         constructor() {
           super();
@@ -159,7 +170,7 @@ describe('ruleForEach', () => {
       expect(result.scores).toBe('Must not be empty');
     });
 
-    it('gives a validation error at each appropriate index if the value passes top level validation but some elements are invaid', async () => {
+    it('gives a validation error at each appropriate index if the value passes top level validation but some elements are invalid', async () => {
       const invalid: TestTypeWithArrayProperty = {
         scores: [0, 20, 100, -10, 120],
         otherProperty: 5,
@@ -176,10 +187,19 @@ describe('ruleForEach', () => {
       });
     });
 
-    describe('when nested rules depened on the base model', () => {
-      class DependentValidator extends AsyncValidator<
-        TestTypeWithArrayProperty
-      > {
+    it('gives a type error if used on a non-array property', () => {
+      // @ts-ignore
+      class AnotherValidator extends AsyncValidator<TestTypeWithArrayProperty> {
+        constructor() {
+          super();
+          // @ts-expect-error
+          this.ruleForEach('otherProperty').null();
+        }
+      }
+    });
+
+    describe('when nested rules depend on the base model', () => {
+      class DependentValidator extends AsyncValidator<TestTypeWithArrayProperty> {
         constructor() {
           super();
 

@@ -1,6 +1,6 @@
 {
   "name": "fluentvalidation-ts",
-  "version": "2.2.3",
+  "version": "2.3.0",
   "description": "A TypeScript-first library for building strongly-typed validation rules",
   "keywords": [
     "fluent",
@@ -34,8 +34,8 @@
     "build": "cross-env NODE_ENV=production tsdx build --format=cjs,esm,umd",
     "test": "tsdx test",
     "lint": "tslint -c tslint.json 'src/**/*.{ts,.test.ts}'",
-    "prettier": "prettier --write \"src/**/*.ts\"",
-    "check-ts": "tsc --noEmit",
+    "prettier": "prettier --write \"{src,test}/**/*.ts\"",
+    "check-ts": "tsc --noEmit && tsc --noEmit --project tsconfig.test.json",
     "prepare": "husky install"
   },
   "peerDependencies": {},

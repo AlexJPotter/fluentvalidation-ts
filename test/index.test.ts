@@ -11,6 +11,9 @@ describe('index', () => {
     const validator = new TestTypeValidator();
 
     validator.validate({ name: 'Alex' });
+
+    // @ts-expect-error
+    validator.validate({ nonsense: true });
   });
 
   it('no rules (async)', async () => {
@@ -23,5 +26,8 @@ describe('index', () => {
     const validator = new TestTypeValidator();
 
     await validator.validateAsync({ name: 'Alex' });
+
+    // @ts-expect-error
+    await validator.validateAsync({ nonsense: true });
   });
 });

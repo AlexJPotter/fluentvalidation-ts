@@ -1,5 +1,6 @@
 import { ValueValidationResult } from '../ValueValidationResult';
 import { ValueValidator } from '../ValueValidator';
+import { ValueTransformer } from './ValueTransformer';
 import { hasError } from './ValueValidator';
 import { ValueValidatorBuilder } from './ValueValidatorBuilder';
 
@@ -7,38 +8,52 @@ export class ArrayValueValidatorBuilder<
   TModel,
   TPropertyName extends keyof TModel,
   TValue extends Array<TEachValue> & TModel[TPropertyName],
-  TEachValue
+  TEachValue,
+  TEachTransformedValue extends
+    | TEachValue
+    | string
+    | number
+    | boolean
+    | null
+    | undefined
+    | symbol
 > {
   private eachValueValidatorBuilder: ValueValidatorBuilder<
     TModel,
-    TValue[0] & TEachValue
+    TEachValue,
+    TEachTransformedValue
   >;
 
   private propertyName: string;
 
-  constructor(rebuildValidate: () => void, propertyName: string) {
+  constructor(
+    rebuildValidate: () => void,
+    propertyName: string,
+    transformValue: ValueTransformer<TEachValue, TEachTransformedValue>
+  ) {
     this.eachValueValidatorBuilder = new ValueValidatorBuilder<
       TModel,
-      TValue[0] & TEachValue
-    >(rebuildValidate);
+      TEachValue,
+      TEachTransformedValue
+    >(rebuildValidate, transformValue);
 
     this.propertyName = propertyName;
   }
 
   public build = (): ValueValidator<TModel, TValue> => {
     return (value: TValue, model: TModel) => {
-      if (model[this.propertyName as TPropertyName] == null) {
+      if (value == null || model[this.propertyName as TPropertyName] == null) {
         return null;
       }
 
       const valueValidator = this.eachValueValidatorBuilder.build();
 
-      const errors = value.map((element) => {
+      const errors = (value as Array<TEachValue>).map((element) => {
         const errorOrNull = valueValidator(element, model);
         return hasError(errorOrNull) ? errorOrNull : null;
       }) as ValueValidationResult<TValue>;
 
-      return hasError(errors) ? errors : null;
+      return hasError<TValue>(errors) ? errors : null;
     };
   };
 

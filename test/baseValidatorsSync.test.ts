@@ -88,6 +88,17 @@ describe('base validators (sync)', () => {
       const result = validator.validate(valid);
       expect(result.stringProperty).toBeUndefined();
     });
+
+    it('gives a type error if the comparison value is of a different type', () => {
+      // @ts-ignore
+      class AnotherValidator extends Validator<TestType> {
+        constructor() {
+          super();
+          // @ts-expect-error
+          this.ruleFor('stringProperty').notEqual(5);
+        }
+      }
+    });
   });
 
   describe('equal', () => {
@@ -116,6 +127,17 @@ describe('base validators (sync)', () => {
       };
       const result = validator.validate(valid);
       expect(result.numberProperty).toBeUndefined();
+    });
+
+    it('gives a type error if the comparison value is of a different type', () => {
+      // @ts-ignore
+      class AnotherValidator extends Validator<TestType> {
+        constructor() {
+          super();
+          // @ts-expect-error
+          this.ruleFor('stringProperty').equal(5);
+        }
+      }
     });
   });
 
@@ -386,6 +408,28 @@ describe('base validators (sync)', () => {
       expect(result.nullableObjectProperty).toEqual({
         nestedProperty: 'Value must be between 3 and 5 characters long',
       });
+    });
+
+    it('gives a type error if passed an incompatible validator', () => {
+      type AnotherType = { anotherProperty: string };
+
+      class AnotherValidator extends Validator<AnotherType> {
+        constructor() {
+          super();
+          this.ruleFor('anotherProperty').maxLength(10);
+        }
+      }
+
+      // @ts-ignore
+      class AnotherTestValidator extends Validator<TestType> {
+        constructor() {
+          super();
+          this.ruleFor('objectProperty').setValidator(
+            // @ts-expect-error
+            () => new AnotherValidator()
+          );
+        }
+      }
     });
   });
 });
