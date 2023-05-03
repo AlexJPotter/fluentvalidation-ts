@@ -7,7 +7,7 @@ Visit [https://fluentvalidation-ts.alexpotter.dev](https://fluentvalidation-ts.a
 ![Coverage](https://badgen.net/badge/coverage/100%25/green)
 [![NPM Version](https://badgen.net/npm/v/fluentvalidation-ts)](https://www.npmjs.com/package/fluentvalidation-ts)
 ![License](https://badgen.net/npm/license/fluentvalidation-ts)
-![Last Commit](https://badgen.net/github/last-commit/alexjpotter/fluentvalidation-ts/master)
+![Last Commit](https://badgen.net/github/last-commit/alexjpotter/fluentvalidation-ts/main)
 ![Open Issues](https://badgen.net/github/open-issues/alexjpotter/fluentvalidation-ts)
 
 ![Dependencies](https://badgen.net/badge/dependencies/none/green)
