@@ -11,7 +11,7 @@ Visit [https://fluentvalidation-ts.alexpotter.dev](https://fluentvalidation-ts.a
 ![Open Issues](https://badgen.net/github/open-issues/alexjpotter/fluentvalidation-ts)
 
 ![Dependencies](https://badgen.net/badge/dependencies/none/green)
-[![GZIP Size](https://img.badgesize.io/https://unpkg.com/fluentvalidation-ts@latest/dist/fluentvalidation-ts.umd.production.min.js?compression=gzip)](https://unpkg.com/fluentvalidation-ts@latest/dist/fluentvalidation-ts.umd.production.min.js)
+[![GZIP Size](https://img.badgesize.io/https://unpkg.com/fluentvalidation-ts@latest/dist/index.js?compression=gzip)](https://unpkg.com/fluentvalidation-ts@latest/dist/index.js)
 
 ## Overview
 
@@ -59,7 +59,6 @@ npm i --save fluentvalidation-ts
 ```
 
 **Note:** `fluentvalidation-ts` has been written with first-class support for TypeScript, so there's no need to install types!
-
 
 ### Example Usage
 
