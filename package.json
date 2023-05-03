@@ -1,6 +1,6 @@
 {
   "name": "fluentvalidation-ts",
-  "version": "2.3.0",
+  "version": "3.0.0",
   "description": "A TypeScript-first library for building strongly-typed validation rules",
   "keywords": [
     "fluent",
@@ -23,15 +23,15 @@
   "bugs": {
     "url": "https://github.com/AlexJPotter/fluentvalidation-ts/issues"
   },
-  "umd:main": "dist/fluentvalidation-ts.umd.production.min.js",
-  "module": "dist/fluentvalidation-ts.esm.js",
+  "umd:main": "dist/index.global.js",
+  "module": "dist/index.mjs",
   "typings": "dist/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
     "start": "tsdx watch",
-    "build": "cross-env NODE_ENV=production tsdx build --format=cjs,esm,umd",
+    "build": "cross-env NODE_ENV=production tsup src/index.ts --dts --minify --treeshake --format cjs,esm,iife --global-name fluentvalidation --sourcemap",
     "test": "tsdx test",
     "lint": "tslint -c tslint.json 'src/**/*.{ts,.test.ts}'",
     "prettier": "prettier --write \"{src,test}/**/*.ts\"",
@@ -47,6 +47,7 @@
     "endOfLine": "crlf"
   },
   "devDependencies": {
+    "@swc/core": "^1.3.56",
     "@types/jest": "^26.0.23",
     "cross-env": "^7.0.3",
     "husky": "^6.0.0",
@@ -56,6 +57,7 @@
     "tslib": "^2.3.0",
     "tslint": "^6.1.3",
     "tslint-config-prettier": "^1.18.0",
+    "tsup": "^6.7.0",
     "typescript": "^4.3.3"
   }
 }

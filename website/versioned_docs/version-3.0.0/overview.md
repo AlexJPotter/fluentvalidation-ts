@@ -1,6 +1,7 @@
 ---
-id: overview
+id: version-3.0.0-overview
 title: Overview
+original_id: overview
 ---
 
 Front-end validation is a must-have for any project that involves forms, but the requirements vary hugely. You might have a simple sign-up form with a few text fields, or a complex configuration page with collections and deeply nested fields.
