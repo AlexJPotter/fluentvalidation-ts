@@ -1,4 +1,4 @@
-import { AsyncValidator } from '../src/index';
+import { AsyncValidator } from '@/index';
 
 describe('string validators (async)', () => {
   describe('notEmpty', () => {
@@ -52,7 +52,7 @@ describe('string validators (async)', () => {
       } catch (error) {
         expect(() => {
           throw error;
-        }).toThrowError(TypeError);
+        }).toThrow(TypeError);
       }
     });
 
@@ -151,7 +151,7 @@ describe('string validators (async)', () => {
       } catch (error) {
         expect(() => {
           throw error;
-        }).toThrowError(TypeError);
+        }).toThrow(TypeError);
       }
     });
 
@@ -237,7 +237,7 @@ describe('string validators (async)', () => {
       } catch (error) {
         expect(() => {
           throw error;
-        }).toThrowError(TypeError);
+        }).toThrow(TypeError);
       }
     });
 
@@ -323,7 +323,7 @@ describe('string validators (async)', () => {
       } catch (error) {
         expect(() => {
           throw error;
-        }).toThrowError(TypeError);
+        }).toThrow(TypeError);
       }
     });
 
@@ -406,7 +406,7 @@ describe('string validators (async)', () => {
       } catch (error) {
         expect(() => {
           throw error;
-        }).toThrowError(TypeError);
+        }).toThrow(TypeError);
       }
     });
 
@@ -492,7 +492,7 @@ describe('string validators (async)', () => {
       } catch (error) {
         expect(() => {
           throw error;
-        }).toThrowError(TypeError);
+        }).toThrow(TypeError);
       }
     });
 

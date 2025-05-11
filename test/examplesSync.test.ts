@@ -1,4 +1,4 @@
-import { Validator } from '../src/index';
+import { Validator } from '@/index';
 
 describe('examples (sync)', () => {
   it('custom rules', () => {

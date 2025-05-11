@@ -1,8 +1,8 @@
-import { ValueValidationResult } from '../ValueValidationResult';
-import { ValueValidator } from '../ValueValidator';
 import { ValueTransformer } from './ValueTransformer';
 import { hasError } from './ValueValidator';
 import { ValueValidatorBuilder } from './ValueValidatorBuilder';
+import { ValueValidator } from '@/ValueValidator';
+import { ValueValidationResult } from '@/ValueValidationResult';
 
 export class ArrayValueValidatorBuilder<
   TModel,
@@ -16,7 +16,7 @@ export class ArrayValueValidatorBuilder<
     | boolean
     | null
     | undefined
-    | symbol
+    | symbol,
 > {
   private eachValueValidatorBuilder: ValueValidatorBuilder<
     TModel,

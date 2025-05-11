@@ -1,4 +1,4 @@
-import { formatNumber } from '../src/numberHelpers';
+import { formatNumber } from '@/numberHelpers';
 
 describe('numberHelpers', () => {
   describe('formatNumber', () => {

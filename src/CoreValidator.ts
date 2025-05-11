@@ -2,13 +2,16 @@ import { AsyncArrayValueValidatorBuilder } from './valueValidator/AsyncArrayValu
 import { AsyncValueValidatorBuilder } from './valueValidator/AsyncValueValidatorBuilder';
 import { ValidationErrors } from './ValidationErrors';
 import { ArrayValueValidatorBuilder } from './valueValidator/ArrayValueValidatorBuilder';
-import { AsyncRuleValidators } from './valueValidator/RuleValidators';
-import { RuleValidators } from './valueValidator/RuleValidators';
+import {
+  AsyncRuleValidators,
+  RuleValidators,
+} from './valueValidator/RuleValidators';
+
 import { hasError } from './valueValidator/ValueValidator';
 import { ValueValidatorBuilder } from './valueValidator/ValueValidatorBuilder';
-import { ValueValidationResult } from 'ValueValidationResult';
 import { Constrain } from './types/Constrain';
-import { ValueTransformer } from 'valueValidator/ValueTransformer';
+import { ValueValidationResult } from '@/ValueValidationResult';
+import { ValueTransformer } from '@/valueValidator/ValueTransformer';
 
 type ValueValidatorBuildersByPropertyName<TModel> = {
   [propertyName in keyof TModel]?: Array<
@@ -169,7 +172,7 @@ export abstract class CoreValidator<TModel, TAsync extends true | false> {
 
   protected ruleFor = <
     TPropertyName extends keyof TModel,
-    TValue extends TModel[TPropertyName]
+    TValue extends TModel[TPropertyName],
   >(
     propertyName: TPropertyName
   ): TAsync extends true
@@ -228,7 +231,7 @@ export abstract class CoreValidator<TModel, TAsync extends true | false> {
       | boolean
       | null
       | undefined
-      | symbol
+      | symbol,
   >(
     propertyName: TPropertyName,
     transformValue: (
@@ -297,7 +300,7 @@ export abstract class CoreValidator<TModel, TAsync extends true | false> {
             | null
             | undefined
           )
-      : never
+      : never,
   >(
     propertyName: TModel[TPropertyName] extends
       | Array<unknown>
@@ -381,7 +384,7 @@ export abstract class CoreValidator<TModel, TAsync extends true | false> {
       | boolean
       | null
       | undefined
-      | symbol
+      | symbol,
   >(
     propertyName: TModel[TPropertyName] extends
       | Array<unknown>

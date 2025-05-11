@@ -1,4 +1,4 @@
-import { Validator } from '../src/index';
+import { Validator } from '@/index';
 
 describe('number validators', () => {
   describe('lessThan', () => {
@@ -49,7 +49,7 @@ describe('number validators', () => {
       }
       const otherValidator = new OtherTestTypeValidator();
 
-      expect(() => otherValidator.validate({ name: 'Alex' })).toThrowError(
+      expect(() => otherValidator.validate({ name: 'Alex' })).toThrow(
         TypeError
       );
     });
@@ -141,7 +141,7 @@ describe('number validators', () => {
       }
       const otherValidator = new OtherTestTypeValidator();
 
-      expect(() => otherValidator.validate({ name: 'Alex' })).toThrowError(
+      expect(() => otherValidator.validate({ name: 'Alex' })).toThrow(
         TypeError
       );
     });
@@ -233,7 +233,7 @@ describe('number validators', () => {
       }
       const otherValidator = new OtherTestTypeValidator();
 
-      expect(() => otherValidator.validate({ name: 'Alex' })).toThrowError(
+      expect(() => otherValidator.validate({ name: 'Alex' })).toThrow(
         TypeError
       );
     });
@@ -325,7 +325,7 @@ describe('number validators', () => {
       }
       const otherValidator = new OtherTestTypeValidator();
 
-      expect(() => otherValidator.validate({ name: 'Alex' })).toThrowError(
+      expect(() => otherValidator.validate({ name: 'Alex' })).toThrow(
         TypeError
       );
     });
@@ -432,7 +432,7 @@ describe('number validators', () => {
       }
       const otherValidator = new OtherTestTypeValidator();
 
-      expect(() => otherValidator.validate({ name: 'Alex' })).toThrowError(
+      expect(() => otherValidator.validate({ name: 'Alex' })).toThrow(
         TypeError
       );
     });
@@ -542,7 +542,7 @@ describe('number validators', () => {
       }
       const otherValidator = new OtherTestTypeValidator();
 
-      expect(() => otherValidator.validate({ name: 'Alex' })).toThrowError(
+      expect(() => otherValidator.validate({ name: 'Alex' })).toThrow(
         TypeError
       );
     });
@@ -677,8 +677,8 @@ describe('number validators', () => {
             this.ruleFor('numberProperty').scalePrecision(4, 2);
           }
         }
-        new BadValidator(); // tslint:disable-line
-      }).toThrowError();
+        new BadValidator();
+      }).toThrow();
     });
 
     it('throws an error if it receives a non-number value', () => {
@@ -690,7 +690,7 @@ describe('number validators', () => {
       }
       const otherValidator = new OtherTestTypeValidator();
 
-      expect(() => otherValidator.validate({ name: 'Alex' })).toThrowError(
+      expect(() => otherValidator.validate({ name: 'Alex' })).toThrow(
         TypeError
       );
     });

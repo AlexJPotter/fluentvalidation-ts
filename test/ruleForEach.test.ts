@@ -1,5 +1,5 @@
-import { Validator, AsyncValidator } from '../src/index';
 import { delay } from './testHelpers';
+import { AsyncValidator, Validator } from '@/index';
 
 describe('ruleForEach', () => {
   describe('sync', () => {

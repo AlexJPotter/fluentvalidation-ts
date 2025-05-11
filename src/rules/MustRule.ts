@@ -45,8 +45,8 @@ export class MustRule<TModel, TValue> extends Rule<TModel, TValue> {
       return predicate(value, model)
         ? null
         : typeof message === 'function'
-        ? message(value, model)
-        : message;
+          ? message(value, model)
+          : message;
     });
   }
 }

@@ -45,8 +45,8 @@ export class MustAsyncRule<TModel, TValue> extends AsyncRule<TModel, TValue> {
       return (await predicate(value, model))
         ? null
         : typeof message === 'function'
-        ? message(value, model)
-        : message;
+          ? message(value, model)
+          : message;
     });
   }
 }

@@ -1,18 +1,18 @@
 import { AsyncValueValidator } from './AsyncValueValidator';
-import { AsyncRule } from '../rules/AsyncRule';
-import { MustAsyncRule } from '../rules/MustAsyncRule';
-import { Rule } from '../rules/Rule';
-import { ValueValidationResult } from '../ValueValidationResult';
 import { hasError } from './ValueValidator';
-import { IAsyncValidator } from '../IAsyncValidator';
-import { AsyncValidatorRule } from '../rules/AsyncValidatorRule';
 import { CoreValueValidatorBuilder } from './CoreValueValidatorBuilder';
 import { ValueTransformer } from './ValueTransformer';
+import { AsyncRule } from '@/rules/AsyncRule';
+import { MustAsyncRule } from '@/rules/MustAsyncRule';
+import { Rule } from '@/rules/Rule';
+import { ValueValidationResult } from '@/ValueValidationResult';
+import { IAsyncValidator } from '@/IAsyncValidator';
+import { AsyncValidatorRule } from '@/rules/AsyncValidatorRule';
 
 export class AsyncValueValidatorBuilder<
   TModel,
   TValue,
-  TTransformedValue
+  TTransformedValue,
 > extends CoreValueValidatorBuilder<TModel, TValue, TTransformedValue> {
   constructor(
     rebuildValidateAsync: () => void,

@@ -1,4 +1,4 @@
-import { AsyncValidator } from '../src/index';
+import { AsyncValidator } from '@/index';
 
 describe('number validators (async)', () => {
   describe('lessThan', () => {
@@ -54,7 +54,7 @@ describe('number validators (async)', () => {
       } catch (error) {
         expect(() => {
           throw error;
-        }).toThrowError(TypeError);
+        }).toThrow(TypeError);
       }
     });
 
@@ -150,7 +150,7 @@ describe('number validators (async)', () => {
       } catch (error) {
         expect(() => {
           throw error;
-        }).toThrowError(TypeError);
+        }).toThrow(TypeError);
       }
     });
 
@@ -246,7 +246,7 @@ describe('number validators (async)', () => {
       } catch (error) {
         expect(() => {
           throw error;
-        }).toThrowError(TypeError);
+        }).toThrow(TypeError);
       }
     });
 
@@ -342,7 +342,7 @@ describe('number validators (async)', () => {
       } catch (error) {
         expect(() => {
           throw error;
-        }).toThrowError(TypeError);
+        }).toThrow(TypeError);
       }
     });
 
@@ -453,7 +453,7 @@ describe('number validators (async)', () => {
       } catch (error) {
         expect(() => {
           throw error;
-        }).toThrowError(TypeError);
+        }).toThrow(TypeError);
       }
     });
 
@@ -567,7 +567,7 @@ describe('number validators (async)', () => {
       } catch (error) {
         expect(() => {
           throw error;
-        }).toThrowError(TypeError);
+        }).toThrow(TypeError);
       }
     });
 
@@ -701,8 +701,8 @@ describe('number validators (async)', () => {
             this.ruleFor('numberProperty').scalePrecision(4, 2);
           }
         }
-        new BadValidator(); // tslint:disable-line
-      }).toThrowError();
+        new BadValidator();
+      }).toThrow();
     });
 
     it('throws an error if it receives a non-number value', async () => {
@@ -719,7 +719,7 @@ describe('number validators (async)', () => {
       } catch (error) {
         expect(() => {
           throw error;
-        }).toThrowError(TypeError);
+        }).toThrow(TypeError);
       }
     });
 

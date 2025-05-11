@@ -1,5 +1,5 @@
-import { formatNumber } from '../numberHelpers';
 import { Rule } from './Rule';
+import { formatNumber } from '@/numberHelpers';
 
 export class GreaterThanOrEqualToRule<TModel, TValue> extends Rule<
   TModel,

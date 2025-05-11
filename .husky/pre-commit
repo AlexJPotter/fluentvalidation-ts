@@ -1,9 +1,6 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
 npx --no-install pretty-quick
-yarn pretty-quick --staged
+npx pretty-quick --staged
 
-yarn lint
+npm run lint
 
-yarn check-ts
+npm run typecheck

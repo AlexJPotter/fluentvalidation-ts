@@ -12,13 +12,13 @@ export type RuleValidators<TModel, TValue> = BaseValueValidators<
 > &
   (TValue extends string | null | undefined
     ? StringValueValidators<TModel, TValue>
-    : {}) &
+    : unknown) &
   (TValue extends number | null | undefined
     ? NumberValueValidators<TModel, TValue>
-    : {}) &
+    : unknown) &
   (TValue extends object | null | undefined
     ? ObjectValueValidators<TModel, TValue>
-    : {});
+    : unknown);
 
 export type AsyncRuleValidators<TModel, TValue> = RuleValidators<
   TModel,

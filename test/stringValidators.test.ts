@@ -1,4 +1,4 @@
-import { Validator } from '../src/index';
+import { Validator } from '@/index';
 
 describe('string validators (sync)', () => {
   describe('notEmpty', () => {
@@ -47,9 +47,7 @@ describe('string validators (sync)', () => {
       }
       const otherValidator = new OtherTestTypeValidator();
 
-      expect(() => otherValidator.validate({ age: 10 })).toThrowError(
-        TypeError
-      );
+      expect(() => otherValidator.validate({ age: 10 })).toThrow(TypeError);
     });
 
     it('cannot be used on non-string values', () => {
@@ -142,9 +140,7 @@ describe('string validators (sync)', () => {
       }
       const otherValidator = new OtherTestTypeValidator();
 
-      expect(() => otherValidator.validate({ age: 10 })).toThrowError(
-        TypeError
-      );
+      expect(() => otherValidator.validate({ age: 10 })).toThrow(TypeError);
     });
 
     it('cannot be used on non-string values', () => {
@@ -224,9 +220,7 @@ describe('string validators (sync)', () => {
       }
       const otherValidator = new OtherTestTypeValidator();
 
-      expect(() => otherValidator.validate({ age: 10 })).toThrowError(
-        TypeError
-      );
+      expect(() => otherValidator.validate({ age: 10 })).toThrow(TypeError);
     });
 
     it('cannot be used on non-string values', () => {
@@ -306,9 +300,7 @@ describe('string validators (sync)', () => {
       }
       const otherValidator = new OtherTestTypeValidator();
 
-      expect(() => otherValidator.validate({ age: 10 })).toThrowError(
-        TypeError
-      );
+      expect(() => otherValidator.validate({ age: 10 })).toThrow(TypeError);
     });
 
     it('cannot be used on non-string values', () => {
@@ -385,9 +377,7 @@ describe('string validators (sync)', () => {
       }
       const otherValidator = new OtherTestTypeValidator();
 
-      expect(() => otherValidator.validate({ age: 10 })).toThrowError(
-        TypeError
-      );
+      expect(() => otherValidator.validate({ age: 10 })).toThrow(TypeError);
     });
 
     it('cannot be used on non-string values', () => {
@@ -467,9 +457,7 @@ describe('string validators (sync)', () => {
       }
       const otherValidator = new OtherTestTypeValidator();
 
-      expect(() => otherValidator.validate({ age: 10 })).toThrowError(
-        TypeError
-      );
+      expect(() => otherValidator.validate({ age: 10 })).toThrow(TypeError);
     });
 
     it('cannot be used on non-string values', () => {

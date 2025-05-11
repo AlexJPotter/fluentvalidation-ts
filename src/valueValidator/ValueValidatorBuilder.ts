@@ -1,9 +1,9 @@
-import { Rule } from '../rules/Rule';
-import { ValueValidationResult } from '../ValueValidationResult';
 import { hasError } from './ValueValidator';
-import { ValueValidator } from '../ValueValidator';
 import { CoreValueValidatorBuilder } from './CoreValueValidatorBuilder';
 import { ValueTransformer } from './ValueTransformer';
+import { Rule } from '@/rules/Rule';
+import { ValueValidationResult } from '@/ValueValidationResult';
+import { ValueValidator } from '@/ValueValidator';
 
 export class ValueValidatorBuilder<
   TModel,
@@ -15,7 +15,7 @@ export class ValueValidatorBuilder<
     | boolean
     | null
     | undefined
-    | symbol
+    | symbol,
 > extends CoreValueValidatorBuilder<TModel, TValue, TTransformedValue> {
   constructor(
     rebuildValidate: () => void,

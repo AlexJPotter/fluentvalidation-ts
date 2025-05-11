@@ -1,6 +1,6 @@
-import { ValueValidationResult } from '../ValueValidationResult';
 import { AsyncRule } from './AsyncRule';
-import { IAsyncValidator } from 'IAsyncValidator';
+import { ValueValidationResult } from '@/ValueValidationResult';
+import { IAsyncValidator } from '@/IAsyncValidator';
 
 export class AsyncValidatorRule<TModel, TValue> extends AsyncRule<
   TModel,

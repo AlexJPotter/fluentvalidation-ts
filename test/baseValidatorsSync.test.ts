@@ -1,4 +1,4 @@
-import { Validator } from '../src/index';
+import { Validator } from '@/index';
 
 describe('base validators (sync)', () => {
   describe('notNull', () => {

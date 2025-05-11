@@ -1,4 +1,4 @@
-import { ValueValidationResult } from '../ValueValidationResult';
+import { ValueValidationResult } from '@/ValueValidationResult';
 
 export type AsyncValueValidator<TModel, TValue, TTransformedValue> = (
   value: TValue,

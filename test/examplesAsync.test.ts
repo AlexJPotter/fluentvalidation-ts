@@ -1,4 +1,4 @@
-import { AsyncValidator } from '../src/index';
+import { AsyncValidator } from '@/index';
 
 describe('examples (async)', () => {
   it('custom rules', async () => {

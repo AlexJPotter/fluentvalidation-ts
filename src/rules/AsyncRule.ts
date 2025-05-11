@@ -1,6 +1,6 @@
 import { CoreRule } from './CoreRule';
-import { AsyncValueValidator } from 'valueValidator/AsyncValueValidator';
-import { ValueValidationResult } from '../ValueValidationResult';
+import { AsyncValueValidator } from '@/valueValidator/AsyncValueValidator';
+import { ValueValidationResult } from '@/ValueValidationResult';
 
 export class AsyncRule<TModel, TValue> extends CoreRule<TModel> {
   private readonly asyncValueValidator: AsyncValueValidator<

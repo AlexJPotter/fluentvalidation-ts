@@ -22,7 +22,8 @@
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
-      "*": ["src/*", "node_modules/*"]
+      "*": ["node_modules/*"],
+      "@/*": ["src/*"]
     },
     "jsx": "react",
     "esModuleInterop": true

@@ -1,6 +1,6 @@
 import { CoreRule } from './CoreRule';
-import { ValueValidationResult } from '../ValueValidationResult';
-import { ValueValidator } from '../ValueValidator';
+import { ValueValidationResult } from '@/ValueValidationResult';
+import { ValueValidator } from '@/ValueValidator';
 
 export class Rule<TModel, TValue> extends CoreRule<TModel> {
   private readonly valueValidator: ValueValidator<TModel, TValue>;

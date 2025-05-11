@@ -1,10 +1,10 @@
-import { IValidator } from '../IValidator';
-import { ValueValidationResult } from '../ValueValidationResult';
 import {
-  RuleValidatorsAndExtensions,
   AsyncRuleValidatorsAndExtensions,
+  RuleValidatorsAndExtensions,
 } from './RuleValidators';
-import { IAsyncValidator } from '../IAsyncValidator';
+import { IValidator } from '@/IValidator';
+import { ValueValidationResult } from '@/ValueValidationResult';
+import { IAsyncValidator } from '@/IAsyncValidator';
 
 export const hasError = <TValue>(
   valueValidationResult: ValueValidationResult<TValue>
@@ -79,7 +79,7 @@ export type AsyncBaseValueValidators<TModel, TValue> = BaseValueValidators<
 
 export type StringValueValidators<
   TModel,
-  TValue extends string | null | undefined
+  TValue extends string | null | undefined,
 > = {
   notEmpty: () => RuleValidatorsAndExtensions<TModel, TValue>;
   length: (
@@ -94,7 +94,7 @@ export type StringValueValidators<
 
 export type NumberValueValidators<
   TModel,
-  TValue extends number | null | undefined
+  TValue extends number | null | undefined,
 > = {
   lessThan: (threshold: number) => RuleValidatorsAndExtensions<TModel, TValue>;
   lessThanOrEqualTo: (
@@ -122,7 +122,7 @@ export type NumberValueValidators<
 
 export type ObjectValueValidators<
   TModel,
-  TValue extends object | null | undefined
+  TValue extends object | null | undefined,
 > = {
   setValidator: (
     validatorProducer: (

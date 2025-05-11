@@ -1,5 +1,5 @@
-import { formatNumber } from '../numberHelpers';
 import { Rule } from './Rule';
+import { formatNumber } from '@/numberHelpers';
 
 export class MinLengthRule<TModel, TValue> extends Rule<TModel, TValue> {
   constructor(minLength: number) {

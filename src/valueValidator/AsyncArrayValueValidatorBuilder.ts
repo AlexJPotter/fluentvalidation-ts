@@ -1,15 +1,15 @@
-import { AsyncValueValidator } from 'valueValidator/AsyncValueValidator';
-import { ValueValidationResult } from '../ValueValidationResult';
-import { hasError } from '../valueValidator/ValueValidator';
+import { AsyncValueValidator } from './AsyncValueValidator';
 import { AsyncValueValidatorBuilder } from './AsyncValueValidatorBuilder';
 import { ValueTransformer } from './ValueTransformer';
+import { ValueValidationResult } from '@/ValueValidationResult';
+import { hasError } from '@/valueValidator/ValueValidator';
 
 export class AsyncArrayValueValidatorBuilder<
   TModel,
   TPropertyName extends keyof TModel,
   TValue extends Array<TEachValue> & TModel[TPropertyName],
   TEachValue,
-  TEachTransformedValue
+  TEachTransformedValue,
 > {
   private eachAsyncValueValidatorBuilder: AsyncValueValidatorBuilder<
     TModel,

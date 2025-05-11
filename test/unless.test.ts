@@ -1,4 +1,4 @@
-import { Validator, AsyncValidator } from '../src/index';
+import { AsyncValidator, Validator } from '@/index';
 
 describe('unless', () => {
   describe('sync', () => {

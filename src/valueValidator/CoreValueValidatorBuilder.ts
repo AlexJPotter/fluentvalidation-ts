@@ -1,31 +1,31 @@
-import { IValidator } from '../IValidator';
-import { AsyncRule } from '../rules/AsyncRule';
-import { EmailAddressRule } from '../rules/EmailAddressRule';
-import { EqualRule } from '../rules/EqualRule';
-import { ExclusiveBetweenRule } from '../rules/ExclusiveBetweenRule';
-import { GreaterThanOrEqualToRule } from '../rules/GreaterThanOrEqualToRule';
-import { GreaterThanRule } from '../rules/GreaterThanRule';
-import { InclusiveBetweenRule } from '../rules/InclusiveBetweenRule';
-import { LengthRule } from '../rules/LengthRule';
-import { LessThanOrEqualToRule } from '../rules/LessThanOrEqualToRule';
-import { LessThanRule } from '../rules/LessThanRule';
-import { MatchesRule } from '../rules/MatchesRule';
-import { MaxLengthRule } from '../rules/MaxLengthRule';
-import { MinLengthRule } from '../rules/MinLengthRule';
-import { MustRule } from '../rules/MustRule';
-import { NotEmptyRule } from '../rules/NotEmptyRule';
-import { NotEqualRule } from '../rules/NotEqualRule';
-import { NotNullRule } from '../rules/NotNullRule';
-import { NullRule } from '../rules/NullRule';
-import { Rule } from '../rules/Rule';
-import { ScalePrecisionRule } from '../rules/ScalePrecisionRule';
-import { ValidatorRule } from '../rules/ValidatorRule';
 import { ValueTransformer } from './ValueTransformer';
+import { IValidator } from '@/IValidator';
+import { AsyncRule } from '@/rules/AsyncRule';
+import { EmailAddressRule } from '@/rules/EmailAddressRule';
+import { EqualRule } from '@/rules/EqualRule';
+import { ExclusiveBetweenRule } from '@/rules/ExclusiveBetweenRule';
+import { GreaterThanOrEqualToRule } from '@/rules/GreaterThanOrEqualToRule';
+import { GreaterThanRule } from '@/rules/GreaterThanRule';
+import { InclusiveBetweenRule } from '@/rules/InclusiveBetweenRule';
+import { LengthRule } from '@/rules/LengthRule';
+import { LessThanOrEqualToRule } from '@/rules/LessThanOrEqualToRule';
+import { LessThanRule } from '@/rules/LessThanRule';
+import { MatchesRule } from '@/rules/MatchesRule';
+import { MaxLengthRule } from '@/rules/MaxLengthRule';
+import { MinLengthRule } from '@/rules/MinLengthRule';
+import { MustRule } from '@/rules/MustRule';
+import { NotEmptyRule } from '@/rules/NotEmptyRule';
+import { NotEqualRule } from '@/rules/NotEqualRule';
+import { NotNullRule } from '@/rules/NotNullRule';
+import { NullRule } from '@/rules/NullRule';
+import { Rule } from '@/rules/Rule';
+import { ScalePrecisionRule } from '@/rules/ScalePrecisionRule';
+import { ValidatorRule } from '@/rules/ValidatorRule';
 
 export abstract class CoreValueValidatorBuilder<
   TModel,
   TValue,
-  TTransformedValue
+  TTransformedValue,
 > {
   protected rules: Array<{
     isAsync: boolean;
@@ -298,11 +298,7 @@ export abstract class CoreValueValidatorBuilder<
 
   // We don't care about code coverage for this line
   // istanbul ignore next
-  public abstract getAllRules = (): object => {
-    throw new Error(
-      'getAllRules on CoreValueValidatorBuilder is an abstract method and should never be called'
-    );
-  };
+  public abstract getAllRules: () => object;
 
   public getAllRulesAndExtensions = () => {
     return {
