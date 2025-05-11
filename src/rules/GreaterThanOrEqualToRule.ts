@@ -6,6 +6,7 @@ export class GreaterThanOrEqualToRule<TModel, TValue> extends Rule<
   TValue
 > {
   constructor(threshold: number) {
+    // istanbul ignore next - https://github.com/gotwarlost/istanbul/issues/690
     super((value: TValue) => {
       if (value == null) {
         return null;

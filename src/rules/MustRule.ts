@@ -1,21 +1,9 @@
 import { Rule } from './Rule';
+import { Predicate } from '@/types/Predicate';
 
 export class MustRule<TModel, TValue> extends Rule<TModel, TValue> {
-  constructor(
-    definition:
-      | ((value: TValue, model: TModel) => boolean)
-      | {
-          predicate: (value: TValue, model: TModel) => boolean;
-          message: string | ((value: TValue, model: TModel) => string);
-        }
-      | Array<
-          | ((value: TValue, model: TModel) => boolean)
-          | {
-              predicate: (value: TValue, model: TModel) => boolean;
-              message: string | ((value: TValue, model: TModel) => string);
-            }
-        >
-  ) {
+  constructor(definition: Predicate<TModel, TValue>) {
+    // istanbul ignore next - https://github.com/gotwarlost/istanbul/issues/690
     super((value: TValue, model: TModel) => {
       if (Array.isArray(definition)) {
         for (const eachDefinition of definition) {

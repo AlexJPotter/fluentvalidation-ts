@@ -32,10 +32,10 @@ class FormValidator extends Validator<FormModel> {
 
 ## Limitations
 
-Note that in order to preserve the shape of the [errors object](api/core/validationErrors.md) returned by the `.validate` and `.validateAsync` methods, the transformation function passed to `.ruleForTransformed` cannot map simple types into complex types.
+Note that in order to preserve the shape of the [errors object](api/core/validationErrors.md) returned by the `.validate` and `.validateAsync` methods, the transformation function passed to `.ruleForTransformed` cannot map flat types into complex types.
 
 For example, a `string` property cannot be transformed into an `Array<string>`. This is because the errors object could then contain an array of errors at the path of the `string` property, while the expected type at this path is a "flat" error (i.e. `string | null | undefined`).
 
 For the same reasons, complex types cannot be mapped to other complex types that look different. For example, if an `object` property is mapped to another `object` with different properties, then the errors object could contain nested errors at the path of the property with unexpected keys (i.e. keys not present on the original type of the property).
 
-It is possible to map complex types to simple types, or complex types to other complex types with some/all of the same properties. This is because the shape of the errors object is preserved in these cases.
+It is possible to map complex types to flat types, or complex types to other complex types with some/all of the same properties. This is because the shape of the errors object is preserved in these cases.

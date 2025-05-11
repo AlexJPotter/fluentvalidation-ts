@@ -1,5 +1,7 @@
+import { ArrayType } from '@/types/ArrayType';
+
 export type ValueValidationResult<TValue> =
-  | (TValue extends Array<infer TEachValue>
+  | (TValue extends ArrayType<infer TEachValue>
       ? Array<ValueValidationResult<TEachValue>> | string | null
       : TValue extends object
         ?

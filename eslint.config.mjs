@@ -26,8 +26,7 @@ export default defineConfig([
       importPlugin.flatConfigs.typescript,
     ],
     rules: {
-      // TODO: Work through re-enabling these rules and fixing violations
-      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-explicit-any': 'error',
       'import/order': 'error',
       'import/no-unresolved': 'off',
     },
@@ -35,6 +34,7 @@ export default defineConfig([
   {
     files: ['test/**/*.ts'],
     rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-unused-vars': 'off',
       '@typescript-eslint/ban-ts-comment': 'off',
     },

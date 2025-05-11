@@ -5,6 +5,7 @@ const emailAddressPattern =
 
 export class EmailAddressRule<TModel, TValue> extends Rule<TModel, TValue> {
   constructor() {
+    // istanbul ignore next - https://github.com/gotwarlost/istanbul/issues/690
     super((value: TValue) => {
       if (value == null) {
         return null;

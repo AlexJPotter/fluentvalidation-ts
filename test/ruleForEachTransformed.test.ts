@@ -2,10 +2,10 @@ import { AsyncValidator, Validator } from '@/index';
 
 describe('ruleForEachTransformed', () => {
   describe('sync', () => {
-    describe('simple type', () => {
+    describe('flat type', () => {
       type TestType = { testProperty: Array<string> };
 
-      it('can be transformed to another simple type', () => {
+      it('can be transformed to another flat type', () => {
         const tryParseAsNumber = (value: string): number | null =>
           isNaN(Number(value)) ? null : Number(value);
 
@@ -70,7 +70,7 @@ describe('ruleForEachTransformed', () => {
     describe('array type', () => {
       type TestType = { testProperty: Array<Array<string>> };
 
-      it('can be transformed to a simple type', () => {
+      it('can be transformed to a flat type', () => {
         class TestValidator extends Validator<TestType> {
           constructor() {
             super();
@@ -169,7 +169,7 @@ describe('ruleForEachTransformed', () => {
         stringProperty: string;
       };
 
-      it('can be transformed to a simple type', () => {
+      it('can be transformed to a flat type', () => {
         const getNestedProperty = (value: NestedType) => value.stringProperty;
 
         class TestValidator extends Validator<TestType> {
@@ -288,10 +288,10 @@ describe('ruleForEachTransformed', () => {
   });
 
   describe('async', () => {
-    describe('simple type', () => {
+    describe('flat type', () => {
       type TestType = { testProperty: Array<string> };
 
-      it('can be transformed to another simple type', async () => {
+      it('can be transformed to another flat type', async () => {
         const tryParseAsNumber = (value: string): number | null =>
           isNaN(Number(value)) ? null : Number(value);
 
@@ -360,7 +360,7 @@ describe('ruleForEachTransformed', () => {
     describe('array type', () => {
       type TestType = { testProperty: Array<Array<string>> };
 
-      it('can be transformed to a simple type', async () => {
+      it('can be transformed to a flat type', async () => {
         class TestValidator extends AsyncValidator<TestType> {
           constructor() {
             super();
@@ -459,7 +459,7 @@ describe('ruleForEachTransformed', () => {
         stringProperty: string;
       };
 
-      it('can be transformed to a simple type', async () => {
+      it('can be transformed to a flat type', async () => {
         const getNestedProperty = (value: NestedType) => value.stringProperty;
 
         class TestValidator extends AsyncValidator<TestType> {

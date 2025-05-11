@@ -19,9 +19,7 @@ class FormValidator extends Validator<FormModel> {
   constructor() {
     super();
 
-    this.ruleFor('name')
-      .notEmpty()
-      .withMessage('Please enter your name');
+    this.ruleFor('name').notEmpty().withMessage('Please enter your name');
 
     this.ruleFor('age')
       .greaterThanOrEqualTo(0)
@@ -72,9 +70,7 @@ class ContactDetailsValidator extends Validator<ContactDetails> {
   constructor() {
     super();
 
-    this.ruleFor('name')
-      .notEmpty()
-      .withMessage('Please enter your name');
+    this.ruleFor('name').notEmpty().withMessage('Please enter your name');
 
     this.ruleFor('emailAddress')
       .emailAddress()
@@ -133,9 +129,7 @@ class ContactDetailsValidator extends Validator<ContactDetails> {
   constructor() {
     super();
 
-    this.ruleFor('name')
-      .notEmpty()
-      .withMessage('Please enter your name');
+    this.ruleFor('name').notEmpty().withMessage('Please enter your name');
 
     this.ruleFor('emailAddress')
       .emailAddress()
@@ -196,7 +190,7 @@ formValidator.validate({ scores: [1, 3, 4, 9] });
 
 However, if an invalid value is provided, then the errors object has a corresponding property on it. The value of this property is an array where each element is either `null` (if the corresponding element is valid) or an appropriate errors object (if the corresponding element is invalid).
 
-In this case, each element of the array property is a simple type (`number`), so any corresponding errors will just be of type `string`.
+In this case, each element of the array property is a flat type (`number`), so any corresponding errors will just be of type `string`.
 
 ```typescript
 formValidator.validate({ scores: [1, -3, 4, 11] });
@@ -226,7 +220,7 @@ class FormValidator extends Validator<FormModel> {
     super();
 
     this.ruleFor('scores')
-      .must(scores => scores.length > 0)
+      .must((scores) => scores.length > 0)
       .withMessage('Cannot be empty');
 
     this.ruleForEach('scores').inclusiveBetween(1, 10);

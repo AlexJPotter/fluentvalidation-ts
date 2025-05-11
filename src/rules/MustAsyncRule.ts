@@ -1,21 +1,9 @@
 import { AsyncRule } from './AsyncRule';
+import { AsyncPredicate } from '@/types/Predicate';
 
 export class MustAsyncRule<TModel, TValue> extends AsyncRule<TModel, TValue> {
-  constructor(
-    definition:
-      | ((value: TValue, model: TModel) => Promise<boolean>)
-      | {
-          predicate: (value: TValue, model: TModel) => Promise<boolean>;
-          message: string | ((value: TValue, model: TModel) => string);
-        }
-      | Array<
-          | ((value: TValue, model: TModel) => Promise<boolean>)
-          | {
-              predicate: (value: TValue, model: TModel) => Promise<boolean>;
-              message: string | ((value: TValue, model: TModel) => string);
-            }
-        >
-  ) {
+  constructor(definition: AsyncPredicate<TModel, TValue>) {
+    // istanbul ignore next - https://github.com/gotwarlost/istanbul/issues/690
     super(async (value: TValue, model: TModel) => {
       if (Array.isArray(definition)) {
         for (const eachDefinition of definition) {

@@ -2,6 +2,7 @@ import { Rule } from './Rule';
 
 export class MatchesRule<TModel, TValue> extends Rule<TModel, TValue> {
   constructor(pattern: RegExp) {
+    // istanbul ignore next - https://github.com/gotwarlost/istanbul/issues/690
     super((value: TValue) => {
       if (value == null) {
         return null;

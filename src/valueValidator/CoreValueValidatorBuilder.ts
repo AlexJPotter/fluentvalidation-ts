@@ -21,11 +21,20 @@ import { NullRule } from '@/rules/NullRule';
 import { Rule } from '@/rules/Rule';
 import { ScalePrecisionRule } from '@/rules/ScalePrecisionRule';
 import { ValidatorRule } from '@/rules/ValidatorRule';
+import { Predicate } from '@/types/Predicate';
+import { AppliesTo } from '@/types/AppliesTo';
+import {
+  RuleValidatorsAndConditionExtensions,
+  WithMessage,
+} from '@/valueValidator/RuleValidators';
 
 export abstract class CoreValueValidatorBuilder<
   TModel,
   TValue,
   TTransformedValue,
+  TRuleValidators,
+  TRuleValidatorsAndConditionExtensions,
+  TRuleValidatorsAndExtensions,
 > {
   protected rules: Array<{
     isAsync: boolean;
@@ -34,11 +43,11 @@ export abstract class CoreValueValidatorBuilder<
       | AsyncRule<TModel, TTransformedValue>;
   }> = [];
 
-  private rebuildValidate: () => void;
+  private readonly rebuildValidate: () => void;
 
   protected transformValue: ValueTransformer<TValue, TTransformedValue>;
 
-  constructor(
+  protected constructor(
     rebuildValidate: () => void,
     transformValue: ValueTransformer<TValue, TTransformedValue>
   ) {
@@ -56,24 +65,23 @@ export abstract class CoreValueValidatorBuilder<
     this.rebuildValidate();
   };
 
-  public withMessage = (message: string) => {
+  public withMessage: WithMessage<TModel, TTransformedValue> = (
+    message: string
+  ) => {
     const latestRule = this.getLatestRule();
     latestRule.rule.setCustomErrorMessage(message);
 
     this.rebuildValidate();
 
-    return {
-      ...this.getAllRules(),
-      when: this.when,
-      unless: this.unless,
-    };
+    return this.getAllRulesAndConditionExtensions() as RuleValidatorsAndConditionExtensions<
+      TModel,
+      TTransformedValue
+    >;
   };
 
   public when = (
     condition: (model: TModel) => boolean,
-    appliesTo:
-      | 'AppliesToAllValidators'
-      | 'AppliesToCurrentValidator' = 'AppliesToAllValidators'
+    appliesTo: AppliesTo = 'AppliesToAllValidators'
   ) => {
     if (appliesTo === 'AppliesToAllValidators') {
       for (const rule of this.rules) {
@@ -89,9 +97,7 @@ export abstract class CoreValueValidatorBuilder<
 
   public unless = (
     condition: (model: TModel) => boolean,
-    appliesTo:
-      | 'AppliesToAllValidators'
-      | 'AppliesToCurrentValidator' = 'AppliesToAllValidators'
+    appliesTo: AppliesTo = 'AppliesToAllValidators'
   ) => {
     if (appliesTo === 'AppliesToAllValidators') {
       for (const rule of this.rules) {
@@ -119,26 +125,8 @@ export abstract class CoreValueValidatorBuilder<
     return this.getAllRulesAndExtensions();
   };
 
-  public must = (
-    definition:
-      | ((value: TTransformedValue, model: TModel) => boolean)
-      | {
-          predicate: (value: TTransformedValue, model: TModel) => boolean;
-          message:
-            | string
-            | ((value: TTransformedValue, model: TModel) => string);
-        }
-      | Array<
-          | ((value: TTransformedValue, model: TModel) => boolean)
-          | {
-              predicate: (value: TTransformedValue, model: TModel) => boolean;
-              message:
-                | string
-                | ((value: TTransformedValue, model: TModel) => string);
-            }
-        >
-  ) => {
-    const mustRule = new MustRule<TModel, TTransformedValue>(definition);
+  public must = (predicate: Predicate<TModel, TTransformedValue>) => {
+    const mustRule = new MustRule<TModel, TTransformedValue>(predicate);
     this.pushRule(mustRule);
     return this.getAllRulesAndExtensions();
   };
@@ -272,42 +260,33 @@ export abstract class CoreValueValidatorBuilder<
     return this.getAllRulesAndExtensions();
   };
 
-  protected _getAllRules = () => {
-    return {
-      notEqual: this.notEqual,
-      equal: this.equal,
-      must: this.must,
-      notNull: this.notNull,
-      null: this.null,
-      notEmpty: this.notEmpty,
-      length: this.length,
-      maxLength: this.maxLength,
-      minLength: this.minLength,
-      matches: this.matches,
-      emailAddress: this.emailAddress,
-      lessThan: this.lessThan,
-      lessThanOrEqualTo: this.lessThanOrEqualTo,
-      greaterThan: this.greaterThan,
-      greaterThanOrEqualTo: this.greaterThanOrEqualTo,
-      exclusiveBetween: this.exclusiveBetween,
-      inclusiveBetween: this.inclusiveBetween,
-      setValidator: this.setValidator,
-      scalePrecision: this.scalePrecision,
-    };
-  };
+  protected _getAllRules = () => ({
+    notEqual: this.notEqual,
+    equal: this.equal,
+    must: this.must,
+    notNull: this.notNull,
+    null: this.null,
+    notEmpty: this.notEmpty,
+    length: this.length,
+    maxLength: this.maxLength,
+    minLength: this.minLength,
+    matches: this.matches,
+    emailAddress: this.emailAddress,
+    lessThan: this.lessThan,
+    lessThanOrEqualTo: this.lessThanOrEqualTo,
+    greaterThan: this.greaterThan,
+    greaterThanOrEqualTo: this.greaterThanOrEqualTo,
+    exclusiveBetween: this.exclusiveBetween,
+    inclusiveBetween: this.inclusiveBetween,
+    setValidator: this.setValidator,
+    scalePrecision: this.scalePrecision,
+  });
 
-  // We don't care about code coverage for this line
-  // istanbul ignore next
-  public abstract getAllRules: () => object;
+  protected abstract getAllRules: () => TRuleValidators;
 
-  public getAllRulesAndExtensions = () => {
-    return {
-      ...this.getAllRules(),
-      withMessage: this.withMessage,
-      when: this.when,
-      unless: this.unless,
-    };
-  };
+  protected abstract getAllRulesAndConditionExtensions: () => TRuleValidatorsAndConditionExtensions;
+
+  protected abstract getAllRulesAndExtensions: () => TRuleValidatorsAndExtensions;
 
   private getLatestRule = () => {
     return this.rules[this.rules.length - 1];

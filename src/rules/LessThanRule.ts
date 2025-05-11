@@ -3,6 +3,7 @@ import { formatNumber } from '@/numberHelpers';
 
 export class LessThanRule<TModel, TValue> extends Rule<TModel, TValue> {
   constructor(threshold: number) {
+    // istanbul ignore next - https://github.com/gotwarlost/istanbul/issues/690
     super((value: TValue) => {
       if (value == null) {
         return null;

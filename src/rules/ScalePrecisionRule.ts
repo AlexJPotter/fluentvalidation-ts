@@ -2,6 +2,7 @@ import { Rule } from './Rule';
 
 export class ScalePrecisionRule<TModel, TValue> extends Rule<TModel, TValue> {
   constructor(precision: number, scale: number) {
+    // istanbul ignore next - https://github.com/gotwarlost/istanbul/issues/690
     super((value: TValue) => {
       if (value == null) {
         return null;

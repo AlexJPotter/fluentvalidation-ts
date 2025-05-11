@@ -1,7 +1,6 @@
-export { SyncValidator as Validator, AsyncValidator } from './CoreValidator';
+export { SyncValidator as Validator } from './SyncValidator';
+export { AsyncValidator } from './AsyncValidator';
 export { ValidationErrors } from '@/ValidationErrors';
 export { ValueValidationResult } from '@/ValueValidationResult';
-export {
-  RuleValidators,
-  AsyncRuleValidators,
-} from '@/valueValidator/RuleValidators';
+export { RuleValidators } from '@/valueValidator/RuleValidators';
+export { AsyncRuleValidators } from '@/valueValidator/AsyncRuleValidators';

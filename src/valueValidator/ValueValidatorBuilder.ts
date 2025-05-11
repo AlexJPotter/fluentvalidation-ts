@@ -4,19 +4,24 @@ import { ValueTransformer } from './ValueTransformer';
 import { Rule } from '@/rules/Rule';
 import { ValueValidationResult } from '@/ValueValidationResult';
 import { ValueValidator } from '@/ValueValidator';
+import {
+  RuleValidators,
+  RuleValidatorsAndConditionExtensions,
+  RuleValidatorsAndExtensions,
+} from '@/valueValidator/RuleValidators';
 
 export class ValueValidatorBuilder<
   TModel,
   TValue,
-  TTransformedValue extends
-    | TValue
-    | string
-    | number
-    | boolean
-    | null
-    | undefined
-    | symbol,
-> extends CoreValueValidatorBuilder<TModel, TValue, TTransformedValue> {
+  TTransformedValue,
+> extends CoreValueValidatorBuilder<
+  TModel,
+  TValue,
+  TTransformedValue,
+  RuleValidators<TModel, TTransformedValue>,
+  RuleValidatorsAndConditionExtensions<TModel, TTransformedValue>,
+  RuleValidatorsAndExtensions<TModel, TTransformedValue>
+> {
   constructor(
     rebuildValidate: () => void,
     transformValue: ValueTransformer<TValue, TTransformedValue>
@@ -42,9 +47,19 @@ export class ValueValidatorBuilder<
     };
   };
 
-  public getAllRules = () => {
-    return {
-      ...this._getAllRules(),
-    };
-  };
+  public getAllRules = () =>
+    this._getAllRules() as RuleValidators<TModel, TTransformedValue>;
+
+  public getAllRulesAndConditionExtensions = () =>
+    ({
+      ...this.getAllRules(),
+      when: this.when,
+      unless: this.unless,
+    }) as RuleValidatorsAndConditionExtensions<TModel, TTransformedValue>;
+
+  public getAllRulesAndExtensions = () =>
+    ({
+      ...this.getAllRulesAndConditionExtensions(),
+      withMessage: this.withMessage,
+    }) as RuleValidatorsAndExtensions<TModel, TTransformedValue>;
 }

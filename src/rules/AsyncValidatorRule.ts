@@ -7,6 +7,7 @@ export class AsyncValidatorRule<TModel, TValue> extends AsyncRule<
   TValue
 > {
   constructor(validatorProducer: (model: TModel) => IAsyncValidator<TValue>) {
+    // istanbul ignore next - https://github.com/gotwarlost/istanbul/issues/690
     super(async (value: TValue, model: TModel) =>
       value == null
         ? Promise.resolve(null)

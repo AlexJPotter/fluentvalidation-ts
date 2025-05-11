@@ -3,6 +3,7 @@ import { formatNumber } from '@/numberHelpers';
 
 export class MinLengthRule<TModel, TValue> extends Rule<TModel, TValue> {
   constructor(minLength: number) {
+    // istanbul ignore next - https://github.com/gotwarlost/istanbul/issues/690
     super((value: TValue) => {
       if (value == null) {
         return null;

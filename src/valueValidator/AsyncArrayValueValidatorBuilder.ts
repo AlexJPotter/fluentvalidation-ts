@@ -3,49 +3,40 @@ import { AsyncValueValidatorBuilder } from './AsyncValueValidatorBuilder';
 import { ValueTransformer } from './ValueTransformer';
 import { ValueValidationResult } from '@/ValueValidationResult';
 import { hasError } from '@/valueValidator/ValueValidator';
+import { ArrayType } from '@/types/ArrayType';
 
 export class AsyncArrayValueValidatorBuilder<
   TModel,
-  TPropertyName extends keyof TModel,
-  TValue extends Array<TEachValue> & TModel[TPropertyName],
+  TValue extends ArrayType<TEachValue>,
   TEachValue,
   TEachTransformedValue,
 > {
   private eachAsyncValueValidatorBuilder: AsyncValueValidatorBuilder<
     TModel,
-    TValue[0] & TEachValue,
+    TEachValue,
     TEachTransformedValue
   >;
 
-  private propertyName: string;
-
   constructor(
     rebuildValidateAsync: () => void,
-    propertyName: string,
     transformValue: ValueTransformer<TEachValue, TEachTransformedValue>
   ) {
     this.eachAsyncValueValidatorBuilder = new AsyncValueValidatorBuilder<
       TModel,
-      TValue[0] & TEachValue,
+      TEachValue,
       TEachTransformedValue
     >(rebuildValidateAsync, transformValue);
-
-    this.propertyName = propertyName;
   }
 
-  public build = (): AsyncValueValidator<
-    TModel,
-    TValue,
-    Array<TEachTransformedValue>
-  > => {
+  public build = (): AsyncValueValidator<TModel, TValue> => {
     return async (value: TValue, model: TModel) => {
-      if (model[this.propertyName as TPropertyName] == null) {
+      if (value == null) {
         return null;
       }
 
       const asyncValueValidator = this.eachAsyncValueValidatorBuilder.build();
 
-      const errors = [];
+      const errors = [] as Array<ValueValidationResult<TEachValue>>;
 
       for (const element of value) {
         const errorOrNull = await asyncValueValidator(element, model);
@@ -55,13 +46,9 @@ export class AsyncArrayValueValidatorBuilder<
         errors.push(valueValidationResult);
       }
 
-      return (
-        hasError<Array<TEachTransformedValue>>(
-          errors as ValueValidationResult<Array<TEachTransformedValue>>
-        )
-          ? errors
-          : null
-      ) as ValueValidationResult<Array<TEachTransformedValue>>;
+      return hasError<TValue>(errors as ValueValidationResult<TValue>)
+        ? (errors as ValueValidationResult<TValue>)
+        : null;
     };
   };
 

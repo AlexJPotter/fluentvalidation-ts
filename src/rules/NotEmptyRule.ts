@@ -2,6 +2,7 @@ import { Rule } from './Rule';
 
 export class NotEmptyRule<TModel, TValue> extends Rule<TModel, TValue> {
   constructor() {
+    // istanbul ignore next - https://github.com/gotwarlost/istanbul/issues/690
     super((value: TValue) => {
       if (typeof value !== 'string') {
         if (value == null) {
