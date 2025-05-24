@@ -3,7 +3,9 @@ id: validator
 title: Validator
 ---
 
-The `Validator<TModel>` generic class is the core component of the `fluentvalidation-ts` API.
+## Validator&lt;TModel&gt;
+
+The `Validator<TModel>` generic class is the core component of the **fluentvalidation-ts** API.
 
 ```typescript
 import { Validator } from 'fluentvalidation-ts';
@@ -18,12 +20,12 @@ class FormValidator extends Validator<FormModel> {
   constructor() {
     super();
 
-    this.ruleFor('name')
-      .notEmpty()
-      .withMessage('Please enter your name');
+    this.ruleFor('name').notEmpty().withMessage('Please enter your name');
   }
 }
 ```
+
+## .validate
 
 To actually validate an instance of your model, simply create an instance of your validator and pass your model to the `.validate` method.
 

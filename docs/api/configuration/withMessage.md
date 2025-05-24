@@ -1,6 +1,6 @@
 ---
 id: withMessage
-title: .withMessage
+title: '.withMessage'
 ---
 
 The `.withMessage` option is used to specify a custom error message that should be used when a given validation rule fails.
@@ -24,8 +24,10 @@ class FormValidator extends Validator<FormModel> {
 
     this.ruleFor('name')
       .notEmpty()
+      // highlight-next-line
       .withMessage('Please enter your name')
       .maxLength(1000)
+      // highlight-next-line
       .withMessage('Please enter no more than 1,000 characters');
   }
 }

@@ -1,6 +1,6 @@
 ---
 id: lessThanOrEqualTo
-title: .lessThanOrEqualTo
+title: '.lessThanOrEqualTo'
 ---
 
 The `.lessThanOrEqualTo` rule is used to ensure that the value of a given `number` property is less than or equal to a given value.

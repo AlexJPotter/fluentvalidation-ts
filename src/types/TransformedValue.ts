@@ -5,3 +5,6 @@ import { FlatType } from '@/types/FlatType';
 // a flat error (`string | null`) is expected. `TValue` is also obviously accepted, since
 // the errors object will have the same shape in that case.
 export type TransformedValue<TValue> = TValue | FlatType | null | undefined;
+
+// TODO: Should we allow Partial<TValue> here given that a subset of the
+//  properties being in the errors object is a valid use case?

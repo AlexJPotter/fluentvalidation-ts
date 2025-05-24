@@ -3,7 +3,7 @@ id: customRules
 title: Custom Rules
 ---
 
-One of the main features of fluentvalidation-ts is that it is fully extensible, allowing you define your own custom validation logic and inject it via the [`.must`](api/rules/must.md) rule.
+One of the main features of **fluentvalidation-ts** is that it is fully extensible, allowing you define your own custom validation logic and inject it via the [`.must`](api/rules/must.md) rule.
 
 The [documentation page](api/rules/must.md) for the `.must` rule contains several [examples](api/rules/must.md#examples) that demonstrate the different ways in which you can define and consume custom rules, as well as a full [API reference](api/rules/must.md#reference) which outlines everything in detail.
 
@@ -14,7 +14,7 @@ Custom validation logic is defined by way of a **predicate** function, which tak
 You can pass custom validation logic directly into the `.must` rule with a predicate:
 
 ```typescript
-this.ruleFor('numberOfSocks').must(numberOfSocks => numberOfSocks % 2 === 0);
+this.ruleFor('numberOfSocks').must((numberOfSocks) => numberOfSocks % 2 === 0);
 ```
 
 If you want to reuse the logic, you could pull it out into a named function:
@@ -33,6 +33,7 @@ The predicate function can also depend on the value of the model as well as the 
 
 ```typescript
 this.ruleFor('numberOfSocks').must(
+  // highlight-next-line
   (numberOfSocks, model) => numberOfSocks === 2 * model.numberOfPants
 );
 ```
@@ -43,6 +44,7 @@ You can define groups of rules by forming arrays:
 const beEven = (value: number) => value % 2 === 0;
 const bePositive = (value: number) => value > 0;
 
+// highlight-next-line
 const beEvenAndPositive = [beEven, bePositive];
 ```
 
@@ -57,6 +59,7 @@ You can also attach a custom message to your rule, alongside the predicate:
 ```typescript
 const beEven = {
   predicate: (value: number) => value % 2 === 0,
+  // highlight-next-line
   message: 'Please enter an even number',
 };
 ```
@@ -80,10 +83,11 @@ const bePositive = {
   message: 'Please enter a positive number',
 };
 
+// highlight-next-line
 const beEvenAndPositive = [beEven, bePositive];
 ```
 
-You can even compose groups of rules together by spreading the arrays:
+You can even compose groups of rules together by spreading or concatenating the arrays:
 
 ```typescript
 const newRuleGroup = [...ruleGroup, ...otherRuleGroup];

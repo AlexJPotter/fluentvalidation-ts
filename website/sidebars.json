@@ -43,6 +43,7 @@
       "api/rules/scalePrecision",
       "api/rules/setValidator",
       "api/rules/setAsyncValidator"
-    ]
+    ],
+    "Form Libraries": ["guides/formik", "guides/reactHookForm"]
   }
 }

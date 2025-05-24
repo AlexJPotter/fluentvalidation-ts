@@ -1,6 +1,6 @@
 ---
 id: setValidator
-title: .setValidator
+title: '.setValidator'
 ---
 
 The `.setValidator` rule is used to ensure that the value of a given `object` property is valid according to a given [`Validator`](api/core/validator.md).
@@ -18,6 +18,7 @@ In this example the nested validator has no dependency on the base model, so we 
 ```typescript
 import { Validator } from 'fluentvalidation-ts';
 
+// highlight-start
 type ContactDetails = {
   name: string;
   emailAddress: string;
@@ -34,8 +35,10 @@ class ContactDetailsValidator extends Validator<ContactDetails> {
 }
 
 const contactDetailsValidator = new ContactDetailsValidator();
+// highlight-end
 
 type FormModel = {
+  // highlight-next-line
   contactDetails: ContactDetails;
 };
 
@@ -43,6 +46,7 @@ class FormValidator extends Validator<FormModel> {
   constructor() {
     super();
 
+    // highlight-next-line
     this.ruleFor('contactDetails').setValidator(() => contactDetailsValidator);
   }
 }
@@ -75,6 +79,7 @@ type ContactDetails = {
 };
 
 class ContactDetailsValidator extends Validator<ContactDetails> {
+  // highlight-next-line
   constructor(emailAddressIsRequired: boolean) {
     super();
 
@@ -82,6 +87,7 @@ class ContactDetailsValidator extends Validator<ContactDetails> {
 
     this.ruleFor('emailAddress')
       .notNull()
+      // highlight-next-line
       .when(() => emailAddressIsRequired);
 
     this.ruleFor('emailAddress').emailAddress();
@@ -98,7 +104,8 @@ class FormValidator extends Validator<FormModel> {
     super();
 
     this.ruleFor('contactDetails').setValidator(
-      formModel => new ContactDetailsValidator(formModel.signUpToMailingList)
+      // highlight-next-line
+      (formModel) => new ContactDetailsValidator(formModel.signUpToMailingList)
     );
   }
 }
@@ -138,6 +145,7 @@ class EmployeeValidator extends Validator<Employee> {
 
     this.ruleFor('name').notEmpty();
 
+    // highlight-next-line
     this.ruleFor('lineManager').setValidator(() => new EmployeeValidator());
   }
 }
@@ -179,4 +187,4 @@ Matches the type of the property that the rule is applied to.
 
 ### `Validator`
 
-The [`Validator`](api/core/validator.md) generic class provided by `fluentvalidation-ts`.
+The [`Validator`](api/core/validator.md) generic class provided by **fluentvalidation-ts**.

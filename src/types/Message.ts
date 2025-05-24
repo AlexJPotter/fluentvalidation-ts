@@ -1,3 +1,8 @@
+type MessageGenerator<TModel, TTransformedValue> = (
+  value: TTransformedValue,
+  model: TModel
+) => string;
+
 export type Message<TModel, TTransformedValue> =
   | string
-  | ((value: TTransformedValue, model: TModel) => string);
+  | MessageGenerator<TModel, TTransformedValue>;

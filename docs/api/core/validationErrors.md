@@ -113,7 +113,7 @@ formValidator.validate({
 // { contactDetails: { name: 'Please enter your name' } }
 ```
 
-With `fluentvalidation-ts` you can have arbitrary levels of nested object properties on your model and the resulting errors object will have a corresponding structure.
+With **fluentvalidation-ts** you can have arbitrary levels of nested object properties on your model and the resulting errors object will have a corresponding structure.
 
 It's worth pointing out that if you specify a rule on an object property directly (i.e. a rule other than the `.setValidator` rule) then you'll end up with a `string` value in the errors object if that validation rule fails (and is before any failing `.setValidator` rules in the chain).
 

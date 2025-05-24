@@ -1,6 +1,6 @@
 ---
 id: maxLength
-title: .maxLength
+title: '.maxLength'
 ---
 
 The `.maxLength` rule is used to ensure that the length of a given `string` property is less than or equal to a given value.

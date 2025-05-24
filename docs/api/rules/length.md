@@ -1,6 +1,6 @@
 ---
 id: length
-title: .length
+title: '.length'
 ---
 
 The `.length` rule is used to ensure that the length of a given `string` property is inclusively between the given bounds (i.e. greater than or equal to the lower bound and less than or equal to the upper bound).

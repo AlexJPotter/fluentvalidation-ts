@@ -1,6 +1,6 @@
 ---
 id: null-rule
-title: .null
+title: '.null'
 ---
 
 The `.null` rule is used to ensure that the value of a given property is `null` (or `undefined`).

@@ -1,6 +1,6 @@
 ---
 id: matches
-title: .matches
+title: '.matches'
 ---
 
 The `.matches` rule is used to ensure that the value of a given `string` property matches the given [regular expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp).

@@ -1,6 +1,6 @@
 ---
 id: equal
-title: .equal
+title: '.equal'
 ---
 
 The `.equal` rule is used to ensure that the value of a given property is equal to a given value.

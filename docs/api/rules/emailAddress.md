@@ -1,6 +1,6 @@
 ---
 id: emailAddress
-title: .emailAddress
+title: '.emailAddress'
 ---
 
 The `.emailAddress` rule is used to ensure that the value of a given `string` property is a valid email address.

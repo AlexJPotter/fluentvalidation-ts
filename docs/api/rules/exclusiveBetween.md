@@ -1,6 +1,6 @@
 ---
 id: exclusiveBetween
-title: .exclusiveBetween
+title: '.exclusiveBetween'
 ---
 
 The `.exclusiveBetween` rule is used to ensure that the value of a given `number` property is exclusively between the given bounds (i.e. greater than the lower bound and less than the upper bound).

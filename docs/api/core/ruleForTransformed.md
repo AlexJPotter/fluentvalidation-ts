@@ -1,6 +1,6 @@
 ---
 id: ruleForTransformed
-title: .ruleForTransformed
+title: '.ruleForTransformed'
 ---
 
 The `.ruleForTransformed` method on the `Validator` class is identical to the [`.ruleFor`](api/core/ruleFor.md) method, except that it allows you to transform the given property on your model via a transformation function prior to building up the rule chain for it.

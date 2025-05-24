@@ -13,14 +13,12 @@ You can validate an array property using the `.ruleFor` method:
 
 ```typescript
 this.ruleFor('scores').must(
-  scores => scores.filter(score => score < 0 || score > 100).length === 0
+  (scores) => scores.filter((score) => score < 0 || score > 100).length === 0
 );
 ```
 
 Alternatively, you can use the `.ruleForEach` method:
 
 ```typescript
-this.ruleForEach('scores')
-  .greaterThanOrEqualTo(0)
-  .lessThanOrEqualTo(100);
+this.ruleForEach('scores').greaterThanOrEqualTo(0).lessThanOrEqualTo(100);
 ```

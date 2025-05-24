@@ -1,6 +1,6 @@
 ---
 id: greaterThanOrEqualTo
-title: .greaterThanOrEqualTo
+title: '.greaterThanOrEqualTo'
 ---
 
 The `.greaterThanOrEqualTo` rule is used to ensure that the value of a given `number` property is greater than or equal to a given value.

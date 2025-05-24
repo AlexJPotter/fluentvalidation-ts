@@ -1,6 +1,6 @@
 ---
 id: scalePrecision
-title: .scalePrecision
+title: '.scalePrecision'
 ---
 
 The `.scalePrecision` rule is used to ensure that the value of a given `number` property has the given scale and precision.

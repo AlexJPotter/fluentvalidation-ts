@@ -1,6 +1,6 @@
 ---
 id: lessThan
-title: .lessThan
+title: '.lessThan'
 ---
 
 The `.lessThan` rule is used to ensure that the value of a given `number` property is strictly less than a given value.

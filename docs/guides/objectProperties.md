@@ -14,8 +14,8 @@ You can validate an object property using the built-in rules:
 ```typescript
 this.ruleFor('pet')
   .notNull()
-  .must(pet => pet.age >= 0)
-  .must(pet => pet.name !== '');
+  .must((pet) => pet.age >= 0)
+  .must((pet) => pet.name !== '');
 ```
 
 Alternatively, you can define a validator for the type of the object property:
@@ -37,5 +37,6 @@ This can then be passed in with the `.setValidator` rule:
 ```typescript
 this.ruleFor('pet')
   .notNull()
+  // highlight-next-line
   .setValidator(() => petValidator);
 ```

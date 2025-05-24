@@ -1,6 +1,6 @@
 ---
 id: unless
-title: .unless
+title: '.unless'
 ---
 
 The `.unless` option is used to control when a rule or chain of rules should **not** execute.
@@ -31,7 +31,8 @@ class FormValidator extends Validator<FormModel> {
       .notNull()
       .notEmpty()
       .maxLength(1000)
-      .unless(formModel => formModel.doesNotRequireDeliveryNote);
+      // highlight-next-line
+      .unless((formModel) => formModel.doesNotRequireDeliveryNote);
   }
 }
 
@@ -71,10 +72,12 @@ class FormValidator extends Validator<FormModel> {
     this.ruleFor('age')
       .notNull()
       .greaterThanOrEqualTo(18)
+      // highlight-start
       .unless(
-        formModel => formModel.alcoholicDrink == null,
+        (formModel) => formModel.alcoholicDrink == null,
         'AppliesToCurrentValidator'
       );
+    // highlight-end
   }
 }
 

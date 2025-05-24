@@ -1,6 +1,6 @@
 ---
 id: notEqual
-title: .notEqual
+title: '.notEqual'
 ---
 
 The `.notEqual` rule is used to ensure that the value of a given property is not equal to a given value.

@@ -1,6 +1,6 @@
 ---
 id: when
-title: .when
+title: '.when'
 ---
 
 The `.when` option is used to control when a rule or chain of rules should execute.
@@ -31,7 +31,8 @@ class FormValidator extends Validator<FormModel> {
       .notNull()
       .notEmpty()
       .maxLength(1000)
-      .when(formModel => formModel.requiresDeliveryNote);
+      // highlight-next-line
+      .when((formModel) => formModel.requiresDeliveryNote);
   }
 }
 
@@ -71,10 +72,12 @@ class FormValidator extends Validator<FormModel> {
     this.ruleFor('age')
       .notNull()
       .greaterThanOrEqualTo(18)
+      // highlight-start
       .when(
-        formModel => formModel.alcoholicDrink != null,
+        (formModel) => formModel.alcoholicDrink != null,
         'AppliesToCurrentValidator'
       );
+    // highlight-end
   }
 }
 

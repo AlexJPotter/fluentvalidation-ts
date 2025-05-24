@@ -1,6 +1,6 @@
 ---
 id: minLength
-title: .minLength
+title: '.minLength'
 ---
 
 The `.minLength` rule is used to ensure that the length of a given `string` property is greater than or equal to a given value.

@@ -1,6 +1,6 @@
 ---
 id: ruleForEachTransformed
-title: .ruleForEachTransformed
+title: '.ruleForEachTransformed'
 ---
 
 The `.ruleForEachTransformed` method on the `Validator` class is identical to the [`.ruleForEach`](api/core/ruleForEach.md) method, except that it allows you to transform each item of the given array property on your model via a transformation function prior to building up the rule chain for it.

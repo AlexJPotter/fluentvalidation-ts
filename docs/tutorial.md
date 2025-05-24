@@ -5,18 +5,13 @@ title: Tutorial
 
 ## Introduction
 
-This tutorial will walk you through some of the core features of fluentvalidation-ts. We'll start off with a simple form model and a correspondingly simple validator. As the tutorial goes on we'll add more fields to our form model and dive deeper into what we can do with our validator.
+This tutorial will walk you through some of the core features of **fluentvalidation-ts**. We'll start off with a simple form model and a correspondingly simple validator. As the tutorial goes on we'll add more fields to our form model and dive deeper into what we can do with our validator.
 
 I recommend that you work through this tutorial in order, and follow along by running the code locally (or in an online sandbox).
 
 ## Setup
 
-If you plan on following along by running the code yourself, you have two options:
-
-- Install fluentvalidation-ts to your project via NPM/Yarn (see [these](overview.md#installation) instructions)
-- Run the code in your browser via CodeSandbox (more information [here](overview.md#try-it-in-your-browser))
-
-For this tutorial we'll asssume that you're using [TypeScript](https://www.typescriptlang.org/). It is still possible to use fluentvalidation-ts without TypeScript, but you'll lose a lot of the main benefits.
+For this tutorial we'll asssume that you're using [TypeScript](https://www.typescriptlang.org/). It is still possible to use **fluentvalidation-ts** without TypeScript, but you'll lose a lot of the main benefits.
 
 ## The Basics
 
@@ -50,11 +45,11 @@ class FormValidator extends Validator<FormModel> {
   constructor() {
     super();
 
-    this.ruleFor('name')
-      .notEmpty()
-      .maxLength(100);
+    // highlight-start
+    this.ruleFor('name').notEmpty().maxLength(100);
 
     this.ruleFor('age').greaterThanOrEqualTo(0);
+    // highlight-end
   }
 }
 ```
@@ -71,9 +66,11 @@ We can validate instances of our form model by passing them into the `.validate`
 
 ```typescript
 const valid: FormModel = { name: 'Alex', age: 26 };
+// highlight-next-line
 console.log(formValidator.validate(valid)); // {}
 
 const invalid: FormModel = { name: '', age: 26 };
+// highlight-next-line
 console.log(formValidator.validate(invalid)); // { name: 'Value cannot be empty' }
 ```
 
@@ -92,6 +89,7 @@ Modify the rule chain for the name property as follows:
 ```typescript
 this.ruleFor('name')
   .notEmpty()
+  // highlight-next-line
   .withMessage('Please enter your name')
   .maxLength(100);
 ```
@@ -100,6 +98,7 @@ Now, if we validate an invalid form model:
 
 ```typescript
 const invalid: FormModel = { name: '', age: 26 };
+// highlight-next-line
 console.log(formValidator.validate(invalid)); // { name: 'Please enter your name' }
 ```
 
@@ -115,8 +114,10 @@ Let's add a couple of properties to our form model:
 type FormModel = {
   name: string;
   age: number;
+  // highlight-start
   hasPet: boolean;
   nameOfPet: string | null;
+  // highlight-end
 };
 ```
 
@@ -130,11 +131,13 @@ Add the following to the end of your constructor (underneath the rules for the n
 this.ruleFor('nameOfPet')
   .notNull()
   .notEmpty()
-  .when(formModel => formModel.hasPet);
+  // highlight-next-line
+  .when((formModel) => formModel.hasPet);
 
 this.ruleFor('nameOfPet')
   .null()
-  .unless(formModel => formModel.hasPet);
+  // highlight-next-line
+  .unless((formModel) => formModel.hasPet);
 ```
 
 Now if we validate some invalid form models:
@@ -143,17 +146,23 @@ Now if we validate some invalid form models:
 const invalidWithPet: FormModel = {
   name: 'Alex',
   age: 26,
+  // highlight-start
   hasPet: true,
   nameOfPet: '',
+  // highlight-end
 };
+// highlight-next-line
 console.log(formValidator.validate(invalidWithPet)); // { nameOfPet: 'Value cannot be empty' }
 
 const invalidWithoutPet: FormModel = {
   name: 'Alex',
   age: 26,
+  // highlight-start
   hasPet: false,
   nameOfPet: 'Doggy',
+  // highlight-end
 };
+// highlight-next-line
 console.log(formValidator.validate(invalidWithoutPet)); // { nameOfPet: 'Value must be null' }
 ```
 
@@ -171,6 +180,7 @@ type FormModel = {
   age: number;
   hasPet: boolean;
   nameOfPet: string | null;
+  // highlight-next-line
   hobbies: Array<string>;
 };
 ```
@@ -182,9 +192,7 @@ To achieve this we can make use of the convenient [`.ruleForEach`](api/core/rule
 Add the following to the end of your constructor:
 
 ```typescript
-this.ruleForEach('hobbies')
-  .notEmpty()
-  .maxLength(100);
+this.ruleForEach('hobbies').notEmpty().maxLength(100);
 ```
 
 Now, if we validate some form models:
@@ -195,8 +203,10 @@ const valid: FormModel = {
   age: 26,
   hasPet: false,
   nameOfPet: null,
+  // highlight-next-line
   hobbies: ['Coding', 'Music', 'Eating'],
 };
+// highlight-next-line
 console.log(formValidator.validate(valid)); // {}
 
 const invalid: FormModel = {
@@ -204,8 +214,10 @@ const invalid: FormModel = {
   age: 26,
   hasPet: false,
   nameOfPet: null,
+  // highlight-next-line
   hobbies: ['Coding', '', 'Eating'],
 };
+// highlight-next-line
 console.log(formValidator.validate(invalid)); // { hobbies: [null, 'Value cannot be empty', null] }
 ```
 
@@ -222,14 +234,17 @@ type FormModel = {
   name: string;
   age: number;
   hasPet: boolean;
+  // highlight-next-line
   pet: Pet | null;
   hobbies: Array<string>;
 };
 
+// highlight-start
 type Pet = {
   name: string;
   species: string;
 };
+// highlight-end
 ```
 
 You'll notice that we now get a compilation error in the constructor of our existing validator, because the `nameOfPet` field no longer exists. Don't worry, we'll fix that in a moment.
@@ -243,13 +258,9 @@ class PetValidator extends Validator<Pet> {
   constructor() {
     super();
 
-    this.ruleFor('name')
-      .notEmpty()
-      .maxLength(100);
+    this.ruleFor('name').notEmpty().maxLength(100);
 
-    this.ruleFor('species')
-      .notEmpty()
-      .maxLength(100);
+    this.ruleFor('species').notEmpty().maxLength(100);
   }
 }
 
@@ -264,11 +275,11 @@ Modify the constructor of the `FormValidator` class by changing the rules that a
 this.ruleFor('pet')
   .notNull()
   .setValidator(() => petValidator)
-  .when(formModel => formModel.hasPet);
+  .when((formModel) => formModel.hasPet);
 
 this.ruleFor('pet')
   .null()
-  .unless(formModel => formModel.hasPet);
+  .unless((formModel) => formModel.hasPet);
 ```
 
 Now, if we validate some form models:
@@ -278,18 +289,22 @@ const valid: FormModel = {
   name: 'Alex',
   age: 26,
   hasPet: true,
+  // highlight-next-line
   pet: { name: 'Doggy', species: 'Dog' },
   hobbies: ['Coding', 'Music', 'Eating'],
 };
+// highlight-next-line
 console.log(formValidator.validate(valid)); // {}
 
 const invalid: FormModel = {
   name: 'Alex',
   age: 26,
   hasPet: true,
+  // highlight-next-line
   pet: { name: '', species: 'Cat' },
   hobbies: ['Coding', 'Music', 'Eating'],
 };
+// highlight-next-line
 console.log(formValidator.validate(invalid)); // { pet: { name: 'Value cannot be empty' } }
 ```
 
@@ -306,6 +321,7 @@ Let's suppose that the age field is implemented on our form as a text input, so 
 ```typescript
 type FormModel = {
   name: string;
+  // highlight-next-line
   age: string;
   hasPet: boolean;
   pet: Pet | null;
@@ -317,13 +333,19 @@ This change will break our validator, because the `.greaterThanOrEqualTo` rule i
 
 In place of the `.greaterThanOrEqualTo` rule, we can use the [`.must`](api/rules/must) rule to define our own validation logic.
 
+:::info
+
+We can actually solve this problem more easily using `.ruleForTransformed`, but we'll get to that later!
+
+:::
+
 Modify the rule chain for the age property as follows:
 
 ```typescript
 this.ruleFor('age')
   .notEmpty()
-  .must(age => !isNaN(Number(age)))
-  .must(age => Number(age) >= 0);
+  .must((age) => !isNaN(Number(age)))
+  .must((age) => Number(age) >= 0);
 ```
 
 These rules validate that the age field is not empty, is numeric, and has a numeric value that is non-negative.
@@ -333,31 +355,37 @@ Now, if we validate some form models:
 ```typescript
 const valid: FormModel = {
   name: 'Alex',
+  // highlight-next-line
   age: '26',
   hasPet: true,
   pet: { name: 'Doggy', species: 'Dog' },
   hobbies: ['Coding', 'Music', 'Eating'],
 };
+// highlight-next-line
 console.log(formValidator.validate(valid)); // {}
 
 const invalid: FormModel = {
   name: 'Alex',
+  // highlight-next-line
   age: 'foo',
   hasPet: true,
   pet: { name: 'Doggy', species: 'Dog' },
   hobbies: ['Coding', 'Music', 'Eating'],
 };
+// highlight-next-line
 console.log(formValidator.validate(invalid)); // { age: 'Value is not valid' }
 ```
 
-As you can see, the default error message for the `.must` rule isn't very descriptive, so lets's add some custom error messages:
+As you can see, the default error message for the `.must` rule isn't very descriptive, so let's add some custom error messages:
 
 ```typescript
 this.ruleFor('age')
   .notEmpty()
-  .must(age => !isNaN(Number(age)))
+  .must((age) => !isNaN(Number(age)))
+  // highlight-next-line
   .withMessage('Please enter a number')
-  .must(age => Number(age) >= 0)
+  .must((age) => Number(age) >= 0)
+  // highlight-next-line
   .withMessage('Please enter a non-negative number');
 ```
 
@@ -378,8 +406,10 @@ Now, modify the rule chain for the age property as follows:
 ```typescript
 this.ruleFor('age')
   .notEmpty()
+  // highlight-next-line
   .must(beNumeric)
   .withMessage('Please enter a number')
+  // highlight-next-line
   .must(beNonNegative)
   .withMessage('Please enter a non-negative number');
 ```
@@ -407,8 +437,72 @@ We can now remove the calls to `.withMessage` in our rule chain:
 ```typescript
 this.ruleFor('age')
   .notEmpty()
+  // highlight-start
   .must(beNumeric)
   .must(beNonNegative);
+// highlight-end
 ```
 
 As you can see, the `.must` rule is a very powerful tool, and this example only scratches the surface of what's possible with it. For full details, see the [documentation page](api/rules/must).
+
+## Transformed Values
+
+As we saw in the previous example, sometimes we need to transform the value of a property before validating it. This is especially common when dealing with text inputs, where the value is always a string.
+
+Since this is such a common scenario, **fluentvalidation-ts** provides a convenient [`.ruleForTransformed`](api/core/ruleForTransformed) method that allows us to define a transformation function for the value of a property before applying validation rules.
+
+Let's modify our `FormValidator` class to use this method for the age property:
+
+```typescript
+const numberOrNull = (value: string) =>
+  isNaN(Number(value)) ? null : Number(value);
+
+this.ruleForTransformed('age', numberOrNull)
+  .notNull()
+  .withMessage('Please enter a number')
+  .greaterThanOrEqualTo(0)
+  .withMessage('Please enter a non-negative number');
+```
+
+Now, if we validate some form models:
+
+```typescript
+const valid: FormModel = {
+  name: 'Alex',
+  // highlight-next-line
+  age: '26',
+  hasPet: true,
+  pet: { name: 'Doggy', species: 'Dog' },
+  hobbies: ['Coding', 'Music', 'Eating'],
+};
+// highlight-next-line
+console.log(formValidator.validate(valid)); // {}
+
+const invalid1: FormModel = {
+  name: 'Alex',
+  // highlight-next-line
+  age: '-10',
+  hasPet: true,
+  pet: { name: 'Doggy', species: 'Dog' },
+  hobbies: ['Coding', 'Music', 'Eating'],
+};
+// highlight-next-line
+console.log(formValidator.validate(invalid2)); // { age: 'Please enter a non-negative number' }
+
+const invalid2: FormModel = {
+  name: 'Alex',
+  // highlight-next-line
+  age: 'foo',
+  hasPet: true,
+  pet: { name: 'Doggy', species: 'Dog' },
+  hobbies: ['Coding', 'Music', 'Eating'],
+};
+// highlight-next-line
+console.log(formValidator.validate(invalid2)); // { age: 'Please enter a number' }
+```
+
+Of course, this is an overly simplified example, and the eagle-eyed among you will have noticed that there are several edge cases we're skimming over here.
+
+In general, you will likely want to define more robust transformation functions the handle such edge cases, and reuse them across your validators.
+
+Note that there is an analagous [`.ruleForEachTransformed`](api/core/ruleForEachTransformed) method that works exactly the same, but for collections.

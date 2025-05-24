@@ -1,6 +1,6 @@
 // Turn off ESLint for this file because it's sent down to users as-is.
 /* eslint-disable */
-window.addEventListener('load', function() {
+window.addEventListener('load', function () {
   function button(label, ariaLabel, icon, className) {
     const btn = document.createElement('button');
     btn.classList.add('btnIcon', className);
@@ -17,7 +17,7 @@ window.addEventListener('load', function() {
   }
 
   function addButtons(codeBlockSelector, btn) {
-    document.querySelectorAll(codeBlockSelector).forEach(function(code) {
+    document.querySelectorAll(codeBlockSelector).forEach(function (code) {
       code.parentNode.appendChild(btn.cloneNode(true));
     });
   }
@@ -31,16 +31,16 @@ window.addEventListener('load', function() {
   );
 
   const clipboard = new ClipboardJS('.btnClipboard', {
-    target: function(trigger) {
+    target: function (trigger) {
       return trigger.parentNode.querySelector('code');
     },
   });
 
-  clipboard.on('success', function(event) {
+  clipboard.on('success', function (event) {
     event.clearSelection();
     const textEl = event.trigger.querySelector('.btnIcon__label');
     textEl.textContent = 'Copied';
-    setTimeout(function() {
+    setTimeout(function () {
       textEl.textContent = 'Copy';
     }, 2000);
   });

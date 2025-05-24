@@ -1,6 +1,6 @@
 ---
 id: notEmpty
-title: .notEmpty
+title: '.notEmpty'
 ---
 
 The `.notEmpty` rule is used to ensure that the value of a given `string` property is not the empty string, or formed entirely of whitespace.

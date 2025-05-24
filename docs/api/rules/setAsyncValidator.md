@@ -1,6 +1,6 @@
 ---
 id: setAsyncValidator
-title: .setAsyncValidator
+title: '.setAsyncValidator'
 ---
 
 The `.setAsyncValidator` rule is one of the special async rules that become available when you extend from [`AsyncValidator`](api/core/asyncValidator.md) as opposed to just [`Validator`](api/core/validator.md).
@@ -27,6 +27,7 @@ type ContactDetails = {
   emailAddress: string;
 };
 
+// highlight-start
 class ContactDetailsValidator extends AsyncValidator<ContactDetails> {
   constructor() {
     super();
@@ -43,6 +44,7 @@ class ContactDetailsValidator extends AsyncValidator<ContactDetails> {
 }
 
 const contactDetailsValidator = new ContactDetailsValidator();
+// highlight-end
 
 type FormModel = {
   contactDetails: ContactDetails;
@@ -52,9 +54,11 @@ class FormValidator extends AsyncValidator<FormModel> {
   constructor() {
     super();
 
+    // highlight-start
     this.ruleFor('contactDetails').setAsyncValidator(
       () => contactDetailsValidator
     );
+    // highlight-end
   }
 }
 
@@ -87,4 +91,4 @@ Matches the type of the property that the rule is applied to.
 
 ### `AsyncValidator`
 
-The [`AsyncValidator`](api/core/asyncValidator.md) generic class provided by `fluentvalidation-ts`.
+The [`AsyncValidator`](api/core/asyncValidator.md) generic class provided by **fluentvalidation-ts**.

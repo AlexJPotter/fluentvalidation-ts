@@ -1,0 +1,42 @@
+.navbar__logo {
+  height: 2.5rem;
+  margin-right: 0.75rem;
+}
+
+.footer {
+  font-size: 0.85rem;
+}
+
+:root {
+  --docusaurus-highlighted-code-line-bg: rgb(244, 241, 253);
+
+  --ifm-color-primary: #02735b;
+  --ifm-color-primary-dark: #026752;
+  --ifm-color-primary-darker: #02624d;
+  --ifm-color-primary-darkest: #015040;
+  --ifm-color-primary-light: #027e64;
+  --ifm-color-primary-lighter: #028166;
+  --ifm-color-primary-lightest: #028469;
+
+  --ifm-font-family-base:
+    'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell,
+    Noto Sans, sans-serif, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial,
+    sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+}
+
+[data-theme='dark'] {
+  --docusaurus-highlighted-code-line-bg: rgb(13, 43, 73);
+  --ifm-code-background: #111 !important;
+
+  span.token.comment {
+    color: rgb(255, 131, 201) !important;
+  }
+
+  --ifm-color-primary: #03f4be;
+  --ifm-color-primary-dark: #03dcab;
+  --ifm-color-primary-darker: #03cfa2;
+  --ifm-color-primary-darkest: #02ab85;
+  --ifm-color-primary-light: #14fcc8;
+  --ifm-color-primary-lighter: #20fccb;
+  --ifm-color-primary-lightest: #44fdd3;
+}

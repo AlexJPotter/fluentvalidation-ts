@@ -1,6 +1,6 @@
 ---
 id: notNull
-title: .notNull
+title: '.notNull'
 ---
 
 The `.notNull` rule is used to ensure that the value of a given property is not `null` (or `undefined`).

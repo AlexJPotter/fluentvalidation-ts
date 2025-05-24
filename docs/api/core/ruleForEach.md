@@ -1,6 +1,6 @@
 ---
 id: ruleForEach
-title: .ruleForEach
+title: '.ruleForEach'
 ---
 
 The `.ruleForEach` method on the `Validator` class is much like the [`.ruleFor`](api/core/ruleFor.md) method, except that is used to build up rule chains for **array** properties on your model.

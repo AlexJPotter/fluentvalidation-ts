@@ -1,6 +1,6 @@
 ---
 id: inclusiveBetween
-title: .inclusiveBetween
+title: '.inclusiveBetween'
 ---
 
 The `.inclusiveBetween` rule is used to ensure that the value of a given `number` property is inclusively between the given bounds (i.e. greater than or equal to the lower bound and less than or equal to the upper bound).

@@ -79,6 +79,8 @@ export abstract class CoreValueValidatorBuilder<
     >;
   };
 
+  // TODO: Make the behaviour here consistent with FluentValidation
+  //  https://github.com/AlexJPotter/fluentvalidation-ts/issues/45
   public when = (
     condition: (model: TModel) => boolean,
     appliesTo: AppliesTo = 'AppliesToAllValidators'
@@ -95,6 +97,8 @@ export abstract class CoreValueValidatorBuilder<
     return this.getAllRules();
   };
 
+  // TODO: Make the behaviour here consistent with FluentValidation
+  //  https://github.com/AlexJPotter/fluentvalidation-ts/issues/45
   public unless = (
     condition: (model: TModel) => boolean,
     appliesTo: AppliesTo = 'AppliesToAllValidators'

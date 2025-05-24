@@ -1,6 +1,6 @@
 ---
 id: greaterThan
-title: .greaterThan
+title: '.greaterThan'
 ---
 
 The `.greaterThan` rule is used to ensure that the value of a given `number` property is strictly greater than a given value.
