@@ -8,7 +8,7 @@ Visit [https://fluentvalidation-ts.alexpotter.dev](https://fluentvalidation-ts.a
 [![NPM Version](https://badgen.net/npm/v/fluentvalidation-ts)](https://www.npmjs.com/package/fluentvalidation-ts)
 ![License](https://badgen.net/npm/license/fluentvalidation-ts)
 ![Last Commit](https://badgen.net/github/last-commit/alexjpotter/fluentvalidation-ts/main)
-![Open Issues](https://badgen.net/github/open-issues/alexjpotter/fluentvalidation-ts)
+[![Open Issues](https://badgen.net/github/open-issues/alexjpotter/fluentvalidation-ts)](https://github.com/AlexJPotter/fluentvalidation-ts/issues)
 
 ![Dependencies](https://badgen.net/badge/dependencies/none/green)
 [![GZIP Size](https://img.badgesize.io/https://unpkg.com/fluentvalidation-ts@latest/dist/index.js?compression=gzip)](https://unpkg.com/fluentvalidation-ts@latest/dist/index.js)
