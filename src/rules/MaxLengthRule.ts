@@ -9,15 +9,11 @@ export class MaxLengthRule<TModel, TValue> extends Rule<TModel, TValue> {
         return null;
       }
       if (typeof value !== 'string') {
-        throw new TypeError(
-          'A non-string value was passed to the maxLength rule'
-        );
+        throw new TypeError('A non-string value was passed to the maxLength rule');
       }
       return value.length <= maxLength
         ? null
-        : `Value must be no more than ${formatNumber(
-            maxLength
-          )} characters long`;
+        : `Value must be no more than ${formatNumber(maxLength)} characters long`;
     });
   }
 }

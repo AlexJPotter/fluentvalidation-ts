@@ -8,9 +8,7 @@ export class ScalePrecisionRule<TModel, TValue> extends Rule<TModel, TValue> {
         return null;
       }
       if (typeof value !== 'number') {
-        throw new TypeError(
-          'A non-number value was passed to the scalePrecision rule'
-        );
+        throw new TypeError('A non-number value was passed to the scalePrecision rule');
       }
       const regex = scalePrecisionRegex(scale, precision);
       if (!regex.test(value.toString())) {
@@ -22,6 +20,4 @@ export class ScalePrecisionRule<TModel, TValue> extends Rule<TModel, TValue> {
 }
 
 const scalePrecisionRegex = (scale: number, precision: number) =>
-  new RegExp(
-    `^(-)?([0-9]){0,${scale - precision}}(\\.[0-9]{0,${precision}})?$`
-  );
+  new RegExp(`^(-)?([0-9]){0,${scale - precision}}(\\.[0-9]{0,${precision}})?$`);

@@ -13,9 +13,7 @@ describe('withMessage', () => {
         this.ruleFor('numberProperty')
           .must((numberProperty) => numberProperty % 2 === 0)
           .withMessage('Must be even');
-        this.ruleFor('stringProperty')
-          .must(beAtLeastFiveCharactersLong)
-          .withMessage('Too short!');
+        this.ruleFor('stringProperty').must(beAtLeastFiveCharactersLong).withMessage('Too short!');
       }
     }
     const validator = new TestValidator();
@@ -80,9 +78,7 @@ describe('withMessage', () => {
         this.ruleFor('numberProperty')
           .must((numberProperty) => numberProperty % 2 === 0)
           .withMessage('Must be even');
-        this.ruleFor('stringProperty')
-          .must(beAtLeastFiveCharactersLong)
-          .withMessage('Too short!');
+        this.ruleFor('stringProperty').must(beAtLeastFiveCharactersLong).withMessage('Too short!');
       }
     }
     const validator = new TestValidator();

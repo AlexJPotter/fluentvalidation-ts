@@ -9,10 +9,7 @@ import { Rule } from '@/rules/Rule';
 import { ValueValidationResult } from '@/ValueValidationResult';
 import { IAsyncValidator } from '@/IAsyncValidator';
 import { AsyncValidatorRule } from '@/rules/AsyncValidatorRule';
-import {
-  MustAsync,
-  SetValidatorAsync,
-} from '@/valueValidator/ValueValidatorBuilderTypes';
+import { MustAsync, SetValidatorAsync } from '@/valueValidator/ValueValidatorBuilderTypes';
 import {
   AsyncRuleValidators,
   AsyncRuleValidatorsAndConditionExtensions,
@@ -33,29 +30,24 @@ export class AsyncValueValidatorBuilder<
 > {
   constructor(
     rebuildValidateAsync: () => void,
-    transformValue: ValueTransformer<TValue, TTransformedValue>
+    transformValue: ValueTransformer<TValue, TTransformedValue>,
   ) {
     super(rebuildValidateAsync, transformValue);
   }
 
   public build = (): AsyncValueValidator<TModel, TValue> => {
-    return async (
-      value: TValue,
-      model: TModel
-    ): Promise<ValueValidationResult<TValue>> => {
+    return async (value: TValue, model: TModel): Promise<ValueValidationResult<TValue>> => {
       const transformedValue = this.transformValue(value);
 
       for (const rule of this.rules) {
         const validationResult = rule.isAsync
-          ? ((await (
-              rule.rule as AsyncRule<TModel, TTransformedValue>
-            ).validateAsync(
+          ? ((await (rule.rule as AsyncRule<TModel, TTransformedValue>).validateAsync(
               transformedValue,
-              model
+              model,
             )) as ValueValidationResult<TValue>)
           : ((rule.rule as Rule<TModel, TTransformedValue>).validate(
               transformedValue,
-              model
+              model,
             ) as ValueValidationResult<TValue>);
 
         if (hasError(validationResult)) {
@@ -68,23 +60,18 @@ export class AsyncValueValidatorBuilder<
   };
 
   public mustAsync: MustAsync<TModel, TTransformedValue> = (
-    predicate: AsyncPredicate<TModel, TTransformedValue>
+    predicate: AsyncPredicate<TModel, TTransformedValue>,
   ) => {
-    const asyncMustRule = new MustAsyncRule<TModel, TTransformedValue>(
-      predicate
-    );
+    const asyncMustRule = new MustAsyncRule<TModel, TTransformedValue>(predicate);
     this.pushAsyncRule(asyncMustRule);
     return this.getAllRulesAndExtensions();
   };
 
   public setAsyncValidator: SetValidatorAsync<TModel, TTransformedValue> = (
-    validatorProducer: (model: TModel) => IAsyncValidator<TTransformedValue>
+    validatorProducer: (model: TModel) => IAsyncValidator<TTransformedValue>,
   ) => {
-    const asyncValidatorRule = new AsyncValidatorRule<
-      TModel,
-      TTransformedValue
-    >(
-      validatorProducer as (model: TModel) => IAsyncValidator<TTransformedValue>
+    const asyncValidatorRule = new AsyncValidatorRule<TModel, TTransformedValue>(
+      validatorProducer as (model: TModel) => IAsyncValidator<TTransformedValue>,
     );
     this.pushAsyncRule(asyncValidatorRule);
     return this.getAllRulesAndExtensions();

@@ -60,13 +60,7 @@ describe('ruleForEach', () => {
       };
       const result = validator.validate(invalid);
       expect(result).toEqual({
-        scores: [
-          null,
-          null,
-          null,
-          'Must be between 0 and 100',
-          'Must be between 0 and 100',
-        ],
+        scores: [null, null, null, 'Must be between 0 and 100', 'Must be between 0 and 100'],
       });
     });
 
@@ -177,13 +171,7 @@ describe('ruleForEach', () => {
       };
       const result = await validator.validateAsync(invalid);
       expect(result).toEqual({
-        scores: [
-          null,
-          null,
-          null,
-          'Must be between 0 and 100',
-          'Must be between 0 and 100',
-        ],
+        scores: [null, null, null, 'Must be between 0 and 100', 'Must be between 0 and 100'],
       });
     });
 

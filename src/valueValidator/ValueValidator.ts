@@ -1,17 +1,12 @@
 import { ValueValidationResult } from '@/ValueValidationResult';
 
-export const hasError = <TValue>(
-  valueValidationResult: ValueValidationResult<TValue>
-): boolean => {
+export const hasError = <TValue>(valueValidationResult: ValueValidationResult<TValue>): boolean => {
   if (valueValidationResult == null) {
     return false;
   }
 
   if (Array.isArray(valueValidationResult)) {
-    return (
-      valueValidationResult.filter((eachResult) => hasError(eachResult))
-        .length > 0
-    );
+    return valueValidationResult.filter((eachResult) => hasError(eachResult)).length > 0;
   }
 
   if (typeof valueValidationResult === 'object') {

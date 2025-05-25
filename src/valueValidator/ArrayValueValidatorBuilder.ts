@@ -19,7 +19,7 @@ export class ArrayValueValidatorBuilder<
 
   constructor(
     rebuildValidate: () => void,
-    transformValue: ValueTransformer<TEachValue, TEachTransformedValue>
+    transformValue: ValueTransformer<TEachValue, TEachTransformedValue>,
   ) {
     this.eachValueValidatorBuilder = new ValueValidatorBuilder<
       TModel,

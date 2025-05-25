@@ -96,19 +96,18 @@ describe('string validators (sync)', () => {
       };
       const result = validator.validate(invalid);
       expect(result.nullableStringProperty).toBe(
-        `Value must be between ${minLength} and ${maxLength} characters long`
+        `Value must be between ${minLength} and ${maxLength} characters long`,
       );
     });
 
     it('gives a validation error if the string is too long', () => {
       const invalid: TestType = {
         ...testInstance,
-        nullableStringProperty:
-          'this string is much too long to pass validation',
+        nullableStringProperty: 'this string is much too long to pass validation',
       };
       const result = validator.validate(invalid);
       expect(result.nullableStringProperty).toBe(
-        `Value must be between ${minLength} and ${maxLength} characters long`
+        `Value must be between ${minLength} and ${maxLength} characters long`,
       );
     });
 
@@ -188,7 +187,7 @@ describe('string validators (sync)', () => {
       };
       const result = validator.validate(invalid);
       expect(result.nullableStringProperty).toBe(
-        `Value must be no more than ${maxLength} characters long`
+        `Value must be no more than ${maxLength} characters long`,
       );
     });
 
@@ -268,7 +267,7 @@ describe('string validators (sync)', () => {
       };
       const result = validator.validate(invalid);
       expect(result.nullableStringProperty).toBe(
-        `Value must be at least ${minLength} characters long`
+        `Value must be at least ${minLength} characters long`,
       );
     });
 
@@ -442,9 +441,7 @@ describe('string validators (sync)', () => {
         nullableStringProperty: '0.4',
       };
       const result = validator.validate(valid);
-      expect(result.nullableStringProperty).toBe(
-        'Value does not match the required pattern'
-      );
+      expect(result.nullableStringProperty).toBe('Value does not match the required pattern');
     });
 
     it('throws an error if it receives a non-string value', () => {

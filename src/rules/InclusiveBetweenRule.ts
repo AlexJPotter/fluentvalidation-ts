@@ -9,15 +9,11 @@ export class InclusiveBetweenRule<TModel, TValue> extends Rule<TModel, TValue> {
         return null;
       }
       if (typeof value !== 'number') {
-        throw new TypeError(
-          'A non-number value was passed to the inclusiveBetween rule'
-        );
+        throw new TypeError('A non-number value was passed to the inclusiveBetween rule');
       }
       return value >= lowerBound && value <= upperBound
         ? null
-        : `Value must be between ${formatNumber(lowerBound)} and ${formatNumber(
-            upperBound
-          )} (inclusive)`;
+        : `Value must be between ${formatNumber(lowerBound)} and ${formatNumber(upperBound)} (inclusive)`;
     });
   }
 }

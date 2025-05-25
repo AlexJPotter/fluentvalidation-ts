@@ -12,9 +12,7 @@ describe('examples (async)', () => {
       constructor() {
         super();
 
-        this.ruleFor('numberOfSocks')
-          .must(beAnEvenInteger)
-          .withMessage(`Can't have odd socks!`);
+        this.ruleFor('numberOfSocks').must(beAnEvenInteger).withMessage(`Can't have odd socks!`);
       }
     }
 
@@ -53,9 +51,7 @@ describe('examples (async)', () => {
         this.ruleFor('numberOfTracks').greaterThan(0);
         this.ruleFor('rating')
           .inclusiveBetween(1, 5)
-          .must(
-            (rating: number | undefined) => rating == null || rating % 1 === 0
-          )
+          .must((rating: number | undefined) => rating == null || rating % 1 === 0)
           .withMessage('Rating must be an integer')
           .when((c) => c.rating != null);
       }
@@ -67,23 +63,16 @@ describe('examples (async)', () => {
         this.ruleFor('name').notEmpty();
         this.ruleFor('debutAlbum')
           .setAsyncValidator(() => new AlbumValidator())
-          .must(
-            (value: Album, model: Band) =>
-              model.allAlbumNames.indexOf(value.name) !== -1
-          )
-          .withMessage(
-            'Name of debut album was not present in list of all album names'
-          );
+          .must((value: Album, model: Band) => model.allAlbumNames.indexOf(value.name) !== -1)
+          .withMessage('Name of debut album was not present in list of all album names');
         this.ruleForEach('allAlbumNames').notEmpty();
         this.ruleFor('currentAlbum')
           .setAsyncValidator(() => new AlbumValidator())
           .must(
             (value: Album | null, model: Band) =>
-              value == null || model.allAlbumNames.indexOf(value.name) !== -1
+              value == null || model.allAlbumNames.indexOf(value.name) !== -1,
           )
-          .withMessage(
-            'Name of current album was not present in list of all album names'
-          )
+          .withMessage('Name of current album was not present in list of all album names')
           .unless((c) => c.currentAlbum == null);
       }
     }
@@ -93,9 +82,7 @@ describe('examples (async)', () => {
         super();
         this.ruleFor('name').notEmpty();
         this.ruleFor('age').greaterThanOrEqualTo(18);
-        this.ruleFor('favouriteBand').setAsyncValidator(
-          () => new BandValidator()
-        );
+        this.ruleFor('favouriteBand').setAsyncValidator(() => new BandValidator());
         this.ruleFor('leastFavouriteBand')
           .setAsyncValidator(() => new BandValidator())
           .unless((c) => c.leastFavouriteBand == null);
@@ -135,8 +122,7 @@ describe('examples (async)', () => {
         debutAlbum: {
           rating: 'Value must be between 1 and 5 (inclusive)',
         },
-        currentAlbum:
-          'Name of current album was not present in list of all album names',
+        currentAlbum: 'Name of current album was not present in list of all album names',
       },
     });
   });
@@ -199,9 +185,7 @@ describe('examples (async)', () => {
       constructor() {
         super();
         this.ruleFor('name').notEmpty().withMessage('Employees have names!');
-        this.ruleForEach('lmees').setAsyncValidator(
-          () => new EmployeeValidator()
-        );
+        this.ruleForEach('lmees').setAsyncValidator(() => new EmployeeValidator());
       }
     }
 

@@ -1,10 +1,7 @@
 import { Rule } from './Rule';
 import { formatNumber } from '@/numberHelpers';
 
-export class GreaterThanOrEqualToRule<TModel, TValue> extends Rule<
-  TModel,
-  TValue
-> {
+export class GreaterThanOrEqualToRule<TModel, TValue> extends Rule<TModel, TValue> {
   constructor(threshold: number) {
     // istanbul ignore next - https://github.com/gotwarlost/istanbul/issues/690
     super((value: TValue) => {
@@ -12,9 +9,7 @@ export class GreaterThanOrEqualToRule<TModel, TValue> extends Rule<
         return null;
       }
       if (typeof value !== 'number') {
-        throw new TypeError(
-          'A non-number value was passed to the greaterThanOrEqualTo rule'
-        );
+        throw new TypeError('A non-number value was passed to the greaterThanOrEqualTo rule');
       }
       return value >= threshold
         ? null

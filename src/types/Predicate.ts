@@ -2,12 +2,12 @@ import { Message } from '@/types/Message';
 
 export type SimplePredicate<TModel, TTransformedValue> = (
   value: TTransformedValue,
-  model: TModel
+  model: TModel,
 ) => boolean;
 
 export type SimpleAsyncPredicate<TModel, TTransformedValue> = (
   value: TTransformedValue,
-  model: TModel
+  model: TModel,
 ) => Promise<boolean>;
 
 export type SimplePredicateWithMessage<TModel, TTransformedValue> = {

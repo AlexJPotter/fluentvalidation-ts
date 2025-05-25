@@ -23,10 +23,7 @@ import { ScalePrecisionRule } from '@/rules/ScalePrecisionRule';
 import { ValidatorRule } from '@/rules/ValidatorRule';
 import { Predicate } from '@/types/Predicate';
 import { AppliesTo } from '@/types/AppliesTo';
-import {
-  RuleValidatorsAndConditionExtensions,
-  WithMessage,
-} from '@/valueValidator/RuleValidators';
+import { RuleValidatorsAndConditionExtensions, WithMessage } from '@/valueValidator/RuleValidators';
 
 export abstract class CoreValueValidatorBuilder<
   TModel,
@@ -38,9 +35,7 @@ export abstract class CoreValueValidatorBuilder<
 > {
   protected rules: Array<{
     isAsync: boolean;
-    rule:
-      | Rule<TModel, TTransformedValue>
-      | AsyncRule<TModel, TTransformedValue>;
+    rule: Rule<TModel, TTransformedValue> | AsyncRule<TModel, TTransformedValue>;
   }> = [];
 
   private readonly rebuildValidate: () => void;
@@ -49,7 +44,7 @@ export abstract class CoreValueValidatorBuilder<
 
   protected constructor(
     rebuildValidate: () => void,
-    transformValue: ValueTransformer<TValue, TTransformedValue>
+    transformValue: ValueTransformer<TValue, TTransformedValue>,
   ) {
     this.rebuildValidate = rebuildValidate;
     this.transformValue = transformValue;
@@ -65,9 +60,7 @@ export abstract class CoreValueValidatorBuilder<
     this.rebuildValidate();
   };
 
-  public withMessage: WithMessage<TModel, TTransformedValue> = (
-    message: string
-  ) => {
+  public withMessage: WithMessage<TModel, TTransformedValue> = (message: string) => {
     const latestRule = this.getLatestRule();
     latestRule.rule.setCustomErrorMessage(message);
 
@@ -83,7 +76,7 @@ export abstract class CoreValueValidatorBuilder<
   //  https://github.com/AlexJPotter/fluentvalidation-ts/issues/45
   public when = (
     condition: (model: TModel) => boolean,
-    appliesTo: AppliesTo = 'AppliesToAllValidators'
+    appliesTo: AppliesTo = 'AppliesToAllValidators',
   ) => {
     if (appliesTo === 'AppliesToAllValidators') {
       for (const rule of this.rules) {
@@ -101,7 +94,7 @@ export abstract class CoreValueValidatorBuilder<
   //  https://github.com/AlexJPotter/fluentvalidation-ts/issues/45
   public unless = (
     condition: (model: TModel) => boolean,
-    appliesTo: AppliesTo = 'AppliesToAllValidators'
+    appliesTo: AppliesTo = 'AppliesToAllValidators',
   ) => {
     if (appliesTo === 'AppliesToAllValidators') {
       for (const rule of this.rules) {
@@ -116,9 +109,7 @@ export abstract class CoreValueValidatorBuilder<
   };
 
   public notEqual = (forbiddenValue: TTransformedValue) => {
-    const notEqualRule = new NotEqualRule<TModel, TTransformedValue>(
-      forbiddenValue
-    );
+    const notEqualRule = new NotEqualRule<TModel, TTransformedValue>(forbiddenValue);
     this.pushRule(notEqualRule);
     return this.getAllRulesAndExtensions();
   };
@@ -154,26 +145,19 @@ export abstract class CoreValueValidatorBuilder<
   };
 
   public length = (minLength: number, maxLength: number) => {
-    const lengthRule = new LengthRule<TModel, TTransformedValue>(
-      minLength,
-      maxLength
-    );
+    const lengthRule = new LengthRule<TModel, TTransformedValue>(minLength, maxLength);
     this.pushRule(lengthRule);
     return this.getAllRulesAndExtensions();
   };
 
   public maxLength = (maxLength: number) => {
-    const maxLengthRule = new MaxLengthRule<TModel, TTransformedValue>(
-      maxLength
-    );
+    const maxLengthRule = new MaxLengthRule<TModel, TTransformedValue>(maxLength);
     this.pushRule(maxLengthRule);
     return this.getAllRulesAndExtensions();
   };
 
   public minLength = (minLength: number) => {
-    const minLengthRule = new MinLengthRule<TModel, TTransformedValue>(
-      minLength
-    );
+    const minLengthRule = new MinLengthRule<TModel, TTransformedValue>(minLength);
     this.pushRule(minLengthRule);
     return this.getAllRulesAndExtensions();
   };
@@ -197,54 +181,46 @@ export abstract class CoreValueValidatorBuilder<
   };
 
   public lessThanOrEqualTo = (threshold: number) => {
-    const lessThanOrEqualToRule = new LessThanOrEqualToRule<
-      TModel,
-      TTransformedValue
-    >(threshold);
+    const lessThanOrEqualToRule = new LessThanOrEqualToRule<TModel, TTransformedValue>(threshold);
     this.pushRule(lessThanOrEqualToRule);
     return this.getAllRulesAndExtensions();
   };
 
   public greaterThan = (threshold: number) => {
-    const greaterThanRule = new GreaterThanRule<TModel, TTransformedValue>(
-      threshold
-    );
+    const greaterThanRule = new GreaterThanRule<TModel, TTransformedValue>(threshold);
     this.pushRule(greaterThanRule);
     return this.getAllRulesAndExtensions();
   };
 
   public greaterThanOrEqualTo = (threshold: number) => {
-    const greaterThanOrEqualToRule = new GreaterThanOrEqualToRule<
-      TModel,
-      TTransformedValue
-    >(threshold);
+    const greaterThanOrEqualToRule = new GreaterThanOrEqualToRule<TModel, TTransformedValue>(
+      threshold,
+    );
     this.pushRule(greaterThanOrEqualToRule);
     return this.getAllRulesAndExtensions();
   };
 
   public exclusiveBetween = (lowerBound: number, upperBound: number) => {
-    const exclusiveBetweenRule = new ExclusiveBetweenRule<
-      TModel,
-      TTransformedValue
-    >(lowerBound, upperBound);
+    const exclusiveBetweenRule = new ExclusiveBetweenRule<TModel, TTransformedValue>(
+      lowerBound,
+      upperBound,
+    );
     this.pushRule(exclusiveBetweenRule);
     return this.getAllRulesAndExtensions();
   };
 
   public inclusiveBetween = (lowerBound: number, upperBound: number) => {
-    const inclusiveBetweenRule = new InclusiveBetweenRule<
-      TModel,
-      TTransformedValue
-    >(lowerBound, upperBound);
+    const inclusiveBetweenRule = new InclusiveBetweenRule<TModel, TTransformedValue>(
+      lowerBound,
+      upperBound,
+    );
     this.pushRule(inclusiveBetweenRule);
     return this.getAllRulesAndExtensions();
   };
 
-  public setValidator = (
-    validatorProducer: (model: TModel) => IValidator<TTransformedValue>
-  ) => {
+  public setValidator = (validatorProducer: (model: TModel) => IValidator<TTransformedValue>) => {
     const validatorRule = new ValidatorRule<TModel, TTransformedValue>(
-      validatorProducer as (model: TModel) => IValidator<TTransformedValue>
+      validatorProducer as (model: TModel) => IValidator<TTransformedValue>,
     );
     this.pushRule(validatorRule);
     return this.getAllRulesAndExtensions();
@@ -252,14 +228,9 @@ export abstract class CoreValueValidatorBuilder<
 
   public scalePrecision = (precision: number, scale: number) => {
     if (scale - precision <= 0) {
-      throw new Error(
-        'Invalid scale and precision were passed to the scalePrecision rule'
-      );
+      throw new Error('Invalid scale and precision were passed to the scalePrecision rule');
     }
-    const scalePrecisionRule = new ScalePrecisionRule<
-      TModel,
-      TTransformedValue
-    >(precision, scale);
+    const scalePrecisionRule = new ScalePrecisionRule<TModel, TTransformedValue>(precision, scale);
     this.pushRule(scalePrecisionRule);
     return this.getAllRulesAndExtensions();
   };

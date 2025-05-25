@@ -21,9 +21,7 @@ export class AsyncValidator<TModel> {
     [propertyName in keyof TModel]?: Array<IAsyncValueValidatorBuilder<TModel>>;
   } = {};
 
-  protected _validateAsync: (
-    value: TModel
-  ) => Promise<ValidationErrors<TModel>> = async () => {
+  protected _validateAsync: (value: TModel) => Promise<ValidationErrors<TModel>> = async () => {
     return Promise.resolve({});
   };
 
@@ -31,25 +29,19 @@ export class AsyncValidator<TModel> {
     this._validateAsync(value);
 
   private rebuildValidateAsync = () => {
-    this._validateAsync = async (
-      value: TModel
-    ): Promise<ValidationErrors<TModel>> => {
+    this._validateAsync = async (value: TModel): Promise<ValidationErrors<TModel>> => {
       const errors: ValidationErrors<TModel> = {};
 
-      for (const propertyName of Object.keys(
-        this.asyncValueValidatorBuildersByPropertyName
-      )) {
+      for (const propertyName of Object.keys(this.asyncValueValidatorBuildersByPropertyName)) {
         const asyncValueValidatorBuilders =
-          this.asyncValueValidatorBuildersByPropertyName[
-            propertyName as keyof TModel
-          ];
+          this.asyncValueValidatorBuildersByPropertyName[propertyName as keyof TModel];
 
         for (const asyncValueValidatorBuilder of asyncValueValidatorBuilders!) {
           const asyncValueValidator = asyncValueValidatorBuilder.build();
 
           const result = (await asyncValueValidator(
             value[propertyName as keyof TModel],
-            value
+            value,
           )) as ValueValidationResult<TModel[keyof TModel]>;
 
           if (hasError<TModel[keyof TModel]>(result)) {
@@ -62,11 +54,8 @@ export class AsyncValidator<TModel> {
     };
   };
 
-  protected ruleFor = <
-    TPropertyName extends keyof TModel,
-    TValue extends TModel[TPropertyName],
-  >(
-    propertyName: TPropertyName
+  protected ruleFor = <TPropertyName extends keyof TModel, TValue extends TModel[TPropertyName]>(
+    propertyName: TPropertyName,
   ): AsyncRuleValidators<TModel, TValue> => {
     const asyncValueValidatorBuilder = new AsyncValueValidatorBuilder<
       TModel,
@@ -78,13 +67,10 @@ export class AsyncValidator<TModel> {
       this.asyncValueValidatorBuildersByPropertyName[propertyName] || [];
 
     this.asyncValueValidatorBuildersByPropertyName[propertyName]!.push(
-      asyncValueValidatorBuilder as IAsyncValueValidatorBuilder<TModel>
+      asyncValueValidatorBuilder as IAsyncValueValidatorBuilder<TModel>,
     );
 
-    return asyncValueValidatorBuilder.getAllRules() as AsyncRuleValidators<
-      TModel,
-      TValue
-    >;
+    return asyncValueValidatorBuilder.getAllRules() as AsyncRuleValidators<TModel, TValue>;
   };
 
   protected ruleForTransformed = <
@@ -94,25 +80,22 @@ export class AsyncValidator<TModel> {
   >(
     propertyName: TPropertyName,
     transformValue: (
-      value: TValue
+      value: TValue,
     ) => TTransformedValue extends object
       ? Constrain<TTransformedValue, TValue>
-      : TTransformedValue
+      : TTransformedValue,
   ): AsyncRuleValidators<TModel, TTransformedValue> => {
     const asyncValueValidatorBuilder = new AsyncValueValidatorBuilder<
       TModel,
       TValue,
       TTransformedValue
-    >(
-      this.rebuildValidateAsync,
-      transformValue as ValueTransformer<TValue, TTransformedValue>
-    );
+    >(this.rebuildValidateAsync, transformValue as ValueTransformer<TValue, TTransformedValue>);
 
     this.asyncValueValidatorBuildersByPropertyName[propertyName] =
       this.asyncValueValidatorBuildersByPropertyName[propertyName] || [];
 
     this.asyncValueValidatorBuildersByPropertyName[propertyName]!.push(
-      asyncValueValidatorBuilder as IAsyncValueValidatorBuilder<TModel>
+      asyncValueValidatorBuilder as IAsyncValueValidatorBuilder<TModel>,
     );
 
     return asyncValueValidatorBuilder.getAllRules() as AsyncRuleValidators<
@@ -123,14 +106,12 @@ export class AsyncValidator<TModel> {
 
   protected ruleForEach = <
     TPropertyName extends keyof TModel,
-    TEachValue extends TModel[TPropertyName] extends Optional<
-      ArrayType<infer TEachValueInferred>
-    >
+    TEachValue extends TModel[TPropertyName] extends Optional<ArrayType<infer TEachValueInferred>>
       ? TEachValueInferred
       : never,
     TValue extends TModel[TPropertyName] & ArrayType<TEachValue>,
   >(
-    propertyName: IfNotNeverThen<TEachValue, TPropertyName>
+    propertyName: IfNotNeverThen<TEachValue, TPropertyName>,
   ): IfNotNeverThen<TEachValue, AsyncRuleValidators<TModel, TEachValue>> => {
     const asyncArrayValueValidatorBuilder = new AsyncArrayValueValidatorBuilder<
       TModel,
@@ -144,7 +125,7 @@ export class AsyncValidator<TModel> {
     }
 
     this.asyncValueValidatorBuildersByPropertyName[propertyName]!.push(
-      asyncArrayValueValidatorBuilder as IAsyncValueValidatorBuilder<TModel>
+      asyncArrayValueValidatorBuilder as IAsyncValueValidatorBuilder<TModel>,
     );
 
     return asyncArrayValueValidatorBuilder.getAllRules() as IfNotNeverThen<
@@ -155,9 +136,7 @@ export class AsyncValidator<TModel> {
 
   protected ruleForEachTransformed = <
     TPropertyName extends keyof TModel,
-    TEachValue extends TModel[TPropertyName] extends Optional<
-      ArrayType<infer TEachValueInferred>
-    >
+    TEachValue extends TModel[TPropertyName] extends Optional<ArrayType<infer TEachValueInferred>>
       ? TEachValueInferred
       : never,
     TValue extends TModel[TPropertyName] & ArrayType<TEachValue>,
@@ -165,14 +144,11 @@ export class AsyncValidator<TModel> {
   >(
     propertyName: IfNotNeverThen<TEachValue, TPropertyName>,
     transformValue: (
-      value: TEachValue
+      value: TEachValue,
     ) => TEachTransformedValue extends object
       ? Constrain<TEachTransformedValue, TEachValue>
-      : TEachTransformedValue
-  ): IfNotNeverThen<
-    TEachValue,
-    AsyncRuleValidators<TModel, TEachTransformedValue>
-  > => {
+      : TEachTransformedValue,
+  ): IfNotNeverThen<TEachValue, AsyncRuleValidators<TModel, TEachTransformedValue>> => {
     const asyncArrayValueValidatorBuilder = new AsyncArrayValueValidatorBuilder<
       TModel,
       TValue,
@@ -185,7 +161,7 @@ export class AsyncValidator<TModel> {
     }
 
     this.asyncValueValidatorBuildersByPropertyName[propertyName]!.push(
-      asyncArrayValueValidatorBuilder as IAsyncValueValidatorBuilder<TModel>
+      asyncArrayValueValidatorBuilder as IAsyncValueValidatorBuilder<TModel>,
     );
 
     return asyncArrayValueValidatorBuilder.getAllRules() as IfNotNeverThen<

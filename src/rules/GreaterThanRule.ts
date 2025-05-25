@@ -9,13 +9,9 @@ export class GreaterThanRule<TModel, TValue> extends Rule<TModel, TValue> {
         return null;
       }
       if (typeof value !== 'number') {
-        throw new TypeError(
-          'A non-number value was passed to the greaterThan rule'
-        );
+        throw new TypeError('A non-number value was passed to the greaterThan rule');
       }
-      return value > threshold
-        ? null
-        : `Value must be greater than ${formatNumber(threshold)}`;
+      return value > threshold ? null : `Value must be greater than ${formatNumber(threshold)}`;
     });
   }
 }

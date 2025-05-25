@@ -62,10 +62,7 @@ describe('when', () => {
           this.ruleFor('nullableStringProperty')
             .notNull()
             .notEmpty()
-            .when(
-              (model) => model.booleanProperty,
-              'AppliesToCurrentValidator'
-            );
+            .when((model) => model.booleanProperty, 'AppliesToCurrentValidator');
         }
       }
       const validator = new TestValidator();
@@ -202,10 +199,7 @@ describe('when', () => {
           this.ruleFor('nullableStringProperty')
             .notNull()
             .notEmpty()
-            .when(
-              (model) => model.booleanProperty,
-              'AppliesToCurrentValidator'
-            );
+            .when((model) => model.booleanProperty, 'AppliesToCurrentValidator');
         }
       }
       const validator = new TestValidator();

@@ -12,7 +12,7 @@ export class AsyncRule<TModel, TValue> extends CoreRule<TModel> {
 
   public validateAsync = async (
     value: TValue,
-    model: TModel
+    model: TModel,
   ): Promise<ValueValidationResult<TValue>> => {
     if (this.whenCondition != null && !this.whenCondition(model)) {
       return null;

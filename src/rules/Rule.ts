@@ -10,10 +10,7 @@ export class Rule<TModel, TValue> extends CoreRule<TModel> {
     this.valueValidator = valueValidator;
   }
 
-  public validate = (
-    value: TValue,
-    model: TModel
-  ): ValueValidationResult<TValue> => {
+  public validate = (value: TValue, model: TModel): ValueValidationResult<TValue> => {
     if (this.whenCondition != null && !this.whenCondition(model)) {
       return null;
     }

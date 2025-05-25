@@ -2,5 +2,5 @@ import { ValueValidationResult } from '@/ValueValidationResult';
 
 export type AsyncValueValidator<TModel, TValue> = (
   value: TValue,
-  model: TModel
+  model: TModel,
 ) => Promise<ValueValidationResult<TValue>>;

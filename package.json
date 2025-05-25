@@ -38,13 +38,6 @@
     "typecheck": "tsc --noEmit && tsc --noEmit --project tsconfig.test.json",
     "prepare": "husky"
   },
-  "prettier": {
-    "trailingComma": "es5",
-    "tabWidth": 2,
-    "semi": true,
-    "singleQuote": true,
-    "endOfLine": "crlf"
-  },
   "devDependencies": {
     "@eslint/js": "^9.26.0",
     "@swc/core": "^1.3.56",

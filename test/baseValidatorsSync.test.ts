@@ -146,9 +146,7 @@ describe('base validators (sync)', () => {
       class TestValidator extends Validator<TestType> {
         constructor() {
           super();
-          this.ruleFor('stringProperty').must(
-            (stringProperty) => stringProperty.length > 10
-          );
+          this.ruleFor('stringProperty').must((stringProperty) => stringProperty.length > 10);
         }
       }
       const validator = new TestValidator();
@@ -177,9 +175,7 @@ describe('base validators (sync)', () => {
             super();
             this.ruleFor('stringProperty')
               .must((value, model) => value.length === model.numberProperty)
-              .withMessage(
-                'String property length must match number property value'
-              );
+              .withMessage('String property length must match number property value');
           }
         }
         const otherValidator = new OtherValidator();
@@ -195,7 +191,7 @@ describe('base validators (sync)', () => {
         };
         expect(otherValidator.validate(valid).stringProperty).toBeUndefined();
         expect(otherValidator.validate(invalid).stringProperty).toBe(
-          'String property length must match number property value'
+          'String property length must match number property value',
         );
       });
     });
@@ -219,9 +215,7 @@ describe('base validators (sync)', () => {
           stringProperty: 'tooshort',
         };
         const result = validator.validate(invalid);
-        expect(result.stringProperty).toBe(
-          'Please enter at least 10 characters'
-        );
+        expect(result.stringProperty).toBe('Please enter at least 10 characters');
       });
 
       it('does not give a validation error if the predicate is met', () => {
@@ -235,16 +229,13 @@ describe('base validators (sync)', () => {
 
       it('accepts a predicate which relies on the base model', () => {
         const haveLengthEqualToTheNumberProperty = {
-          predicate: (value: string, model: TestType) =>
-            value.length === model.numberProperty,
+          predicate: (value: string, model: TestType) => value.length === model.numberProperty,
           message: 'String property length must match number property value',
         };
         class OtherValidator extends Validator<TestType> {
           constructor() {
             super();
-            this.ruleFor('stringProperty').must(
-              haveLengthEqualToTheNumberProperty
-            );
+            this.ruleFor('stringProperty').must(haveLengthEqualToTheNumberProperty);
           }
         }
         const otherValidator = new OtherValidator();
@@ -260,7 +251,7 @@ describe('base validators (sync)', () => {
         };
         expect(otherValidator.validate(valid).stringProperty).toBeUndefined();
         expect(otherValidator.validate(invalid).stringProperty).toBe(
-          'String property length must match number property value'
+          'String property length must match number property value',
         );
       });
 
@@ -284,8 +275,7 @@ describe('base validators (sync)', () => {
 
       it('allows the message to depend on the value and model', () => {
         const haveLengthEqualToTheNumberProperty = {
-          predicate: (value: string, model: TestType) =>
-            value.length === model.numberProperty,
+          predicate: (value: string, model: TestType) => value.length === model.numberProperty,
           message: (value: string, model: TestType) =>
             `String property is ${value.length} characters long, but must be ${model.numberProperty} characters long`,
         };
@@ -293,9 +283,7 @@ describe('base validators (sync)', () => {
           constructor() {
             {
               super();
-              this.ruleFor('stringProperty').must(
-                haveLengthEqualToTheNumberProperty
-              );
+              this.ruleFor('stringProperty').must(haveLengthEqualToTheNumberProperty);
             }
           }
         }
@@ -307,7 +295,7 @@ describe('base validators (sync)', () => {
         };
         const result = otherValidator.validate(invalid);
         expect(result.stringProperty).toBe(
-          'String property is 4 characters long, but must be 10 characters long'
+          'String property is 4 characters long, but must be 10 characters long',
         );
       });
     });
@@ -334,27 +322,23 @@ describe('base validators (sync)', () => {
 
       it('gives a generic validation error if a predicate fails', () => {
         expect(
-          validator.validate({ ...testInstance, stringProperty: 'notnumber' })
-            .stringProperty
+          validator.validate({ ...testInstance, stringProperty: 'notnumber' }).stringProperty,
         ).toBe('Value is not valid');
       });
 
       it('gives an appropriate validation error if a rule definition fails', () => {
-        expect(
-          validator.validate({ ...testInstance, stringProperty: '44.4' })
-            .stringProperty
-        ).toBe('Please enter a whole number');
+        expect(validator.validate({ ...testInstance, stringProperty: '44.4' }).stringProperty).toBe(
+          'Please enter a whole number',
+        );
 
-        expect(
-          validator.validate({ ...testInstance, stringProperty: '-1' })
-            .stringProperty
-        ).toBe('-1 is not a positive number');
+        expect(validator.validate({ ...testInstance, stringProperty: '-1' }).stringProperty).toBe(
+          '-1 is not a positive number',
+        );
       });
 
       it('does not give a validation error if the property is valid according to all rules', () => {
         expect(
-          validator.validate({ ...testInstance, stringProperty: '44' })
-            .stringProperty
+          validator.validate({ ...testInstance, stringProperty: '44' }).stringProperty,
         ).toBeUndefined();
       });
     });
@@ -370,9 +354,7 @@ describe('base validators (sync)', () => {
     class TestValidator extends Validator<TestType> {
       constructor() {
         super();
-        this.ruleFor('nullableObjectProperty').setValidator(
-          () => new SubValidator()
-        );
+        this.ruleFor('nullableObjectProperty').setValidator(() => new SubValidator());
       }
     }
     const validator = new TestValidator();
@@ -426,7 +408,7 @@ describe('base validators (sync)', () => {
           super();
           this.ruleFor('objectProperty').setValidator(
             // @ts-expect-error
-            () => new AnotherValidator()
+            () => new AnotherValidator(),
           );
         }
       }

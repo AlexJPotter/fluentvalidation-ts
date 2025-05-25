@@ -41,7 +41,7 @@ describe('ruleForTransformed', () => {
             this.ruleForTransformed(
               'stringProperty',
               // @ts-expect-error
-              mapToArray
+              mapToArray,
             ).notNull();
           }
         }
@@ -58,7 +58,7 @@ describe('ruleForTransformed', () => {
             this.ruleForTransformed(
               'stringProperty',
               // @ts-expect-error
-              mapToObject
+              mapToObject,
             ).notNull();
           }
         }
@@ -128,7 +128,7 @@ describe('ruleForTransformed', () => {
 
             this.ruleForTransformed('arrayProperty', (a) =>
               // @ts-expect-error
-              a.map((x) => Number(x))
+              a.map((x) => Number(x)),
             ).notNull();
           }
         }
@@ -147,7 +147,7 @@ describe('ruleForTransformed', () => {
             this.ruleForTransformed(
               'arrayProperty',
               // @ts-expect-error
-              mapToObject
+              mapToObject,
             ).notNull();
           }
         }
@@ -245,7 +245,7 @@ describe('ruleForTransformed', () => {
             this.ruleForTransformed(
               'objectProperty',
               // @ts-expect-error
-              transform
+              transform,
             ).must((x) => x.newProperty === 'whatever');
           }
         }
@@ -262,7 +262,7 @@ describe('ruleForTransformed', () => {
             this.ruleForTransformed(
               'objectProperty',
               // @ts-expect-error
-              transformToArray
+              transformToArray,
             ).notNull();
           }
         }
@@ -314,7 +314,7 @@ describe('ruleForTransformed', () => {
             this.ruleForTransformed(
               'stringProperty',
               // @ts-expect-error
-              mapToArray
+              mapToArray,
             ).notNull();
           }
         }
@@ -331,7 +331,7 @@ describe('ruleForTransformed', () => {
             this.ruleForTransformed(
               'stringProperty',
               // @ts-expect-error
-              mapToObject
+              mapToObject,
             ).notNull();
           }
         }
@@ -401,7 +401,7 @@ describe('ruleForTransformed', () => {
 
             this.ruleForTransformed('arrayProperty', (a) =>
               // @ts-expect-error
-              a.map((x) => Number(x))
+              a.map((x) => Number(x)),
             ).notNull();
           }
         }
@@ -420,7 +420,7 @@ describe('ruleForTransformed', () => {
             this.ruleForTransformed(
               'arrayProperty',
               // @ts-expect-error
-              mapToObject
+              mapToObject,
             ).notNull();
           }
         }
@@ -517,7 +517,7 @@ describe('ruleForTransformed', () => {
 
             // @ts-expect-error
             this.ruleForTransformed('objectProperty', transform).must(
-              (x) => x.newProperty === 'whatever'
+              (x) => x.newProperty === 'whatever',
             );
           }
         }
@@ -534,7 +534,7 @@ describe('ruleForTransformed', () => {
             this.ruleForTransformed(
               'objectProperty',
               // @ts-expect-error
-              transformToArray
+              transformToArray,
             ).notNull();
           }
         }

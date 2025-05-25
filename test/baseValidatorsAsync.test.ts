@@ -147,9 +147,7 @@ describe('base validators (async)', () => {
       class TestValidator extends AsyncValidator<TestType> {
         constructor() {
           super();
-          this.ruleFor('stringProperty').must(
-            (stringProperty) => stringProperty.length > 10
-          );
+          this.ruleFor('stringProperty').must((stringProperty) => stringProperty.length > 10);
         }
       }
       const validator = new TestValidator();
@@ -178,9 +176,7 @@ describe('base validators (async)', () => {
             super();
             this.ruleFor('stringProperty')
               .must((value, model) => value.length === model.numberProperty)
-              .withMessage(
-                'String property length must match number property value'
-              );
+              .withMessage('String property length must match number property value');
           }
         }
         const otherValidator = new OtherValidator();
@@ -194,12 +190,10 @@ describe('base validators (async)', () => {
           stringProperty: 'Invalid',
           numberProperty: 1,
         };
-        expect(
-          (await otherValidator.validateAsync(valid)).stringProperty
-        ).toBeUndefined();
-        expect(
-          (await otherValidator.validateAsync(invalid)).stringProperty
-        ).toBe('String property length must match number property value');
+        expect((await otherValidator.validateAsync(valid)).stringProperty).toBeUndefined();
+        expect((await otherValidator.validateAsync(invalid)).stringProperty).toBe(
+          'String property length must match number property value',
+        );
       });
     });
 
@@ -222,9 +216,7 @@ describe('base validators (async)', () => {
           stringProperty: 'tooshort',
         };
         const result = await validator.validateAsync(invalid);
-        expect(result.stringProperty).toBe(
-          'Please enter at least 10 characters'
-        );
+        expect(result.stringProperty).toBe('Please enter at least 10 characters');
       });
 
       it('does not give a validation error if the predicate is met', async () => {
@@ -238,16 +230,13 @@ describe('base validators (async)', () => {
 
       it('accepts a predicate which relies on the base model', async () => {
         const haveLengthEqualToTheNumberProperty = {
-          predicate: (value: string, model: TestType) =>
-            value.length === model.numberProperty,
+          predicate: (value: string, model: TestType) => value.length === model.numberProperty,
           message: 'String property length must match number property value',
         };
         class OtherValidator extends AsyncValidator<TestType> {
           constructor() {
             super();
-            this.ruleFor('stringProperty').must(
-              haveLengthEqualToTheNumberProperty
-            );
+            this.ruleFor('stringProperty').must(haveLengthEqualToTheNumberProperty);
           }
         }
         const otherValidator = new OtherValidator();
@@ -261,12 +250,10 @@ describe('base validators (async)', () => {
           stringProperty: 'Invalid',
           numberProperty: 1,
         };
-        expect(
-          (await otherValidator.validateAsync(valid)).stringProperty
-        ).toBeUndefined();
-        expect(
-          (await otherValidator.validateAsync(invalid)).stringProperty
-        ).toBe('String property length must match number property value');
+        expect((await otherValidator.validateAsync(valid)).stringProperty).toBeUndefined();
+        expect((await otherValidator.validateAsync(invalid)).stringProperty).toBe(
+          'String property length must match number property value',
+        );
       });
 
       it('still allows the message to be overridden', async () => {
@@ -289,8 +276,7 @@ describe('base validators (async)', () => {
 
       it('allows the message to depend on the value and model', async () => {
         const haveLengthEqualToTheNumberProperty = {
-          predicate: (value: string, model: TestType) =>
-            value.length === model.numberProperty,
+          predicate: (value: string, model: TestType) => value.length === model.numberProperty,
           message: (value: string, model: TestType) =>
             `String property is ${value.length} characters long, but must be ${model.numberProperty} characters long`,
         };
@@ -298,9 +284,7 @@ describe('base validators (async)', () => {
           constructor() {
             {
               super();
-              this.ruleFor('stringProperty').must(
-                haveLengthEqualToTheNumberProperty
-              );
+              this.ruleFor('stringProperty').must(haveLengthEqualToTheNumberProperty);
             }
           }
         }
@@ -312,7 +296,7 @@ describe('base validators (async)', () => {
         };
         const result = await otherValidator.validateAsync(invalid);
         expect(result.stringProperty).toBe(
-          'String property is 4 characters long, but must be 10 characters long'
+          'String property is 4 characters long, but must be 10 characters long',
         );
       });
     });
@@ -344,7 +328,7 @@ describe('base validators (async)', () => {
               ...testInstance,
               stringProperty: 'notnumber',
             })
-          ).stringProperty
+          ).stringProperty,
         ).toBe('Value is not valid');
       });
 
@@ -355,7 +339,7 @@ describe('base validators (async)', () => {
               ...testInstance,
               stringProperty: '44.4',
             })
-          ).stringProperty
+          ).stringProperty,
         ).toBe('Please enter a whole number');
 
         expect(
@@ -364,7 +348,7 @@ describe('base validators (async)', () => {
               ...testInstance,
               stringProperty: '-1',
             })
-          ).stringProperty
+          ).stringProperty,
         ).toBe('-1 is not a positive number');
       });
 
@@ -375,7 +359,7 @@ describe('base validators (async)', () => {
               ...testInstance,
               stringProperty: '44',
             })
-          ).stringProperty
+          ).stringProperty,
         ).toBeUndefined();
       });
     });
@@ -421,9 +405,7 @@ describe('base validators (async)', () => {
                 await delay(1);
                 return value.length === model.numberProperty;
               })
-              .withMessage(
-                'String property length must match number property value'
-              );
+              .withMessage('String property length must match number property value');
           }
         }
         const otherValidator = new OtherValidator();
@@ -437,12 +419,10 @@ describe('base validators (async)', () => {
           stringProperty: 'Invalid',
           numberProperty: 1,
         };
-        expect(
-          (await otherValidator.validateAsync(valid)).stringProperty
-        ).toBeUndefined();
-        expect(
-          (await otherValidator.validateAsync(invalid)).stringProperty
-        ).toBe('String property length must match number property value');
+        expect((await otherValidator.validateAsync(valid)).stringProperty).toBeUndefined();
+        expect((await otherValidator.validateAsync(invalid)).stringProperty).toBe(
+          'String property length must match number property value',
+        );
       });
 
       it('can be chained', async () => {
@@ -472,12 +452,10 @@ describe('base validators (async)', () => {
           ...testInstance,
           stringProperty: '123',
         };
-        expect(
-          (await chainedValidator.validateAsync(valid)).stringProperty
-        ).toBeUndefined();
-        expect(
-          (await chainedValidator.validateAsync(invalid)).stringProperty
-        ).toBe('Must be shorter than 3 characters');
+        expect((await chainedValidator.validateAsync(valid)).stringProperty).toBeUndefined();
+        expect((await chainedValidator.validateAsync(invalid)).stringProperty).toBe(
+          'Must be shorter than 3 characters',
+        );
       });
     });
 
@@ -503,9 +481,7 @@ describe('base validators (async)', () => {
           stringProperty: 'tooshort',
         };
         const result = await validator.validateAsync(invalid);
-        expect(result.stringProperty).toBe(
-          'Please enter at least 10 characters'
-        );
+        expect(result.stringProperty).toBe('Please enter at least 10 characters');
       });
 
       it('does not give a validation error if the predicate is met', async () => {
@@ -528,9 +504,7 @@ describe('base validators (async)', () => {
         class OtherValidator extends AsyncValidator<TestType> {
           constructor() {
             super();
-            this.ruleFor('stringProperty').mustAsync(
-              haveLengthEqualToTheNumberProperty
-            );
+            this.ruleFor('stringProperty').mustAsync(haveLengthEqualToTheNumberProperty);
           }
         }
         const otherValidator = new OtherValidator();
@@ -544,12 +518,10 @@ describe('base validators (async)', () => {
           stringProperty: 'Invalid',
           numberProperty: 1,
         };
-        expect(
-          (await otherValidator.validateAsync(valid)).stringProperty
-        ).toBeUndefined();
-        expect(
-          (await otherValidator.validateAsync(invalid)).stringProperty
-        ).toBe('String property length must match number property value');
+        expect((await otherValidator.validateAsync(valid)).stringProperty).toBeUndefined();
+        expect((await otherValidator.validateAsync(invalid)).stringProperty).toBe(
+          'String property length must match number property value',
+        );
       });
 
       it('still allows the message to be overridden', async () => {
@@ -583,9 +555,7 @@ describe('base validators (async)', () => {
           constructor() {
             {
               super();
-              this.ruleFor('stringProperty').mustAsync(
-                haveLengthEqualToTheNumberProperty
-              );
+              this.ruleFor('stringProperty').mustAsync(haveLengthEqualToTheNumberProperty);
             }
           }
         }
@@ -597,7 +567,7 @@ describe('base validators (async)', () => {
         };
         const result = await otherValidator.validateAsync(invalid);
         expect(result.stringProperty).toBe(
-          'String property is 4 characters long, but must be 10 characters long'
+          'String property is 4 characters long, but must be 10 characters long',
         );
       });
 
@@ -627,12 +597,10 @@ describe('base validators (async)', () => {
           ...testInstance,
           stringProperty: '123456789ABCD',
         };
-        expect(
-          (await chainedValidator.validateAsync(valid)).stringProperty
-        ).toBeUndefined();
-        expect(
-          (await chainedValidator.validateAsync(invalid)).stringProperty
-        ).toBe('Please enter no more than 12 characters');
+        expect((await chainedValidator.validateAsync(valid)).stringProperty).toBeUndefined();
+        expect((await chainedValidator.validateAsync(invalid)).stringProperty).toBe(
+          'Please enter no more than 12 characters',
+        );
       });
     });
 
@@ -672,7 +640,7 @@ describe('base validators (async)', () => {
               ...testInstance,
               stringProperty: 'notnumber',
             })
-          ).stringProperty
+          ).stringProperty,
         ).toBe('Value is not valid');
       });
 
@@ -683,7 +651,7 @@ describe('base validators (async)', () => {
               ...testInstance,
               stringProperty: '44.4',
             })
-          ).stringProperty
+          ).stringProperty,
         ).toBe('Please enter a whole number');
 
         expect(
@@ -692,7 +660,7 @@ describe('base validators (async)', () => {
               ...testInstance,
               stringProperty: '-1',
             })
-          ).stringProperty
+          ).stringProperty,
         ).toBe('-1 is not a positive number');
       });
 
@@ -703,7 +671,7 @@ describe('base validators (async)', () => {
               ...testInstance,
               stringProperty: '44',
             })
-          ).stringProperty
+          ).stringProperty,
         ).toBeUndefined();
       });
 
@@ -718,9 +686,7 @@ describe('base validators (async)', () => {
         class ChainedValidator extends AsyncValidator<TestType> {
           constructor() {
             super();
-            this.ruleFor('stringProperty')
-              .mustAsync(bePositiveInteger)
-              .mustAsync(beLessThanFive);
+            this.ruleFor('stringProperty').mustAsync(bePositiveInteger).mustAsync(beLessThanFive);
           }
         }
         const chainedValidator = new ChainedValidator();
@@ -732,12 +698,10 @@ describe('base validators (async)', () => {
           ...testInstance,
           stringProperty: '6',
         };
-        expect(
-          (await chainedValidator.validateAsync(valid)).stringProperty
-        ).toBeUndefined();
-        expect(
-          (await chainedValidator.validateAsync(invalid)).stringProperty
-        ).toBe('6 is not less than 5');
+        expect((await chainedValidator.validateAsync(valid)).stringProperty).toBeUndefined();
+        expect((await chainedValidator.validateAsync(invalid)).stringProperty).toBe(
+          '6 is not less than 5',
+        );
       });
     });
   });
@@ -752,9 +716,7 @@ describe('base validators (async)', () => {
     class TestValidator extends AsyncValidator<TestType> {
       constructor() {
         super();
-        this.ruleFor('nullableObjectProperty').setValidator(
-          () => new SubValidator()
-        );
+        this.ruleFor('nullableObjectProperty').setValidator(() => new SubValidator());
       }
     }
     const validator = new TestValidator();
@@ -808,7 +770,7 @@ describe('base validators (async)', () => {
           super();
           this.ruleFor('objectProperty').setValidator(
             // @ts-expect-error
-            () => new AnotherValidator()
+            () => new AnotherValidator(),
           );
         }
       }
@@ -825,9 +787,7 @@ describe('base validators (async)', () => {
     class TestValidator extends AsyncValidator<TestType> {
       constructor() {
         super();
-        this.ruleFor('nullableObjectProperty').setAsyncValidator(
-          () => new SubValidator()
-        );
+        this.ruleFor('nullableObjectProperty').setAsyncValidator(() => new SubValidator());
       }
     }
     const validator = new TestValidator();
@@ -881,7 +841,7 @@ describe('base validators (async)', () => {
           super();
           this.ruleFor('objectProperty').setAsyncValidator(
             // @ts-expect-error
-            () => new AnotherValidator()
+            () => new AnotherValidator(),
           );
         }
       }

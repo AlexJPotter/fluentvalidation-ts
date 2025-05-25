@@ -24,7 +24,7 @@ export class ValueValidatorBuilder<
 > {
   constructor(
     rebuildValidate: () => void,
-    transformValue: ValueTransformer<TValue, TTransformedValue>
+    transformValue: ValueTransformer<TValue, TTransformedValue>,
   ) {
     super(rebuildValidate, transformValue);
   }
@@ -34,9 +34,10 @@ export class ValueValidatorBuilder<
       const transformedValue = this.transformValue(value);
 
       for (const rule of this.rules) {
-        const validationResult = (
-          rule.rule as Rule<TModel, TTransformedValue>
-        ).validate(transformedValue, model) as ValueValidationResult<TValue>;
+        const validationResult = (rule.rule as Rule<TModel, TTransformedValue>).validate(
+          transformedValue,
+          model,
+        ) as ValueValidationResult<TValue>;
 
         if (hasError(validationResult)) {
           return validationResult;
@@ -47,8 +48,7 @@ export class ValueValidatorBuilder<
     };
   };
 
-  public getAllRules = () =>
-    this._getAllRules() as RuleValidators<TModel, TTransformedValue>;
+  public getAllRules = () => this._getAllRules() as RuleValidators<TModel, TTransformedValue>;
 
   public getAllRulesAndConditionExtensions = () =>
     ({

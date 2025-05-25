@@ -9,15 +9,11 @@ export class ExclusiveBetweenRule<TModel, TValue> extends Rule<TModel, TValue> {
         return null;
       }
       if (typeof value !== 'number') {
-        throw new TypeError(
-          'A non-number value was passed to the exclusiveBetween rule'
-        );
+        throw new TypeError('A non-number value was passed to the exclusiveBetween rule');
       }
       return value > lowerBound && value < upperBound
         ? null
-        : `Value must be between ${formatNumber(lowerBound)} and ${formatNumber(
-            upperBound
-          )} (exclusive)`;
+        : `Value must be between ${formatNumber(lowerBound)} and ${formatNumber(upperBound)} (exclusive)`;
     });
   }
 }

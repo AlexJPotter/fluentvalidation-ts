@@ -62,10 +62,7 @@ describe('unless', () => {
           this.ruleFor('nullableStringProperty')
             .notNull()
             .notEmpty()
-            .unless(
-              (model) => model.booleanProperty,
-              'AppliesToCurrentValidator'
-            );
+            .unless((model) => model.booleanProperty, 'AppliesToCurrentValidator');
         }
       }
       const validator = new TestValidator();
@@ -202,10 +199,7 @@ describe('unless', () => {
           this.ruleFor('nullableStringProperty')
             .notNull()
             .notEmpty()
-            .unless(
-              (model) => model.booleanProperty,
-              'AppliesToCurrentValidator'
-            );
+            .unless((model) => model.booleanProperty, 'AppliesToCurrentValidator');
         }
       }
       const validator = new TestValidator();

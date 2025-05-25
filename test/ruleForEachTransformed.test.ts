@@ -24,9 +24,7 @@ describe('ruleForEachTransformed', () => {
         const testValidator = new TestValidator();
 
         const invalid = testValidator.validate({ testProperty: ['-23'] });
-        expect((invalid.testProperty as string[])[0]).toBe(
-          'Must be strictly positive'
-        );
+        expect((invalid.testProperty as string[])[0]).toBe('Must be strictly positive');
 
         const valid = testValidator.validate({ testProperty: ['4'] });
         expect(valid).toEqual({});
@@ -43,7 +41,7 @@ describe('ruleForEachTransformed', () => {
             this.ruleForEachTransformed(
               'testProperty',
               // @ts-expect-error
-              mapToArray
+              mapToArray,
             ).notNull();
           }
         }
@@ -60,7 +58,7 @@ describe('ruleForEachTransformed', () => {
             this.ruleForEachTransformed(
               'testProperty',
               // @ts-expect-error
-              mapToObject
+              mapToObject,
             ).notNull();
           }
         }
@@ -87,9 +85,7 @@ describe('ruleForEachTransformed', () => {
           testProperty: [['1', '2', '3', '4']],
         });
 
-        expect((invalid.testProperty as Array<string>)[0]).toBe(
-          'Must contain 3 elements'
-        );
+        expect((invalid.testProperty as Array<string>)[0]).toBe('Must contain 3 elements');
 
         const valid = testValidator.validate({
           testProperty: [['1', '2', '3']],
@@ -118,9 +114,7 @@ describe('ruleForEachTransformed', () => {
           testProperty: [['2', '3', '4']],
         });
 
-        expect((invalid.testProperty as Array<string>)[0]).toBe(
-          'First element must be 1'
-        );
+        expect((invalid.testProperty as Array<string>)[0]).toBe('First element must be 1');
       });
 
       it('cannot be transformed to an array of a different type', () => {
@@ -134,7 +128,7 @@ describe('ruleForEachTransformed', () => {
 
             this.ruleForEachTransformed('testProperty', (a) =>
               // @ts-expect-error
-              a.map((x) => Number(x))
+              a.map((x) => Number(x)),
             ).notNull();
           }
         }
@@ -153,7 +147,7 @@ describe('ruleForEachTransformed', () => {
             this.ruleForEachTransformed(
               'testProperty',
               // @ts-expect-error
-              mapToObject
+              mapToObject,
             ).notNull();
           }
         }
@@ -193,9 +187,7 @@ describe('ruleForEachTransformed', () => {
           ],
         });
 
-        expect((invalid.testProperty as Array<string>)[0]).toBe(
-          'Must equal Foo'
-        );
+        expect((invalid.testProperty as Array<string>)[0]).toBe('Must equal Foo');
 
         const valid = testValidator.validate({
           testProperty: [
@@ -233,9 +225,7 @@ describe('ruleForEachTransformed', () => {
           ],
         });
 
-        expect((invalid.testProperty as Array<string>)[0]).toBe(
-          'Must give foobar'
-        );
+        expect((invalid.testProperty as Array<string>)[0]).toBe('Must give foobar');
 
         const valid = testValidator.validate({
           testProperty: [
@@ -262,7 +252,7 @@ describe('ruleForEachTransformed', () => {
             this.ruleForEachTransformed(
               'testProperty',
               // @ts-expect-error
-              transform
+              transform,
             ).must((x) => x.newProperty === 'whatever');
           }
         }
@@ -279,7 +269,7 @@ describe('ruleForEachTransformed', () => {
             this.ruleForEachTransformed(
               'testProperty',
               // @ts-expect-error
-              transformToArray
+              transformToArray,
             ).notNull();
           }
         }
@@ -312,9 +302,7 @@ describe('ruleForEachTransformed', () => {
         const invalid = await testValidator.validateAsync({
           testProperty: ['-23'],
         });
-        expect((invalid.testProperty as string[])[0]).toBe(
-          'Must be strictly positive'
-        );
+        expect((invalid.testProperty as string[])[0]).toBe('Must be strictly positive');
 
         const valid = await testValidator.validateAsync({
           testProperty: ['4'],
@@ -333,7 +321,7 @@ describe('ruleForEachTransformed', () => {
             this.ruleForEachTransformed(
               'testProperty',
               // @ts-expect-error
-              mapToArray
+              mapToArray,
             ).notNull();
           }
         }
@@ -350,7 +338,7 @@ describe('ruleForEachTransformed', () => {
             this.ruleForEachTransformed(
               'testProperty',
               // @ts-expect-error
-              mapToObject
+              mapToObject,
             ).notNull();
           }
         }
@@ -377,9 +365,7 @@ describe('ruleForEachTransformed', () => {
           testProperty: [['1', '2', '3', '4']],
         });
 
-        expect((invalid.testProperty as Array<string>)[0]).toBe(
-          'Must contain 3 elements'
-        );
+        expect((invalid.testProperty as Array<string>)[0]).toBe('Must contain 3 elements');
 
         const valid = await testValidator.validateAsync({
           testProperty: [['1', '2', '3']],
@@ -408,9 +394,7 @@ describe('ruleForEachTransformed', () => {
           testProperty: [['2', '3', '4']],
         });
 
-        expect((invalid.testProperty as Array<string>)[0]).toBe(
-          'First element must be 1'
-        );
+        expect((invalid.testProperty as Array<string>)[0]).toBe('First element must be 1');
       });
 
       it('cannot be transformed to an array of a different type', () => {
@@ -424,7 +408,7 @@ describe('ruleForEachTransformed', () => {
 
             this.ruleForEachTransformed('testProperty', (a) =>
               // @ts-expect-error
-              a.map((x) => Number(x))
+              a.map((x) => Number(x)),
             ).notNull();
           }
         }
@@ -443,7 +427,7 @@ describe('ruleForEachTransformed', () => {
             this.ruleForEachTransformed(
               'testProperty',
               // @ts-expect-error
-              mapToObject
+              mapToObject,
             ).notNull();
           }
         }
@@ -483,9 +467,7 @@ describe('ruleForEachTransformed', () => {
           ],
         });
 
-        expect((invalid.testProperty as Array<string>)[0]).toBe(
-          'Must equal Foo'
-        );
+        expect((invalid.testProperty as Array<string>)[0]).toBe('Must equal Foo');
 
         const valid = await testValidator.validateAsync({
           testProperty: [
@@ -523,9 +505,7 @@ describe('ruleForEachTransformed', () => {
           ],
         });
 
-        expect((invalid.testProperty as Array<string>)[0]).toBe(
-          'Must give foobar'
-        );
+        expect((invalid.testProperty as Array<string>)[0]).toBe('Must give foobar');
 
         const valid = await testValidator.validateAsync({
           testProperty: [
@@ -552,7 +532,7 @@ describe('ruleForEachTransformed', () => {
             this.ruleForEachTransformed(
               'testProperty',
               // @ts-expect-error
-              transform
+              transform,
             ).must((x) => x.newProperty === 'whatever');
           }
         }
@@ -569,7 +549,7 @@ describe('ruleForEachTransformed', () => {
             this.ruleForEachTransformed(
               'testProperty',
               // @ts-expect-error
-              transformToArray
+              transformToArray,
             ).notNull();
           }
         }

@@ -17,9 +17,7 @@ describe('number validators (async)', () => {
         nullableNumberProperty: 44,
       };
       const result = await validator.validateAsync(invalid);
-      expect(result.nullableNumberProperty).toBe(
-        `Value must be less than ${threshold}`
-      );
+      expect(result.nullableNumberProperty).toBe(`Value must be less than ${threshold}`);
     });
 
     it('does not give a validation error if the value is less than the threshold', async () => {
@@ -113,9 +111,7 @@ describe('number validators (async)', () => {
         nullableNumberProperty: 45,
       };
       const result = await validator.validateAsync(invalid);
-      expect(result.nullableNumberProperty).toBe(
-        `Value must be less than or equal to ${maxValue}`
-      );
+      expect(result.nullableNumberProperty).toBe(`Value must be less than or equal to ${maxValue}`);
     });
 
     it('does not give a validation error if the value is less than or equal to the max value', async () => {
@@ -209,9 +205,7 @@ describe('number validators (async)', () => {
         nullableNumberProperty: 44,
       };
       const result = await validator.validateAsync(invalid);
-      expect(result.nullableNumberProperty).toBe(
-        `Value must be greater than ${threshold}`
-      );
+      expect(result.nullableNumberProperty).toBe(`Value must be greater than ${threshold}`);
     });
 
     it('does not give a validation error if the value is greater than the threshold', async () => {
@@ -306,7 +300,7 @@ describe('number validators (async)', () => {
       };
       const result = await validator.validateAsync(invalid);
       expect(result.nullableNumberProperty).toBe(
-        `Value must be greater than or equal to ${minValue}`
+        `Value must be greater than or equal to ${minValue}`,
       );
     });
 
@@ -391,10 +385,7 @@ describe('number validators (async)', () => {
     class TestValidator extends AsyncValidator<TestType> {
       constructor() {
         super();
-        this.ruleFor('nullableNumberProperty').exclusiveBetween(
-          lowerThreshold,
-          upperThreshold
-        );
+        this.ruleFor('nullableNumberProperty').exclusiveBetween(lowerThreshold, upperThreshold);
       }
     }
     const validator = new TestValidator();
@@ -406,7 +397,7 @@ describe('number validators (async)', () => {
       };
       const result = await validator.validateAsync(invalid);
       expect(result.nullableNumberProperty).toBe(
-        `Value must be between ${lowerThreshold} and ${upperThreshold} (exclusive)`
+        `Value must be between ${lowerThreshold} and ${upperThreshold} (exclusive)`,
       );
     });
 
@@ -417,7 +408,7 @@ describe('number validators (async)', () => {
       };
       const result = await validator.validateAsync(invalid);
       expect(result.nullableNumberProperty).toBe(
-        `Value must be between ${lowerThreshold} and ${upperThreshold} (exclusive)`
+        `Value must be between ${lowerThreshold} and ${upperThreshold} (exclusive)`,
       );
     });
 
@@ -465,7 +456,7 @@ describe('number validators (async)', () => {
           this.ruleFor('numberProperty').exclusiveBetween(
             // @ts-expect-error
             'nonsense',
-            'more nonsense'
+            'more nonsense',
           );
         }
       }
@@ -505,10 +496,7 @@ describe('number validators (async)', () => {
     class TestValidator extends AsyncValidator<TestType> {
       constructor() {
         super();
-        this.ruleFor('nullableNumberProperty').inclusiveBetween(
-          lowerThreshold,
-          upperThreshold
-        );
+        this.ruleFor('nullableNumberProperty').inclusiveBetween(lowerThreshold, upperThreshold);
       }
     }
     const validator = new TestValidator();
@@ -520,7 +508,7 @@ describe('number validators (async)', () => {
       };
       const result = await validator.validateAsync(invalid);
       expect(result.nullableNumberProperty).toBe(
-        `Value must be between ${lowerThreshold} and ${upperThreshold} (inclusive)`
+        `Value must be between ${lowerThreshold} and ${upperThreshold} (inclusive)`,
       );
     });
 
@@ -531,7 +519,7 @@ describe('number validators (async)', () => {
       };
       const result = await validator.validateAsync(invalid);
       expect(result.nullableNumberProperty).toBe(
-        `Value must be between ${lowerThreshold} and ${upperThreshold} (inclusive)`
+        `Value must be between ${lowerThreshold} and ${upperThreshold} (inclusive)`,
       );
     });
 
@@ -579,7 +567,7 @@ describe('number validators (async)', () => {
           this.ruleFor('numberProperty').inclusiveBetween(
             // @ts-expect-error
             'nonsense',
-            'more nonsense'
+            'more nonsense',
           );
         }
       }
@@ -656,7 +644,7 @@ describe('number validators (async)', () => {
       };
       const result = await validator.validateAsync(invalid);
       expect(result.nullableNumberProperty).toBe(
-        'Value must not be more than 4 digits in total, with allowance for 2 decimals'
+        'Value must not be more than 4 digits in total, with allowance for 2 decimals',
       );
     });
 
@@ -667,7 +655,7 @@ describe('number validators (async)', () => {
       };
       const result = await validator.validateAsync(invalid);
       expect(result.nullableNumberProperty).toBe(
-        'Value must not be more than 4 digits in total, with allowance for 2 decimals'
+        'Value must not be more than 4 digits in total, with allowance for 2 decimals',
       );
     });
 
@@ -678,7 +666,7 @@ describe('number validators (async)', () => {
       };
       const result = await validator.validateAsync(invalid);
       expect(result.nullableNumberProperty).toBe(
-        'Value must not be more than 4 digits in total, with allowance for 2 decimals'
+        'Value must not be more than 4 digits in total, with allowance for 2 decimals',
       );
     });
 
@@ -689,7 +677,7 @@ describe('number validators (async)', () => {
       };
       const result = await validator.validateAsync(invalid);
       expect(result.nullableNumberProperty).toBe(
-        'Value must not be more than 4 digits in total, with allowance for 2 decimals'
+        'Value must not be more than 4 digits in total, with allowance for 2 decimals',
       );
     });
 
@@ -733,8 +721,8 @@ describe('number validators (async)', () => {
       const otherValidator = new OtherValidator();
 
       const validValues = [
-        1234567.1234567, 0.9999999, 9999999, 9999999.9999999, -1234567.1234567,
-        -0.9999999, -9999999, -9999999.9999999,
+        1234567.1234567, 0.9999999, 9999999, 9999999.9999999, -1234567.1234567, -0.9999999,
+        -9999999, -9999999.9999999,
       ];
 
       for (const validValue of validValues) {
@@ -744,13 +732,12 @@ describe('number validators (async)', () => {
               ...testInstance,
               numberProperty: validValue,
             })
-          ).numberProperty
+          ).numberProperty,
         ).toBeUndefined();
       }
 
       const invalidValues = [
-        1234567.12345678, 0.99999999, 99999999, -12345678.12345678, -0.99999999,
-        -99999999.99999999,
+        1234567.12345678, 0.99999999, 99999999, -12345678.12345678, -0.99999999, -99999999.99999999,
       ];
 
       for (const invalidValue of invalidValues) {
@@ -760,10 +747,8 @@ describe('number validators (async)', () => {
               ...testInstance,
               numberProperty: invalidValue,
             })
-          ).numberProperty
-        ).toBe(
-          'Value must not be more than 14 digits in total, with allowance for 7 decimals'
-        );
+          ).numberProperty,
+        ).toBe('Value must not be more than 14 digits in total, with allowance for 7 decimals');
       }
     });
 
@@ -775,7 +760,7 @@ describe('number validators (async)', () => {
           this.ruleFor('numberProperty').scalePrecision(
             // @ts-expect-error
             'nonsense',
-            'more nonsense'
+            'more nonsense',
           );
         }
       }

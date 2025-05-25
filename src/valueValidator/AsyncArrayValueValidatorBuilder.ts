@@ -19,7 +19,7 @@ export class AsyncArrayValueValidatorBuilder<
 
   constructor(
     rebuildValidateAsync: () => void,
-    transformValue: ValueTransformer<TEachValue, TEachTransformedValue>
+    transformValue: ValueTransformer<TEachValue, TEachTransformedValue>,
   ) {
     this.eachAsyncValueValidatorBuilder = new AsyncValueValidatorBuilder<
       TModel,
@@ -40,9 +40,7 @@ export class AsyncArrayValueValidatorBuilder<
 
       for (const element of value) {
         const errorOrNull = await asyncValueValidator(element, model);
-        const valueValidationResult = hasError(errorOrNull)
-          ? errorOrNull
-          : null;
+        const valueValidationResult = hasError(errorOrNull) ? errorOrNull : null;
         errors.push(valueValidationResult);
       }
 
