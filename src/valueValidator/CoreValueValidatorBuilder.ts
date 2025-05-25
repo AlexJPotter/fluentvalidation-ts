@@ -16,14 +16,16 @@ import { MinLengthRule } from '@/rules/MinLengthRule';
 import { MustRule } from '@/rules/MustRule';
 import { NotEmptyRule } from '@/rules/NotEmptyRule';
 import { NotEqualRule } from '@/rules/NotEqualRule';
-import { NotNullRule } from '@/rules/NotNullRule';
-import { NullRule } from '@/rules/NullRule';
+import { NotNullRule, NotNullRuleOptions } from '@/rules/NotNullRule';
+import { NullRule, NullRuleOptions } from '@/rules/NullRule';
 import { Rule } from '@/rules/Rule';
 import { ScalePrecisionRule } from '@/rules/ScalePrecisionRule';
 import { ValidatorRule } from '@/rules/ValidatorRule';
 import { Predicate } from '@/types/Predicate';
 import { AppliesTo } from '@/types/AppliesTo';
 import { RuleValidatorsAndConditionExtensions, WithMessage } from '@/valueValidator/RuleValidators';
+import { NotUndefinedRule } from '@/rules/NotUndefinedRule';
+import { UndefinedRule } from '@/rules/UndefinedRule';
 
 export abstract class CoreValueValidatorBuilder<
   TModel,
@@ -126,15 +128,27 @@ export abstract class CoreValueValidatorBuilder<
     return this.getAllRulesAndExtensions();
   };
 
-  public notNull = () => {
-    const notNullRule = new NotNullRule<TModel, TTransformedValue>();
+  public notNull = (ruleOptions: NotNullRuleOptions = { includeUndefined: true }) => {
+    const notNullRule = new NotNullRule<TModel, TTransformedValue>(ruleOptions);
     this.pushRule(notNullRule);
     return this.getAllRulesAndExtensions();
   };
 
-  public null = () => {
-    const nullRule = new NullRule<TModel, TTransformedValue>();
+  public notUndefined = () => {
+    const notUndefinedRule = new NotUndefinedRule<TModel, TTransformedValue>();
+    this.pushRule(notUndefinedRule);
+    return this.getAllRulesAndExtensions();
+  };
+
+  public null = (ruleOptions: NullRuleOptions = { includeUndefined: true }) => {
+    const nullRule = new NullRule<TModel, TTransformedValue>(ruleOptions);
     this.pushRule(nullRule);
+    return this.getAllRulesAndExtensions();
+  };
+
+  public undefined = () => {
+    const undefinedRule = new UndefinedRule<TModel, TTransformedValue>();
+    this.pushRule(undefinedRule);
     return this.getAllRulesAndExtensions();
   };
 
@@ -240,7 +254,9 @@ export abstract class CoreValueValidatorBuilder<
     equal: this.equal,
     must: this.must,
     notNull: this.notNull,
+    notUndefined: this.notUndefined,
     null: this.null,
+    undefined: this.undefined,
     notEmpty: this.notEmpty,
     length: this.length,
     maxLength: this.maxLength,

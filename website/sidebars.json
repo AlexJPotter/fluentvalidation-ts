@@ -21,29 +21,36 @@
       "api/configuration/when",
       "api/configuration/unless"
     ],
-    "Validation Rules": [
-      "api/rules/emailAddress",
-      "api/rules/equal",
-      "api/rules/exclusiveBetween",
-      "api/rules/greaterThan",
-      "api/rules/greaterThanOrEqualTo",
-      "api/rules/inclusiveBetween",
-      "api/rules/length",
-      "api/rules/lessThan",
-      "api/rules/lessThanOrEqualTo",
-      "api/rules/matches",
-      "api/rules/maxLength",
-      "api/rules/minLength",
-      "api/rules/must",
-      "api/rules/mustAsync",
-      "api/rules/notEmpty",
-      "api/rules/notEqual",
-      "api/rules/notNull",
-      "api/rules/null-rule",
-      "api/rules/scalePrecision",
-      "api/rules/setValidator",
-      "api/rules/setAsyncValidator"
-    ],
+    "Validation Rules": {
+      "Base Rules": [
+        "api/rules/equal",
+        "api/rules/notEqual",
+        "api/rules/must",
+        "api/rules/mustAsync",
+        "api/rules/notNull",
+        "api/rules/nullRule",
+        "api/rules/notUndefined",
+        "api/rules/undefinedRule"
+      ],
+      "String Rules": [
+        "api/rules/emailAddress",
+        "api/rules/matches",
+        "api/rules/length",
+        "api/rules/maxLength",
+        "api/rules/minLength",
+        "api/rules/notEmpty"
+      ],
+      "Number Rules": [
+        "api/rules/exclusiveBetween",
+        "api/rules/inclusiveBetween",
+        "api/rules/greaterThan",
+        "api/rules/greaterThanOrEqualTo",
+        "api/rules/lessThan",
+        "api/rules/lessThanOrEqualTo",
+        "api/rules/scalePrecision"
+      ],
+      "Object Rules": ["api/rules/setValidator", "api/rules/setAsyncValidator"]
+    },
     "Form Libraries": ["guides/formik", "guides/reactHookForm"]
   }
 }

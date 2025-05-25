@@ -2,13 +2,17 @@ import { AppliesTo } from '@/types/AppliesTo';
 import { Predicate } from '@/types/Predicate';
 import { IValidator } from '@/IValidator';
 import { IfNumber, IfObject, IfString } from '@/types/IfType';
+import { NotNullRuleOptions } from '@/rules/NotNullRule';
+import { NullRuleOptions } from '@/rules/NullRule';
 
 export type RuleValidators<TModel, TValue> = {
   notEqual: (forbiddenValue: TValue) => RuleValidatorsAndExtensions<TModel, TValue>;
   equal: (requiredValue: TValue) => RuleValidatorsAndExtensions<TModel, TValue>;
   must: (predicate: Predicate<TModel, TValue>) => RuleValidatorsAndExtensions<TModel, TValue>;
-  notNull: () => RuleValidatorsAndExtensions<TModel, TValue>;
-  null: () => RuleValidatorsAndExtensions<TModel, TValue>;
+  notNull: (options?: NotNullRuleOptions) => RuleValidatorsAndExtensions<TModel, TValue>;
+  notUndefined: () => RuleValidatorsAndExtensions<TModel, TValue>;
+  null: (ruleOptions?: NullRuleOptions) => RuleValidatorsAndExtensions<TModel, TValue>;
+  undefined: () => RuleValidatorsAndExtensions<TModel, TValue>;
   notEmpty: IfString<TValue, () => RuleValidatorsAndExtensions<TModel, TValue>>;
   length: IfString<
     TValue,

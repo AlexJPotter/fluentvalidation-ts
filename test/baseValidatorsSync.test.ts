@@ -29,6 +29,160 @@ describe('base validators (sync)', () => {
       const result = validator.validate(valid);
       expect(result).toEqual({});
     });
+
+    it('gives a validation error if no rule options have been passed and the value is undefined', () => {
+      class TestValidatorWithNoRuleOptions extends Validator<TestType> {
+        constructor() {
+          super();
+          this.ruleFor('optionalStringProperty').notNull();
+        }
+      }
+      const validatorWithNoRuleOptions = new TestValidatorWithNoRuleOptions();
+      const invalid: TestType = {
+        ...testInstance,
+        optionalStringProperty: undefined,
+      };
+      const result = validatorWithNoRuleOptions.validate(invalid);
+      expect(result).toEqual({
+        optionalStringProperty: 'Value cannot be null',
+      });
+    });
+
+    it('gives a validation error if no rule options have been passed and the value is omitted', () => {
+      class TestValidatorWithNoRuleOptions extends Validator<TestType> {
+        constructor() {
+          super();
+          this.ruleFor('optionalStringProperty').notNull();
+        }
+      }
+      const validatorWithNoRuleOptions = new TestValidatorWithNoRuleOptions();
+      const invalid: TestType = {
+        ...testInstance,
+        // optionalStringProperty is omitted
+      };
+      const result = validatorWithNoRuleOptions.validate(invalid);
+      expect(result).toEqual({
+        optionalStringProperty: 'Value cannot be null',
+      });
+    });
+
+    it('gives a validation error if the value is undefined and `includeUndefined` is true', () => {
+      class TestValidatorWithIncludeUndefined extends Validator<TestType> {
+        constructor() {
+          super();
+          this.ruleFor('optionalStringProperty').notNull({ includeUndefined: true });
+        }
+      }
+      const validatorWithUndefined = new TestValidatorWithIncludeUndefined();
+      const invalid: TestType = {
+        ...testInstance,
+        optionalStringProperty: undefined,
+      };
+      const result = validatorWithUndefined.validate(invalid);
+      expect(result).toEqual({
+        optionalStringProperty: 'Value cannot be null',
+      });
+    });
+
+    it('gives a validation error if the value is omitted and `includeUndefined` is true', () => {
+      class TestValidatorWithIncludeUndefined extends Validator<TestType> {
+        constructor() {
+          super();
+          this.ruleFor('optionalStringProperty').notNull({ includeUndefined: true });
+        }
+      }
+      const validatorWithUndefined = new TestValidatorWithIncludeUndefined();
+      const invalid: TestType = {
+        ...testInstance,
+        // optionalStringProperty is omitted
+      };
+      const result = validatorWithUndefined.validate(invalid);
+      expect(result).toEqual({
+        optionalStringProperty: 'Value cannot be null',
+      });
+    });
+
+    it('does not give a validation error if the value is undefined and `includeUndefined` is false', () => {
+      class TestValidatorWithExcludeUndefined extends Validator<TestType> {
+        constructor() {
+          super();
+          this.ruleFor('optionalStringProperty').notNull({ includeUndefined: false });
+        }
+      }
+      const validatorWithUndefined = new TestValidatorWithExcludeUndefined();
+      const valid: TestType = {
+        ...testInstance,
+        optionalStringProperty: undefined,
+      };
+      const result = validatorWithUndefined.validate(valid);
+      expect(result).toEqual({});
+    });
+
+    it('does not give a validation error if the value is omitted and `includeUndefined` is false', () => {
+      class TestValidatorWithExcludeUndefined extends Validator<TestType> {
+        constructor() {
+          super();
+          this.ruleFor('optionalStringProperty').notNull({ includeUndefined: false });
+        }
+      }
+      const validatorWithUndefined = new TestValidatorWithExcludeUndefined();
+      const valid: TestType = {
+        ...testInstance,
+        // optionalStringProperty is omitted
+      };
+      const result = validatorWithUndefined.validate(valid);
+      expect(result).toEqual({});
+    });
+  });
+
+  describe('notUndefined', () => {
+    class TestValidator extends Validator<TestType> {
+      constructor() {
+        super();
+        this.ruleFor('optionalStringProperty').notUndefined();
+      }
+    }
+    const validator = new TestValidator();
+
+    it('gives a validation error if the value is undefined', () => {
+      const invalid: TestType = {
+        ...testInstance,
+        optionalStringProperty: undefined,
+      };
+      const result = validator.validate(invalid);
+      expect(result).toEqual({
+        optionalStringProperty: 'Value cannot be undefined',
+      });
+    });
+
+    it('gives a validation error if the value is omitted', () => {
+      const invalid: TestType = {
+        ...testInstance,
+        // optionalStringProperty is omitted
+      };
+      const result = validator.validate(invalid);
+      expect(result).toEqual({
+        optionalStringProperty: 'Value cannot be undefined',
+      });
+    });
+
+    it('does not give a validation error if the value is not undefined', () => {
+      const valid: TestType = {
+        ...testInstance,
+        optionalStringProperty: 'Test',
+      };
+      const result = validator.validate(valid);
+      expect(result).toEqual({});
+    });
+
+    it('does not give a validation error if the value is null', () => {
+      const valid: TestType = {
+        ...testInstance,
+        optionalStringProperty: null,
+      };
+      const result = validator.validate(valid);
+      expect(result).toEqual({});
+    });
   });
 
   describe('null', () => {
@@ -58,6 +212,156 @@ describe('base validators (sync)', () => {
       };
       const result = validator.validate(valid);
       expect(result).toEqual({});
+    });
+
+    it('does not give a validation error if no rule options have been passed and the value is undefined', () => {
+      class TestValidatorWithNoRuleOptions extends Validator<TestType> {
+        constructor() {
+          super();
+          this.ruleFor('optionalStringProperty').null();
+        }
+      }
+      const validatorWithNoRuleOptions = new TestValidatorWithNoRuleOptions();
+      const invalid: TestType = {
+        ...testInstance,
+        optionalStringProperty: undefined,
+      };
+      const result = validatorWithNoRuleOptions.validate(invalid);
+      expect(result).toEqual({});
+    });
+
+    it('does not give a validation error if no rule options have been passed and the value is omitted', () => {
+      class TestValidatorWithNoRuleOptions extends Validator<TestType> {
+        constructor() {
+          super();
+          this.ruleFor('optionalStringProperty').null();
+        }
+      }
+      const validatorWithNoRuleOptions = new TestValidatorWithNoRuleOptions();
+      const invalid: TestType = {
+        ...testInstance,
+        // optionalStringProperty is omitted
+      };
+      const result = validatorWithNoRuleOptions.validate(invalid);
+      expect(result).toEqual({});
+    });
+
+    it('does not give a validation error if the value is undefined and `includeUndefined` is true', () => {
+      class TestValidatorWithIncludeUndefined extends Validator<TestType> {
+        constructor() {
+          super();
+          this.ruleFor('optionalStringProperty').null({ includeUndefined: true });
+        }
+      }
+      const validatorWithUndefined = new TestValidatorWithIncludeUndefined();
+      const invalid: TestType = {
+        ...testInstance,
+        optionalStringProperty: undefined,
+      };
+      const result = validatorWithUndefined.validate(invalid);
+      expect(result).toEqual({});
+    });
+
+    it('does not give a validation error if the value is omitted and `includeUndefined` is true', () => {
+      class TestValidatorWithIncludeUndefined extends Validator<TestType> {
+        constructor() {
+          super();
+          this.ruleFor('optionalStringProperty').null({ includeUndefined: true });
+        }
+      }
+      const validatorWithUndefined = new TestValidatorWithIncludeUndefined();
+      const invalid: TestType = {
+        ...testInstance,
+        // optionalStringProperty is omitted
+      };
+      const result = validatorWithUndefined.validate(invalid);
+      expect(result).toEqual({});
+    });
+
+    it('gives a validation error if the value is undefined and `includeUndefined` is false', () => {
+      class TestValidatorWithExcludeUndefined extends Validator<TestType> {
+        constructor() {
+          super();
+          this.ruleFor('optionalStringProperty').null({ includeUndefined: false });
+        }
+      }
+      const validatorWithUndefined = new TestValidatorWithExcludeUndefined();
+      const valid: TestType = {
+        ...testInstance,
+        optionalStringProperty: undefined,
+      };
+      const result = validatorWithUndefined.validate(valid);
+      expect(result).toEqual({
+        optionalStringProperty: 'Value must be null',
+      });
+    });
+
+    it('gives a validation error if the value is omitted and `includeUndefined` is false', () => {
+      class TestValidatorWithExcludeUndefined extends Validator<TestType> {
+        constructor() {
+          super();
+          this.ruleFor('optionalStringProperty').null({ includeUndefined: false });
+        }
+      }
+      const validatorWithUndefined = new TestValidatorWithExcludeUndefined();
+      const valid: TestType = {
+        ...testInstance,
+        // optionalStringProperty is omitted
+      };
+      const result = validatorWithUndefined.validate(valid);
+      expect(result).toEqual({
+        optionalStringProperty: 'Value must be null',
+      });
+    });
+  });
+
+  describe('undefined', () => {
+    class TestValidator extends Validator<TestType> {
+      constructor() {
+        super();
+        this.ruleFor('optionalStringProperty').undefined();
+      }
+    }
+    const validator = new TestValidator();
+
+    it('does not give a validation error if the value is undefined', () => {
+      const invalid: TestType = {
+        ...testInstance,
+        optionalStringProperty: undefined,
+      };
+      const result = validator.validate(invalid);
+      expect(result).toEqual({});
+    });
+
+    it('does not give a validation error if the value is omitted', () => {
+      const invalid: TestType = {
+        ...testInstance,
+        // optionalStringProperty is omitted
+      };
+      const result = validator.validate(invalid);
+      expect(result).toEqual({});
+    });
+
+    it('gives a validation error if the value is not undefined', () => {
+      const valid: TestType = {
+        ...testInstance,
+        optionalStringProperty: 'Test',
+      };
+      const result = validator.validate(valid);
+      expect(result).toEqual({
+        optionalStringProperty: 'Value must be undefined',
+      });
+    });
+
+    it('gives a validation error if the value is null', () => {
+      const valid: TestType = {
+        ...testInstance,
+        optionalStringProperty: null,
+      };
+      const result = validator.validate(valid);
+      expect(result).toEqual({
+        optionalStringProperty: 'Value must be undefined',
+      });
     });
   });
 
@@ -421,12 +725,14 @@ type SubType = { nestedProperty: string };
 type TestType = {
   stringProperty: string;
   nullableStringProperty: string | null;
+  optionalStringProperty?: string | null;
   numberProperty: number;
   nullableNumberProperty: number | null;
   booleanProperty: boolean;
   nullableBooleanProperty: boolean | null;
   objectProperty: SubType;
   nullableObjectProperty: SubType | null;
+  optionalObjectProperty?: SubType | null;
 };
 
 const testInstance: TestType = {

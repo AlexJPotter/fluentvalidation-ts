@@ -3,6 +3,8 @@ import { AsyncPredicate, Predicate } from '@/types/Predicate';
 import { IValidator } from '@/IValidator';
 import { IAsyncValidator } from '@/IAsyncValidator';
 import { IfNumber, IfObject, IfString } from '@/types/IfType';
+import { NotNullRuleOptions } from '@/rules/NotNullRule';
+import { NullRuleOptions } from '@/rules/NullRule';
 
 export type AsyncRuleValidators<TModel, TValue> = {
   notEqual: (forbiddenValue: TValue) => AsyncRuleValidatorsAndExtensions<TModel, TValue>;
@@ -11,8 +13,10 @@ export type AsyncRuleValidators<TModel, TValue> = {
   mustAsync: (
     predicate: AsyncPredicate<TModel, TValue>,
   ) => AsyncRuleValidatorsAndExtensions<TModel, TValue>;
-  notNull: () => AsyncRuleValidatorsAndExtensions<TModel, TValue>;
-  null: () => AsyncRuleValidatorsAndExtensions<TModel, TValue>;
+  notNull: (ruleOptions?: NotNullRuleOptions) => AsyncRuleValidatorsAndExtensions<TModel, TValue>;
+  notUndefined: () => AsyncRuleValidatorsAndExtensions<TModel, TValue>;
+  null: (ruleOptions?: NullRuleOptions) => AsyncRuleValidatorsAndExtensions<TModel, TValue>;
+  undefined: () => AsyncRuleValidatorsAndExtensions<TModel, TValue>;
   notEmpty: IfString<TValue, () => AsyncRuleValidatorsAndExtensions<TModel, TValue>>;
   length: IfString<
     TValue,

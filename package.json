@@ -1,6 +1,6 @@
 {
   "name": "fluentvalidation-ts",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "description": "A TypeScript-first library for building strongly-typed validation rules",
   "keywords": [
     "fluent",
@@ -33,6 +33,7 @@
     "watch": "tsc --noEmit --watch",
     "build": "cross-env NODE_ENV=production tsup src/index.ts --dts --minify --treeshake --format cjs,esm,iife --global-name fluentvalidation --sourcemap",
     "test": "jest",
+    "test:watch": "jest --watch",
     "lint": "eslint --fix",
     "lint:check": "eslint",
     "prettier": "prettier --write \"{src,test}/**/*.ts\"",

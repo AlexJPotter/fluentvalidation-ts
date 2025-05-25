@@ -30,6 +30,160 @@ describe('base validators (async)', () => {
       const result = await validator.validateAsync(valid);
       expect(result).toEqual({});
     });
+
+    it('gives a validation error if no rule options have been passed and the value is undefined', async () => {
+      class TestValidatorWithNoRuleOptions extends AsyncValidator<TestType> {
+        constructor() {
+          super();
+          this.ruleFor('optionalStringProperty').notNull();
+        }
+      }
+      const validatorWithNoRuleOptions = new TestValidatorWithNoRuleOptions();
+      const invalid: TestType = {
+        ...testInstance,
+        optionalStringProperty: undefined,
+      };
+      const result = await validatorWithNoRuleOptions.validateAsync(invalid);
+      expect(result).toEqual({
+        optionalStringProperty: 'Value cannot be null',
+      });
+    });
+
+    it('gives a validation error if no rule options have been passed and the value is omitted', async () => {
+      class TestValidatorWithNoRuleOptions extends AsyncValidator<TestType> {
+        constructor() {
+          super();
+          this.ruleFor('optionalStringProperty').notNull();
+        }
+      }
+      const validatorWithNoRuleOptions = new TestValidatorWithNoRuleOptions();
+      const invalid: TestType = {
+        ...testInstance,
+        // optionalStringProperty is omitted
+      };
+      const result = await validatorWithNoRuleOptions.validateAsync(invalid);
+      expect(result).toEqual({
+        optionalStringProperty: 'Value cannot be null',
+      });
+    });
+
+    it('gives a validation error if the value is undefined and `includeUndefined` is true', async () => {
+      class TestValidatorWithIncludeUndefined extends AsyncValidator<TestType> {
+        constructor() {
+          super();
+          this.ruleFor('optionalStringProperty').notNull({ includeUndefined: true });
+        }
+      }
+      const validatorWithUndefined = new TestValidatorWithIncludeUndefined();
+      const invalid: TestType = {
+        ...testInstance,
+        optionalStringProperty: undefined,
+      };
+      const result = await validatorWithUndefined.validateAsync(invalid);
+      expect(result).toEqual({
+        optionalStringProperty: 'Value cannot be null',
+      });
+    });
+
+    it('gives a validation error if the value is omitted and `includeUndefined` is true', async () => {
+      class TestValidatorWithIncludeUndefined extends AsyncValidator<TestType> {
+        constructor() {
+          super();
+          this.ruleFor('optionalStringProperty').notNull({ includeUndefined: true });
+        }
+      }
+      const validatorWithUndefined = new TestValidatorWithIncludeUndefined();
+      const invalid: TestType = {
+        ...testInstance,
+        // optionalStringProperty is omitted
+      };
+      const result = await validatorWithUndefined.validateAsync(invalid);
+      expect(result).toEqual({
+        optionalStringProperty: 'Value cannot be null',
+      });
+    });
+
+    it('does not give a validation error if the value is undefined and `includeUndefined` is false', async () => {
+      class TestValidatorWithExcludeUndefined extends AsyncValidator<TestType> {
+        constructor() {
+          super();
+          this.ruleFor('optionalStringProperty').notNull({ includeUndefined: false });
+        }
+      }
+      const validatorWithUndefined = new TestValidatorWithExcludeUndefined();
+      const valid: TestType = {
+        ...testInstance,
+        optionalStringProperty: undefined,
+      };
+      const result = await validatorWithUndefined.validateAsync(valid);
+      expect(result).toEqual({});
+    });
+
+    it('does not give a validation error if the value is omitted and `includeUndefined` is false', async () => {
+      class TestValidatorWithExcludeUndefined extends AsyncValidator<TestType> {
+        constructor() {
+          super();
+          this.ruleFor('optionalStringProperty').notNull({ includeUndefined: false });
+        }
+      }
+      const validatorWithUndefined = new TestValidatorWithExcludeUndefined();
+      const valid: TestType = {
+        ...testInstance,
+        // optionalStringProperty is omitted
+      };
+      const result = await validatorWithUndefined.validateAsync(valid);
+      expect(result).toEqual({});
+    });
+  });
+
+  describe('notUndefined', () => {
+    class TestValidator extends AsyncValidator<TestType> {
+      constructor() {
+        super();
+        this.ruleFor('optionalStringProperty').notUndefined();
+      }
+    }
+    const validator = new TestValidator();
+
+    it('gives a validation error if the value is undefined', async () => {
+      const invalid: TestType = {
+        ...testInstance,
+        optionalStringProperty: undefined,
+      };
+      const result = await validator.validateAsync(invalid);
+      expect(result).toEqual({
+        optionalStringProperty: 'Value cannot be undefined',
+      });
+    });
+
+    it('gives a validation error if the value is omitted', async () => {
+      const invalid: TestType = {
+        ...testInstance,
+        // optionalStringProperty is omitted
+      };
+      const result = await validator.validateAsync(invalid);
+      expect(result).toEqual({
+        optionalStringProperty: 'Value cannot be undefined',
+      });
+    });
+
+    it('does not give a validation error if the value is not undefined', async () => {
+      const valid: TestType = {
+        ...testInstance,
+        optionalStringProperty: 'Test',
+      };
+      const result = await validator.validateAsync(valid);
+      expect(result).toEqual({});
+    });
+
+    it('does not give a validation error if the value is null', async () => {
+      const valid: TestType = {
+        ...testInstance,
+        optionalStringProperty: null,
+      };
+      const result = await validator.validateAsync(valid);
+      expect(result).toEqual({});
+    });
   });
 
   describe('null', () => {
@@ -59,6 +213,146 @@ describe('base validators (async)', () => {
       };
       const result = await validator.validateAsync(valid);
       expect(result).toEqual({});
+    });
+
+    it('does not give a validation error if no rule options have been passed and the value is undefined', async () => {
+      class TestValidatorWithNoRuleOptions extends AsyncValidator<TestType> {
+        constructor() {
+          super();
+          this.ruleFor('optionalStringProperty').null();
+        }
+      }
+      const validatorWithNoRuleOptions = new TestValidatorWithNoRuleOptions();
+      const invalid: TestType = {
+        ...testInstance,
+        optionalStringProperty: undefined,
+      };
+      const result = await validatorWithNoRuleOptions.validateAsync(invalid);
+      expect(result).toEqual({});
+    });
+
+    it('does not give a validation error if no rule options have been passed and the value is omitted', async () => {
+      class TestValidatorWithNoRuleOptions extends AsyncValidator<TestType> {
+        constructor() {
+          super();
+          this.ruleFor('optionalStringProperty').null();
+        }
+      }
+      const validatorWithNoRuleOptions = new TestValidatorWithNoRuleOptions();
+      const invalid: TestType = {
+        ...testInstance,
+        // optionalStringProperty is omitted
+      };
+      const result = await validatorWithNoRuleOptions.validateAsync(invalid);
+      expect(result).toEqual({});
+    });
+
+    it('does not give a validation error if the value is undefined and `includeUndefined` is true', async () => {
+      class TestValidatorWithIncludeUndefined extends AsyncValidator<TestType> {
+        constructor() {
+          super();
+          this.ruleFor('optionalStringProperty').null({ includeUndefined: true });
+        }
+      }
+      const validatorWithUndefined = new TestValidatorWithIncludeUndefined();
+      const invalid: TestType = {
+        ...testInstance,
+        optionalStringProperty: undefined,
+      };
+      const result = await validatorWithUndefined.validateAsync(invalid);
+      expect(result).toEqual({});
+    });
+
+    it('does not give a validation error if the value is omitted and `includeUndefined` is true', async () => {
+      class TestValidatorWithIncludeUndefined extends AsyncValidator<TestType> {
+        constructor() {
+          super();
+          this.ruleFor('optionalStringProperty').null({ includeUndefined: true });
+        }
+      }
+      const validatorWithUndefined = new TestValidatorWithIncludeUndefined();
+      const invalid: TestType = {
+        ...testInstance,
+        // optionalStringProperty is omitted
+      };
+      const result = await validatorWithUndefined.validateAsync(invalid);
+      expect(result).toEqual({});
+    });
+
+    it('gives a validation error if the value is undefined and `includeUndefined` is false', async () => {
+      class TestValidatorWithExcludeUndefined extends AsyncValidator<TestType> {
+        constructor() {
+          super();
+          this.ruleFor('optionalStringProperty').null({ includeUndefined: false });
+        }
+      }
+      const validatorWithUndefined = new TestValidatorWithExcludeUndefined();
+      const valid: TestType = {
+        ...testInstance,
+        optionalStringProperty: undefined,
+      };
+      const result = await validatorWithUndefined.validateAsync(valid);
+      expect(result).toEqual({
+        optionalStringProperty: 'Value must be null',
+      });
+    });
+
+    it('gives a validation error if the value is omitted and `includeUndefined` is false', async () => {
+      class TestValidatorWithExcludeUndefined extends AsyncValidator<TestType> {
+        constructor() {
+          super();
+          this.ruleFor('optionalStringProperty').null({ includeUndefined: false });
+        }
+      }
+      const validatorWithUndefined = new TestValidatorWithExcludeUndefined();
+      const valid: TestType = {
+        ...testInstance,
+        // optionalStringProperty is omitted
+      };
+      const result = await validatorWithUndefined.validateAsync(valid);
+      expect(result).toEqual({
+        optionalStringProperty: 'Value must be null',
+      });
+    });
+  });
+
+  describe('undefined', () => {
+    class TestValidator extends AsyncValidator<TestType> {
+      constructor() {
+        super();
+        this.ruleFor('optionalStringProperty').undefined();
+      }
+    }
+
+    const validator = new TestValidator();
+
+    it('does not give a validation error if the value is undefined', async () => {
+      const invalid: TestType = {
+        ...testInstance,
+        optionalStringProperty: undefined,
+      };
+      const result = await validator.validateAsync(invalid);
+      expect(result).toEqual({});
+    });
+
+    it('does not give a validation error if the value is omitted', async () => {
+      const invalid: TestType = {
+        ...testInstance,
+        // optionalStringProperty is omitted
+      };
+      const result = await validator.validateAsync(invalid);
+      expect(result).toEqual({});
+    });
+
+    it('gives a validation error if the value is not undefined', async () => {
+      const valid: TestType = {
+        ...testInstance,
+        optionalStringProperty: 'Test',
+      };
+      const result = await validator.validateAsync(valid);
+      expect(result).toEqual({
+        optionalStringProperty: 'Value must be undefined',
+      });
     });
   });
 
@@ -854,12 +1148,14 @@ type SubType = { nestedProperty: string };
 type TestType = {
   stringProperty: string;
   nullableStringProperty: string | null;
+  optionalStringProperty?: string | null;
   numberProperty: number;
   nullableNumberProperty: number | null;
   booleanProperty: boolean;
   nullableBooleanProperty: boolean | null;
   objectProperty: SubType;
   nullableObjectProperty: SubType | null;
+  optionalObjectProperty?: SubType | null;
 };
 
 const testInstance: TestType = {
