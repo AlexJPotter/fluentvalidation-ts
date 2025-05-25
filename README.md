@@ -1,6 +1,6 @@
 # fluentvalidation-ts
 
-[![Build Status](https://badgen.net/github/checks/AlexJPotter/fluentvalidation-ts/main?icon=github)](https://github.com/AlexJPotter/fluentvalidation-ts/actions/workflows/ci.yml)
+[![CI](https://github.com/AlexJPotter/fluentvalidation-ts/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/AlexJPotter/fluentvalidation-ts/actions/workflows/ci.yml)
 ![Coverage](https://badgen.net/badge/coverage/100%25/green?icon=codecov)
 ![Dependencies](https://badgen.net/badge/dependencies/none/green)
 [![GZIP Size](https://img.badgesize.io/https://unpkg.com/fluentvalidation-ts@latest/dist/index.js?compression=gzip)](https://unpkg.com/fluentvalidation-ts@latest/dist/index.js)
