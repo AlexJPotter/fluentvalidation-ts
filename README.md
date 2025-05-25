@@ -1,17 +1,18 @@
 # fluentvalidation-ts
 
+[![Build Status](https://badgen.net/github/checks/AlexJPotter/fluentvalidation-ts/main?icon=github)](https://github.com/AlexJPotter/fluentvalidation-ts/actions/workflows/ci.yml)
+![Coverage](https://badgen.net/badge/coverage/100%25/green?icon=codecov)
+![Dependencies](https://badgen.net/badge/dependencies/none/green)
+[![GZIP Size](https://img.badgesize.io/https://unpkg.com/fluentvalidation-ts@latest/dist/index.js?compression=gzip)](https://unpkg.com/fluentvalidation-ts@latest/dist/index.js)
+
+[![NPM Version](https://badgen.net/npm/v/fluentvalidation-ts?icon=npm)](https://www.npmjs.com/package/fluentvalidation-ts)
+![License](https://badgen.net/npm/license/fluentvalidation-ts)
+![Last Commit](https://badgen.net/github/last-commit/alexjpotter/fluentvalidation-ts/main?icon=github)
+[![Open Issues](https://badgen.net/github/open-issues/alexjpotter/fluentvalidation-ts?icon=github)](https://github.com/AlexJPotter/fluentvalidation-ts/issues)
+
 ## Strong, simple, extensible validation.
 
 Visit [https://fluentvalidation-ts.alexpotter.dev](https://fluentvalidation-ts.alexpotter.dev) to get started.
-
-![Coverage](https://badgen.net/badge/coverage/100%25/green)
-[![NPM Version](https://badgen.net/npm/v/fluentvalidation-ts)](https://www.npmjs.com/package/fluentvalidation-ts)
-![License](https://badgen.net/npm/license/fluentvalidation-ts)
-![Last Commit](https://badgen.net/github/last-commit/alexjpotter/fluentvalidation-ts/main)
-[![Open Issues](https://badgen.net/github/open-issues/alexjpotter/fluentvalidation-ts)](https://github.com/AlexJPotter/fluentvalidation-ts/issues)
-
-![Dependencies](https://badgen.net/badge/dependencies/none/green)
-[![GZIP Size](https://img.badgesize.io/https://unpkg.com/fluentvalidation-ts@latest/dist/index.js?compression=gzip)](https://unpkg.com/fluentvalidation-ts@latest/dist/index.js)
 
 ## Overview
 
@@ -79,9 +80,7 @@ class PersonValidator extends Validator<Person> {
       .notEmpty()
       .withMessage('Please enter your name');
 
-    this.ruleFor('age')
-      .greaterThanOrEqualTo(0)
-      .withMessage('Age cannot be negative');
+    this.ruleFor('age').greaterThanOrEqualTo(0).withMessage('Age cannot be negative');
   }
 }
 
