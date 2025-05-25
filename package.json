@@ -34,7 +34,9 @@
     "build": "cross-env NODE_ENV=production tsup src/index.ts --dts --minify --treeshake --format cjs,esm,iife --global-name fluentvalidation --sourcemap",
     "test": "jest",
     "lint": "eslint --fix",
+    "lint:check": "eslint",
     "prettier": "prettier --write \"{src,test}/**/*.ts\"",
+    "prettier:check": "prettier --check \"{src,test}/**/*.ts\"",
     "typecheck": "tsc --noEmit && tsc --noEmit --project tsconfig.test.json",
     "prepare": "husky"
   },
