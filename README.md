@@ -1,4 +1,4 @@
-# `fluentvalidation-ts`
+# fluentvalidation-ts
 
 ## Strong, simple, extensible validation.
 
@@ -19,17 +19,17 @@ Front-end validation is a must-have for any project that involves forms, but the
 
 There are plenty of libraries out there which help you to solve the problem of front-end validation, but all the ones I've tried have felt lacking in one aspect or another - whether that's TypeScript support, their capacity to handle complex requirements, or the ability to define your own reusable validation logic.
 
-So I wrote `fluentvalidation-ts`, a tiny library that is:
+So I wrote **fluentvalidation-ts**, a tiny library that is:
 
 - Designed for **TypeScript**
 - Simple yet powerful
 - Fully extensible
 
-Whatever your validation needs, `fluentvalidation-ts` can handle them.
+Whatever your validation needs, **fluentvalidation-ts** can handle them.
 
 ## Docs
 
-Full documentation, including a tutorial and a number of useful guides, is available at the [official fluentvalidation-ts website](https://fluentvalidation-ts.alexpotter.dev).
+Full documentation, including a tutorial and a number of useful guides, is available on the [documentation website](https://fluentvalidation-ts.alexpotter.dev).
 
 - [Overview](https://fluentvalidation-ts.alexpotter.dev/docs/overview)
 - [Tutorial](https://fluentvalidation-ts.alexpotter.dev/docs/tutorial)
@@ -40,17 +40,11 @@ Full documentation, including a tutorial and a number of useful guides, is avail
 
 ### Requirements
 
-This library has been written in, and for, **TypeScript**. You can still use `fluentvalidation-ts` without TypeScript, but the primary benefit of having strongly-typed validation rules is lost.
+This library has been written in, and for, **TypeScript**. You can still use **fluentvalidation-ts** without TypeScript, but the primary benefit of having strongly-typed validation rules is lost.
 
 If using TypeScript (strongly recommended), you must be on TypeScript version **`2.9`** or later.
 
 ### Installation
-
-Using Yarn:
-
-```
-yarn add fluentvalidation-ts
-```
 
 Using NPM:
 
@@ -58,7 +52,14 @@ Using NPM:
 npm i --save fluentvalidation-ts
 ```
 
-**Note:** `fluentvalidation-ts` has been written with first-class support for TypeScript, so there's no need to install types!
+Using Yarn:
+
+```
+yarn add fluentvalidation-ts
+```
+
+> [!TIP]
+> There's no need to install types separately - **fluentvalidation-ts** has been written with first-class support for TypeScript!
 
 ### Example Usage
 
@@ -98,9 +99,10 @@ validator.validate({ name: '', age: -1 });
 
 ### Test Coverage
 
-`fluentvalidation-ts` has 100% test coverage via unit tests written with [Jest](https://jestjs.io/).
+**fluentvalidation-ts** has 100% test coverage via unit tests written with [Jest](https://jestjs.io/).
 
-**Note**: Some branches are incorrectly reported as uncovered due to the following issue: [https://github.com/gotwarlost/istanbul/issues/690](https://github.com/gotwarlost/istanbul/issues/690).
+> [!NOTE]
+> Some branches are incorrectly reported as uncovered due to the following issue: [https://github.com/gotwarlost/istanbul/issues/690](https://github.com/gotwarlost/istanbul/issues/690).
 
 ### Issues
 
@@ -108,14 +110,12 @@ Please report issues via [GitHub](https://github.com/AlexJPotter/fluentvalidatio
 
 ### License
 
-`fluentvalidation-ts` is provided under the terms of an [Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0) license.
+**fluentvalidation-ts** is provided under the terms of an [Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0) license.
 
 ### Development
 
-To run the project locally simply clone the repo and run `yarn install` then `yarn start` in the root of the project. You can run the tests with `yarn test`.
+Clone the repo and run `npm install`, then run `npm run watch` in the root of the project to start the TypeScript compiler in watch mode. You can run the tests with `npm test`.
 
 ### About the Author
 
-Alex Potter is a full-stack Software Developer who is currently part of the team at [Ghyston](https://www.ghyston.com), an award-winning software development company based in Bristol.
-
-Check out his blog at [alexpotter.dev](https://alexpotter.dev), or get in touch [@ajp_dev](https://twitter.com/ajp_dev) on Twitter.
+Alex Potter is a full-stack Software Engineer, currently working as a Technical Lead at [Ghyston](https://www.ghyston.com), an award-winning software development company based in Bristol.
