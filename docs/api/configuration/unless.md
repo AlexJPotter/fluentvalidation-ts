@@ -7,6 +7,12 @@ The `.unless` option is used to control when a rule or chain of rules should **n
 
 By default, the `.unless` option will apply to all rules in the chain so far, but you can pass a second parameter to specify that it should only apply to the rule immediately preceding it.
 
+:::note
+
+In the case that there are multiple `.when` and/or `.unless` conditions in the rule chain, each condition applies only to the rules defined **between it and the previous condition**.
+
+:::
+
 ## Examples
 
 ### Apply to all rules in the chain so far
@@ -51,6 +57,59 @@ formValidator.validate({
 // ❌ { deliveryNote: 'Value cannot be null' }
 ```
 
+### Multiple calls within the same chain
+
+In this example we apply multiple `.unless` conditions within the same rule chain.
+
+In particular, we validate that the account balance is non-negative unless overdrafts are allowed, and also validate that the account balance is more than 100 unless the account is not subject to minimum balance requirements.
+
+```typescript
+import { Validator } from 'fluentvalidation-ts';
+
+type FormModel = {
+  accountBalance: number;
+  allowOverdrafts: boolean;
+  subjectToMinimumBalance: boolean;
+};
+
+class FormValidator extends Validator<FormModel> {
+  constructor() {
+    super();
+
+    this.ruleFor('accountBalance')
+      .greaterThanOrEqualTo(0)
+      // highlight-next-line
+      .unless((formModel) => formModel.allowOverdrafts)
+      .greaterThanOrEqualTo(100)
+      // highlight-next-line
+      .unless((formModel) => !formModel.subjectToMinimumBalance);
+  }
+}
+
+const formValidator = new FormValidator();
+
+formValidator.validate({
+  accountBalance: -50,
+  allowOverdrafts: true,
+  subjectToMinimumBalance: false,
+});
+// ✔ {}
+
+formValidator.validate({
+  accountBalance: -50,
+  allowOverdrafts: false,
+  subjectToMinimumBalance: false,
+});
+// ❌ { accountBalance: 'Value must be greater than or equal to 0' }
+
+formValidator.validate({
+  accountBalance: 50,
+  allowOverdrafts: false,
+  subjectToMinimumBalance: true,
+});
+// ❌ { accountBalance: 'Value must be greater than or equal to 100' }
+```
+
 ### Apply to a specific rule in the chain
 
 In this example we apply an `.unless` condition to a specific rule in the chain.
@@ -73,10 +132,7 @@ class FormValidator extends Validator<FormModel> {
       .notNull()
       .greaterThanOrEqualTo(18)
       // highlight-start
-      .unless(
-        (formModel) => formModel.alcoholicDrink == null,
-        'AppliesToCurrentValidator'
-      );
+      .unless((formModel) => formModel.alcoholicDrink == null, 'AppliesToCurrentValidator');
     // highlight-end
   }
 }
@@ -122,8 +178,10 @@ Matches the type of the base model.
 
 ### `appliesTo`
 
-This is an optional parameter which can be used to control whether the condition applies to all rules in the chain so far, or just the rule immediately preceding the call to `.unless`.
+This is an optional parameter which can be used to control which rules in the current rule chain the condition applies to.
 
-By default, this parameter is set to `'AppliesToAllValidators'`, which means that the `.unless` condition applies to all rules in the current chain.
+A value of `'AppliesToAllValidators'` means that the `.unless` condition applies to all rules in the current rule chain so far. If there are other calls to `.when` or `.unless` in the chain, only the rules defined since the most recent condition will have the condition applied to them.
 
-Setting this value to `'AppliesToCurrentValidator'` specifies that the `.unless` condition only controls the execution of the rule immediately preceding it in the current chain.
+A value of `'AppliesToCurrentValidator'` specifies that the `.unless` condition only controls the execution of the rule immediately preceding it in the current rule chain.
+
+By default, the `appliesTo` parameter is set to `'AppliesToAllValidators'`.

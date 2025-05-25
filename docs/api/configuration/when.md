@@ -7,6 +7,12 @@ The `.when` option is used to control when a rule or chain of rules should execu
 
 By default, the `.when` option will apply to all rules in the chain so far, but you can pass a second parameter to specify that it should only apply to the rule immediately preceding it.
 
+:::note
+
+In the case that there are multiple `.when` and/or `.unless` conditions in the rule chain, each condition applies only to the rules defined **between it and the previous condition**.
+
+:::
+
 ## Examples
 
 ### Apply to all rules in the chain so far
@@ -51,6 +57,51 @@ formValidator.validate({
 // ❌ { deliveryNote: 'Value cannot be null' }
 ```
 
+### Multiple calls within the same chain
+
+In this example we apply multiple `.when` conditions within the same rule chain.
+
+In particular, we validate that Sunday delivery rates are only applied when the delivery day is a Sunday.
+
+```typescript
+import { Validator } from 'fluentvalidation-ts';
+
+type FormModel = {
+  deliveryDay: string;
+  deliveryRate: number;
+};
+
+class FormValidator extends Validator<FormModel> {
+  constructor() {
+    super();
+
+    this.ruleFor('deliveryRate')
+      .equal(4.99)
+      .withMessage('Sunday rates must apply if delivery day is Sunday')
+      // highlight-next-line
+      .when((formModel) => formModel.deliveryDay === 'Sunday')
+      .equal(2.99)
+      .withMessage('Standard rates must apply if delivery day is Monday to Saturday')
+      // highlight-next-line
+      .when((formModel) => formModel.deliveryDay !== 'Sunday');
+  }
+}
+
+const formValidator = new FormValidator();
+
+formValidator.validate({ deliveryDay: 'Sunday', deliveryRate: 4.99 });
+// ✔ {}
+
+formValidator.validate({ deliveryDay: 'Sunday', deliveryRate: 2.99 });
+// ❌ { deliveryRate: 'Sunday rates must apply if delivery day is Sunday' }
+
+formValidator.validate({ deliveryDay: 'Monday', deliveryRate: 2.99 });
+// ✔ {}
+
+formValidator.validate({ deliveryDay: 'Monday', deliveryRate: 4.99 });
+// ❌ { deliveryRate: 'Standard rates must apply if delivery day is Monday to Saturday' }
+```
+
 ### Apply to a specific rule in the chain
 
 In this example we apply a `.when` condition to a specific rule in the chain.
@@ -73,10 +124,7 @@ class FormValidator extends Validator<FormModel> {
       .notNull()
       .greaterThanOrEqualTo(18)
       // highlight-start
-      .when(
-        (formModel) => formModel.alcoholicDrink != null,
-        'AppliesToCurrentValidator'
-      );
+      .when((formModel) => formModel.alcoholicDrink != null, 'AppliesToCurrentValidator');
     // highlight-end
   }
 }
@@ -122,8 +170,10 @@ Matches the type of the base model.
 
 ### `appliesTo`
 
-This is an optional parameter which can be used to control whether the condition applies to all rules in the chain so far, or just the rule immediately preceding the call to `.when`.
+This is an optional parameter which can be used to control which rules in the current rule chain the condition applies to.
 
-By default, this parameter is set to `'AppliesToAllValidators'`, which means that the `.when` condition applies to all rules in the current chain.
+A value of `'AppliesToAllValidators'` means that the `.when` condition applies to all rules in the current rule chain so far. If there are other calls to `.when` or `.unless` in the chain, only the rules defined since the most recent condition will have the condition applied to them.
 
-Setting this value to `'AppliesToCurrentValidator'` specifies that the `.when` condition only controls the execution of the rule immediately preceding it in the current chain.
+A value of `'AppliesToCurrentValidator'` specifies that the `.when` condition only controls the execution of the rule immediately preceding it in the current rule chain.
+
+By default, the `appliesTo` parameter is set to `'AppliesToAllValidators'`.

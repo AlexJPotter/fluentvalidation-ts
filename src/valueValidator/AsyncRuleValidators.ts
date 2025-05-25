@@ -56,7 +56,7 @@ export type AsyncRuleValidators<TModel, TValue> = {
     TValue,
     (lowerBound: number, upperBound: number) => AsyncRuleValidatorsAndExtensions<TModel, TValue>
   >;
-  scalePrecision: IfNumber<
+  precisionScale: IfNumber<
     TValue,
     (precision: number, scale: number) => AsyncRuleValidatorsAndExtensions<TModel, TValue>
   >;

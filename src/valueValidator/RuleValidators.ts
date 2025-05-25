@@ -40,7 +40,7 @@ export type RuleValidators<TModel, TValue> = {
     TValue,
     (lowerBound: number, upperBound: number) => RuleValidatorsAndExtensions<TModel, TValue>
   >;
-  scalePrecision: IfNumber<
+  precisionScale: IfNumber<
     TValue,
     (precision: number, scale: number) => RuleValidatorsAndExtensions<TModel, TValue>
   >;

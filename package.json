@@ -1,6 +1,6 @@
 {
   "name": "fluentvalidation-ts",
-  "version": "4.1.0",
+  "version": "5.0.0",
   "description": "A TypeScript-first library for building strongly-typed validation rules",
   "keywords": [
     "fluent",
@@ -9,6 +9,7 @@
     "typescript",
     "form",
     "formik",
+    "react-hook-form",
     "fluentvalidation"
   ],
   "homepage": "https://github.com/AlexJPotter/fluentvalidation-ts",

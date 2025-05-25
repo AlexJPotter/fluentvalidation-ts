@@ -56,7 +56,7 @@ describe('number validators (async)', () => {
       }
     });
 
-    it('gives a type error if defined with a non-number value', () => {
+    it('gives a type error if defined with a non-number value', async () => {
       // @ts-ignore
       class AnotherValidator extends AsyncValidator<TestType> {
         constructor() {
@@ -67,7 +67,7 @@ describe('number validators (async)', () => {
       }
     });
 
-    it('cannot be used on non-number properties', () => {
+    it('cannot be used on non-number properties', async () => {
       // @ts-ignore
       class AnotherValidator extends AsyncValidator<TestType> {
         constructor() {
@@ -150,7 +150,7 @@ describe('number validators (async)', () => {
       }
     });
 
-    it('gives a type error if defined with a non-number value', () => {
+    it('gives a type error if defined with a non-number value', async () => {
       // @ts-ignore
       class AnotherValidator extends AsyncValidator<TestType> {
         constructor() {
@@ -161,7 +161,7 @@ describe('number validators (async)', () => {
       }
     });
 
-    it('cannot be used on non-number properties', () => {
+    it('cannot be used on non-number properties', async () => {
       // @ts-ignore
       class AnotherValidator extends AsyncValidator<TestType> {
         constructor() {
@@ -244,7 +244,7 @@ describe('number validators (async)', () => {
       }
     });
 
-    it('gives a type error if defined with a non-number value', () => {
+    it('gives a type error if defined with a non-number value', async () => {
       // @ts-ignore
       class AnotherValidator extends AsyncValidator<TestType> {
         constructor() {
@@ -255,7 +255,7 @@ describe('number validators (async)', () => {
       }
     });
 
-    it('cannot be used on non-number properties', () => {
+    it('cannot be used on non-number properties', async () => {
       // @ts-ignore
       class AnotherValidator extends AsyncValidator<TestType> {
         constructor() {
@@ -340,7 +340,7 @@ describe('number validators (async)', () => {
       }
     });
 
-    it('gives a type error if defined with a non-number value', () => {
+    it('gives a type error if defined with a non-number value', async () => {
       // @ts-ignore
       class AnotherValidator extends AsyncValidator<TestType> {
         constructor() {
@@ -351,7 +351,7 @@ describe('number validators (async)', () => {
       }
     });
 
-    it('cannot be used on non-number properties', () => {
+    it('cannot be used on non-number properties', async () => {
       // @ts-ignore
       class AnotherValidator extends AsyncValidator<TestType> {
         constructor() {
@@ -448,7 +448,7 @@ describe('number validators (async)', () => {
       }
     });
 
-    it('gives a type error if defined with non-number values', () => {
+    it('gives a type error if defined with non-number values', async () => {
       // @ts-ignore
       class AnotherValidator extends AsyncValidator<TestType> {
         constructor() {
@@ -462,7 +462,7 @@ describe('number validators (async)', () => {
       }
     });
 
-    it('cannot be used on non-number properties', () => {
+    it('cannot be used on non-number properties', async () => {
       // @ts-ignore
       class AnotherValidator extends AsyncValidator<TestType> {
         constructor() {
@@ -559,7 +559,7 @@ describe('number validators (async)', () => {
       }
     });
 
-    it('gives a type error if defined with non-number values', () => {
+    it('gives a type error if defined with non-number values', async () => {
       // @ts-ignore
       class AnotherValidator extends AsyncValidator<TestType> {
         constructor() {
@@ -573,7 +573,7 @@ describe('number validators (async)', () => {
       }
     });
 
-    it('cannot be used on non-number properties', () => {
+    it('cannot be used on non-number properties', async () => {
       // @ts-ignore
       class AnotherValidator extends AsyncValidator<TestType> {
         constructor() {
@@ -601,11 +601,12 @@ describe('number validators (async)', () => {
     });
   });
 
-  describe('scalePrecision', () => {
+  describe('precisionScale', () => {
     class TestValidator extends AsyncValidator<TestType> {
       constructor() {
         super();
-        this.ruleFor('nullableNumberProperty').scalePrecision(2, 4);
+        // 4 digits in total, 2 of which can be after the decimal point
+        this.ruleFor('nullableNumberProperty').precisionScale(4, 2);
       }
     }
     const validator = new TestValidator();
@@ -614,6 +615,15 @@ describe('number validators (async)', () => {
       const valid: TestType = {
         ...testInstance,
         nullableNumberProperty: null,
+      };
+      const result = await validator.validateAsync(valid);
+      expect(result.nullableNumberProperty).toBeUndefined();
+    });
+
+    it('does not give a validation error if the value is zero', async () => {
+      const valid: TestType = {
+        ...testInstance,
+        nullableNumberProperty: 0,
       };
       const result = await validator.validateAsync(valid);
       expect(result.nullableNumberProperty).toBeUndefined();
@@ -662,7 +672,7 @@ describe('number validators (async)', () => {
     it('gives a validation error if there are too many digits in total', async () => {
       const invalid: TestType = {
         ...testInstance,
-        nullableNumberProperty: 123.45,
+        nullableNumberProperty: 123.4,
       };
       const result = await validator.validateAsync(invalid);
       expect(result.nullableNumberProperty).toBe(
@@ -673,7 +683,7 @@ describe('number validators (async)', () => {
     it('gives a validation error if the value is negative and there are too many digits in total', async () => {
       const invalid: TestType = {
         ...testInstance,
-        nullableNumberProperty: 123.45,
+        nullableNumberProperty: -123.4,
       };
       const result = await validator.validateAsync(invalid);
       expect(result.nullableNumberProperty).toBe(
@@ -681,23 +691,47 @@ describe('number validators (async)', () => {
       );
     });
 
-    it('throws an error if an invalid scale and precision are passed when setting the rule', () => {
+    it('throws an error if the precision is not greater than or equal to 1', async () => {
       expect(() => {
         class BadValidator extends AsyncValidator<TestType> {
           constructor() {
             super();
-            this.ruleFor('numberProperty').scalePrecision(4, 2);
+            this.ruleFor('numberProperty').precisionScale(0, 1);
           }
         }
         new BadValidator();
-      }).toThrow();
+      }).toThrow('Invalid scale and precision were passed to the precisionScale rule');
+    });
+
+    it('throws an error if the scale is negative', async () => {
+      expect(() => {
+        class BadValidator extends AsyncValidator<TestType> {
+          constructor() {
+            super();
+            this.ruleFor('numberProperty').precisionScale(1, -1);
+          }
+        }
+        new BadValidator();
+      }).toThrow('Invalid scale and precision were passed to the precisionScale rule');
+    });
+
+    it('throws an error if the scale is greater than the precision', async () => {
+      expect(() => {
+        class BadValidator extends AsyncValidator<TestType> {
+          constructor() {
+            super();
+            this.ruleFor('numberProperty').precisionScale(1, 2);
+          }
+        }
+        new BadValidator();
+      }).toThrow('Invalid scale and precision were passed to the precisionScale rule');
     });
 
     it('throws an error if it receives a non-number value', async () => {
       class OtherTestTypeValidator extends AsyncValidator<OtherTestType> {
         constructor() {
           super();
-          (this.ruleFor('name') as any).scalePrecision(2, 4);
+          (this.ruleFor('name') as any).precisionScale(4, 2);
         }
       }
       const otherValidator = new OtherTestTypeValidator();
@@ -715,7 +749,7 @@ describe('number validators (async)', () => {
       class OtherValidator extends AsyncValidator<TestType> {
         constructor() {
           super();
-          this.ruleFor('numberProperty').scalePrecision(7, 14);
+          this.ruleFor('numberProperty').precisionScale(14, 7);
         }
       }
       const otherValidator = new OtherValidator();
@@ -752,12 +786,50 @@ describe('number validators (async)', () => {
       }
     });
 
-    it('gives a type error if defined with non-number values', () => {
+    it('handles the case where the precision and scale are equal', async () => {
+      class OtherValidator extends AsyncValidator<TestType> {
+        constructor() {
+          super();
+          this.ruleFor('numberProperty').precisionScale(4, 4);
+        }
+      }
+      const otherValidator = new OtherValidator();
+
+      const validValues = [0.1234, -0.1234, 0, -0, 0.9999, -0.9999];
+
+      for (const validValue of validValues) {
+        expect(
+          (
+            await otherValidator.validateAsync({
+              ...testInstance,
+              numberProperty: validValue,
+            })
+          ).numberProperty,
+        ).toBeUndefined();
+      }
+
+      const invalidValues = [
+        1.2345, -1.2345, 0.12345, -0.12345, 1.0, 12.34, -12.34, 0.00001, -0.00001,
+      ];
+
+      for (const invalidValue of invalidValues) {
+        expect(
+          (
+            await otherValidator.validateAsync({
+              ...testInstance,
+              numberProperty: invalidValue,
+            })
+          ).numberProperty,
+        ).toBe('Value must not be more than 4 digits in total, with allowance for 4 decimals');
+      }
+    });
+
+    it('gives a type error if defined with non-number values', async () => {
       // @ts-ignore
       class AnotherValidator extends AsyncValidator<TestType> {
         constructor() {
           super();
-          this.ruleFor('numberProperty').scalePrecision(
+          this.ruleFor('numberProperty').precisionScale(
             // @ts-expect-error
             'nonsense',
             'more nonsense',
@@ -766,29 +838,29 @@ describe('number validators (async)', () => {
       }
     });
 
-    it('cannot be used on non-number properties', () => {
+    it('cannot be used on non-number properties', async () => {
       // @ts-ignore
       class AnotherValidator extends AsyncValidator<TestType> {
         constructor() {
           super();
 
           // @ts-expect-error
-          this.ruleFor('stringProperty').scalePrecision(5, 10);
+          this.ruleFor('stringProperty').precisionScale(10, 5);
 
           // @ts-expect-error
-          this.ruleFor('nullableStringProperty').scalePrecision(5, 10);
+          this.ruleFor('nullableStringProperty').precisionScale(10, 5);
 
           // @ts-expect-error
-          this.ruleFor('booleanProperty').scalePrecision(5, 10);
+          this.ruleFor('booleanProperty').precisionScale(10, 5);
 
           // @ts-expect-error
-          this.ruleFor('nullableBooleanProperty').scalePrecision(5, 10);
+          this.ruleFor('nullableBooleanProperty').precisionScale(10, 5);
 
           // @ts-expect-error
-          this.ruleFor('objectProperty').scalePrecision(5, 10);
+          this.ruleFor('objectProperty').precisionScale(10, 5);
 
           // @ts-expect-error
-          this.ruleFor('nullableObjectProperty').scalePrecision(5, 10);
+          this.ruleFor('nullableObjectProperty').precisionScale(10, 5);
         }
       }
     });

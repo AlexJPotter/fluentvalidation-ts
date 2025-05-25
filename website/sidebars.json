@@ -16,7 +16,7 @@
       "api/core/ruleForEach",
       "api/core/ruleForEachTransformed"
     ],
-    "Configuration": [
+    "Rule Configuration": [
       "api/configuration/withMessage",
       "api/configuration/when",
       "api/configuration/unless"
@@ -47,7 +47,7 @@
         "api/rules/greaterThanOrEqualTo",
         "api/rules/lessThan",
         "api/rules/lessThanOrEqualTo",
-        "api/rules/scalePrecision"
+        "api/rules/precisionScale"
       ],
       "Object Rules": ["api/rules/setValidator", "api/rules/setAsyncValidator"]
     },

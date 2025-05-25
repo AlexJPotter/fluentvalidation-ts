@@ -19,7 +19,7 @@ import { NotEqualRule } from '@/rules/NotEqualRule';
 import { NotNullRule, NotNullRuleOptions } from '@/rules/NotNullRule';
 import { NullRule, NullRuleOptions } from '@/rules/NullRule';
 import { Rule } from '@/rules/Rule';
-import { ScalePrecisionRule } from '@/rules/ScalePrecisionRule';
+import { PrecisionScaleRule } from '@/rules/PrecisionScaleRule';
 import { ValidatorRule } from '@/rules/ValidatorRule';
 import { Predicate } from '@/types/Predicate';
 import { AppliesTo } from '@/types/AppliesTo';
@@ -40,6 +40,8 @@ export abstract class CoreValueValidatorBuilder<
     rule: Rule<TModel, TTransformedValue> | AsyncRule<TModel, TTransformedValue>;
   }> = [];
 
+  protected numberOfRulesInCurrentConditionChain: number = 0;
+
   private readonly rebuildValidate: () => void;
 
   protected transformValue: ValueTransformer<TValue, TTransformedValue>;
@@ -54,13 +56,25 @@ export abstract class CoreValueValidatorBuilder<
 
   protected pushRule = (rule: Rule<TModel, TTransformedValue>) => {
     this.rules.push({ isAsync: false, rule });
+    this.numberOfRulesInCurrentConditionChain += 1;
     this.rebuildValidate();
   };
 
   protected pushAsyncRule = (rule: AsyncRule<TModel, TTransformedValue>) => {
     this.rules.push({ isAsync: true, rule });
+    this.numberOfRulesInCurrentConditionChain += 1;
     this.rebuildValidate();
   };
+
+  protected getRulesInCurrentConditionChain = (): Array<{
+    isAsync: boolean;
+    rule: Rule<TModel, TTransformedValue> | AsyncRule<TModel, TTransformedValue>;
+  }> =>
+    this.numberOfRulesInCurrentConditionChain === 0
+      ? []
+      : this.rules.slice(-this.numberOfRulesInCurrentConditionChain);
+
+  protected breakOffCurrentConditionChain = () => (this.numberOfRulesInCurrentConditionChain = 0);
 
   public withMessage: WithMessage<TModel, TTransformedValue> = (message: string) => {
     const latestRule = this.getLatestRule();
@@ -74,14 +88,12 @@ export abstract class CoreValueValidatorBuilder<
     >;
   };
 
-  // TODO: Make the behaviour here consistent with FluentValidation
-  //  https://github.com/AlexJPotter/fluentvalidation-ts/issues/45
   public when = (
     condition: (model: TModel) => boolean,
     appliesTo: AppliesTo = 'AppliesToAllValidators',
   ) => {
     if (appliesTo === 'AppliesToAllValidators') {
-      for (const rule of this.rules) {
+      for (const rule of this.getRulesInCurrentConditionChain()) {
         rule.rule.setWhenCondition(condition);
       }
     } else {
@@ -89,17 +101,16 @@ export abstract class CoreValueValidatorBuilder<
       latestRule.rule.setWhenCondition(condition);
     }
     this.rebuildValidate();
+    this.breakOffCurrentConditionChain();
     return this.getAllRules();
   };
 
-  // TODO: Make the behaviour here consistent with FluentValidation
-  //  https://github.com/AlexJPotter/fluentvalidation-ts/issues/45
   public unless = (
     condition: (model: TModel) => boolean,
     appliesTo: AppliesTo = 'AppliesToAllValidators',
   ) => {
     if (appliesTo === 'AppliesToAllValidators') {
-      for (const rule of this.rules) {
+      for (const rule of this.getRulesInCurrentConditionChain()) {
         rule.rule.setUnlessCondition(condition);
       }
     } else {
@@ -107,6 +118,7 @@ export abstract class CoreValueValidatorBuilder<
       latestRule.rule.setUnlessCondition(condition);
     }
     this.rebuildValidate();
+    this.breakOffCurrentConditionChain();
     return this.getAllRules();
   };
 
@@ -240,12 +252,12 @@ export abstract class CoreValueValidatorBuilder<
     return this.getAllRulesAndExtensions();
   };
 
-  public scalePrecision = (precision: number, scale: number) => {
-    if (scale - precision <= 0) {
-      throw new Error('Invalid scale and precision were passed to the scalePrecision rule');
+  public precisionScale = (precision: number, scale: number) => {
+    if (precision < 1 || scale < 0 || precision < scale) {
+      throw new Error('Invalid scale and precision were passed to the precisionScale rule');
     }
-    const scalePrecisionRule = new ScalePrecisionRule<TModel, TTransformedValue>(precision, scale);
-    this.pushRule(scalePrecisionRule);
+    const precisionScaleRule = new PrecisionScaleRule<TModel, TTransformedValue>(precision, scale);
+    this.pushRule(precisionScaleRule);
     return this.getAllRulesAndExtensions();
   };
 
@@ -270,7 +282,7 @@ export abstract class CoreValueValidatorBuilder<
     exclusiveBetween: this.exclusiveBetween,
     inclusiveBetween: this.inclusiveBetween,
     setValidator: this.setValidator,
-    scalePrecision: this.scalePrecision,
+    precisionScale: this.precisionScale,
   });
 
   protected abstract getAllRules: () => TRuleValidators;

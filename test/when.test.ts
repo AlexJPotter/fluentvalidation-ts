@@ -55,6 +55,59 @@ describe('when', () => {
       });
     });
 
+    describe('if applied to all validators multiple times in the same chain', () => {
+      it('applies each condition separately to the rules between the .when calls', () => {
+        class TestValidator extends Validator<TestType> {
+          constructor() {
+            super();
+
+            this.ruleFor('nullableNumberProperty')
+              .greaterThan(0)
+              .when((model) => model.stringProperty === 'Positive', 'AppliesToAllValidators')
+              .lessThan(0)
+              .when((model) => model.stringProperty === 'Negative', 'AppliesToAllValidators');
+          }
+        }
+        const validator = new TestValidator();
+
+        expect(
+          validator.validate({
+            ...testInstance,
+            stringProperty: 'Positive',
+            nullableNumberProperty: 1,
+          }),
+        ).toEqual({});
+
+        expect(
+          validator.validate({
+            ...testInstance,
+            stringProperty: 'Positive',
+            nullableNumberProperty: -1,
+          }),
+        ).toEqual({
+          nullableNumberProperty: 'Value must be greater than 0',
+        });
+
+        expect(
+          validator.validate({
+            ...testInstance,
+            stringProperty: 'Negative',
+            nullableNumberProperty: -1,
+          }),
+        ).toEqual({});
+
+        expect(
+          validator.validate({
+            ...testInstance,
+            stringProperty: 'Negative',
+            nullableNumberProperty: 1,
+          }),
+        ).toEqual({
+          nullableNumberProperty: 'Value must be less than 0',
+        });
+      });
+    });
+
     describe('if applied to only the current validator', () => {
       class TestValidator extends Validator<TestType> {
         constructor() {
@@ -189,6 +242,59 @@ describe('when', () => {
         };
         const result = await validator.validateAsync(invalid);
         expect(result.nullableStringProperty).toBeUndefined();
+      });
+    });
+
+    describe('if applied to all validators multiple times in the same chain', () => {
+      it('applies each condition separately to the rules between the .when calls', async () => {
+        class TestValidator extends AsyncValidator<TestType> {
+          constructor() {
+            super();
+
+            this.ruleFor('nullableNumberProperty')
+              .greaterThan(0)
+              .when((model) => model.stringProperty === 'Positive', 'AppliesToAllValidators')
+              .lessThan(0)
+              .when((model) => model.stringProperty === 'Negative', 'AppliesToAllValidators');
+          }
+        }
+        const validator = new TestValidator();
+
+        expect(
+          await validator.validateAsync({
+            ...testInstance,
+            stringProperty: 'Positive',
+            nullableNumberProperty: 1,
+          }),
+        ).toEqual({});
+
+        expect(
+          await validator.validateAsync({
+            ...testInstance,
+            stringProperty: 'Positive',
+            nullableNumberProperty: -1,
+          }),
+        ).toEqual({
+          nullableNumberProperty: 'Value must be greater than 0',
+        });
+
+        expect(
+          await validator.validateAsync({
+            ...testInstance,
+            stringProperty: 'Negative',
+            nullableNumberProperty: -1,
+          }),
+        ).toEqual({});
+
+        expect(
+          await validator.validateAsync({
+            ...testInstance,
+            stringProperty: 'Negative',
+            nullableNumberProperty: 1,
+          }),
+        ).toEqual({
+          nullableNumberProperty: 'Value must be less than 0',
+        });
       });
     });
 
