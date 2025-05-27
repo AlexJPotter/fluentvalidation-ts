@@ -43,6 +43,14 @@ export default {
   ],
   plugins: [],
   themeConfig: {
+    algolia: {
+      appId: 'GQN7MVBZD5',
+      apiKey: 'abd6e3438533f74ae866e825467bf51f', // NOTE: This is a public API key, not a secret key - it is safe to commit this :)
+      indexName: 'fluentvalidation-ts',
+      searchPagePath: 'search',
+      contextualSearch: true,
+      insights: true,
+    },
     prism: {
       theme: prismThemes.vsLight,
       darkTheme: prismThemes.nightOwl,
